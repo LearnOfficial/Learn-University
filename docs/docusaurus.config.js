@@ -72,18 +72,6 @@ const config = {
             position: 'left',
             label: 'Getting Started',
           },
-          {
-            type: 'doc',
-            docId: 'client',
-            position: 'left',
-            label: 'Client',
-          },
-          {
-            type: 'doc',
-            docId: 'server',
-            position: 'left',
-            label: 'Server',
-          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/camilo-camargo/Learn',
