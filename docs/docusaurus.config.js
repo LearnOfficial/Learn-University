@@ -11,10 +11,11 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: '',
+  
+  url: 'https://camilo-camargo.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/Learn/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -71,18 +72,6 @@ const config = {
             docId: 'intro',
             position: 'left',
             label: 'Getting Started',
-          },
-          {
-            type: 'doc',
-            docId: 'client',
-            position: 'left',
-            label: 'Client',
-          },
-          {
-            type: 'doc',
-            docId: 'server',
-            position: 'left',
-            label: 'Server',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
