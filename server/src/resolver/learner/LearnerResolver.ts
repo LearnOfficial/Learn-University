@@ -44,7 +44,7 @@ export class LearnerResolver{
     };
 
     const token: LearnerToken =  {
-      token: jwt.sign(payload, JWT_CONFIG.secrect)
+      token: jwt.sign(payload, JWT_CONFIG.secret)
     }
 
     return token;

@@ -4,4 +4,11 @@ const DATABASE_CONFIG = {
   password: "password"
 }
 
-export {DATABASE_CONFIG};
+const JWT_CONFIG={
+  secret: "secret"
+}
+
+export {
+  DATABASE_CONFIG, 
+  JWT_CONFIG
+};

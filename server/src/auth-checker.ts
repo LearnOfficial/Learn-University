@@ -9,7 +9,7 @@ export const authChecher: AuthChecker<ILearnServerContext>= ({context: {token}})
 
   //check if the token can be decrypted
   let flag = false;
-  jwt.verify(token, JWT_CONFIG.secrect, (err, decoded) => {
+  jwt.verify(token, JWT_CONFIG.secret, (err, decoded) => {
     console.log(err);
     if(!err){
       flag = true; 
