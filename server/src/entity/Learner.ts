@@ -1,40 +1,74 @@
-import { createHash, createHmac } from "crypto";
+import { createHmac } from "crypto";
 import { Field, ID, ObjectType } from "type-graphql";
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, Repository } from "typeorm";
+import type { ILearner } from "../@types/entity/ILearner.js";
+import { AppDataSource } from "../data-source.js";
 
 
-@ObjectType()
-@Entity({name: "Learner"})
-export class Learner{
-  @Field(type => ID)
+@ObjectType("LearnerType")
+@Entity({ name: "Learner" })
+export class Learner implements ILearner {
+  repository: Repository<Learner>;
+
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number
 
-  @Field({nullable: true})
-  @Column({
-    length: 50
-  })
+  @Field()
+  @Column()
   name: string
 
   @Field()
   @Column({
     length: 40
   })
-  username: string 
+  username: string
 
   @Field()
   @Column()
-  password: string 
+  email: string
+
+  @Column()
+  password: string
+
+  @Field()
+  @Column({default: "Not implemented yet"})
+  profileImg?: String
 
 
   @BeforeInsert()
   @BeforeUpdate()
-  async(){
-    if(this.password){
+  setPassword() {
+    if (this.password) {
       this.password = createHmac('sha256', this.password).digest('hex')
     }
   }
 
+  constructor(params: ILearner) {
+    Object.assign(this, params);
+    this.repository = AppDataSource.getRepository(Learner);
+  }
+
+  create() {
+    this.repository.save(this);
+  }
+
+  update() {
+    this.repository.save(this)
+
+  }
+
+  delete() {
+    this.repository.remove(this)
+  }
+
+  async read(): Promise<Learner | null> { 
+    let learner = await this.repository.findOneBy({email: this.email});
+    if(!learner){
+      learner = await this.repository.findOneBy({username: this.username})
+    }
+    return learner;
+  }
 }
 
 export default Learner;
