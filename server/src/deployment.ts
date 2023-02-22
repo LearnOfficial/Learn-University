@@ -1,4 +1,5 @@
 const DATABASE_CONFIG = {
+  port: 3306,
   host: "localhost",
   username: "username", 
   password: "password"
