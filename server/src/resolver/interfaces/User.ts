@@ -6,7 +6,7 @@ export class User implements IUser{
   @Field()
   email: String;
   @Field()
-  name: String;
+  fullname: String;
   @Field()
   username: String;
   @Field()

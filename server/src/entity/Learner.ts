@@ -8,7 +8,7 @@ import { AppDataSource } from "../data-source.js";
 @ObjectType("LearnerType")
 @Entity({ name: "Learner" })
 export class Learner implements ILearner {
-  repository: Repository<Learner>;
+  private repository: Repository<Learner>;
 
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -16,7 +16,7 @@ export class Learner implements ILearner {
 
   @Field()
   @Column()
-  name: string
+  fullname: string
 
   @Field()
   @Column({
@@ -35,7 +35,6 @@ export class Learner implements ILearner {
   @Column({default: "Not implemented yet"})
   profileImg?: String
 
-
   @BeforeInsert()
   @BeforeUpdate()
   setPassword() {
@@ -44,29 +43,34 @@ export class Learner implements ILearner {
     }
   }
 
-  constructor(params: ILearner) {
+  constructor(params?: ILearner) {
     Object.assign(this, params);
     this.repository = AppDataSource.getRepository(Learner);
   }
 
-  create() {
+  createLearner() {
     this.repository.save(this);
   }
 
-  update() {
+  updateLearner() {
     this.repository.save(this)
 
   }
 
-  delete() {
+  deleteLearner() {
     this.repository.remove(this)
   }
 
-  async read(): Promise<Learner | null> { 
+  async readLearner(): Promise<Learner | null> { 
+    if(this.id){
+      return await this.repository.findOneBy({id: this.id});
+    } 
+
     let learner = await this.repository.findOneBy({email: this.email});
     if(!learner){
       learner = await this.repository.findOneBy({username: this.username})
     }
+    
     return learner;
   }
 }

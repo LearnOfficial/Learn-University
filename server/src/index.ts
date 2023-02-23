@@ -3,13 +3,9 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { authChecher } from "./auth-checker.js";
+import { ILearnServerContext, LearnContext } from "./context.js";
 import { AppDataSource } from "./data-source.js";
 import resolvers from "./resolver/index.js";
-
-
-export interface ILearnServerContext {
-  token: string
-};
 
 
 //Initialize typeorm
@@ -30,11 +26,7 @@ const server = new ApolloServer<ILearnServerContext>({
 });
 
 const { url } = await startStandaloneServer(server, {
-  context: async ({req}) => {
-    return {
-      token: req.headers?.authorization || ""
-    }
-  },
+  context: LearnContext,
   listen: { port: 8080 },
 });
 

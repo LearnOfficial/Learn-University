@@ -1,5 +1,5 @@
 export interface ILearnTokenPayload{
-  userId: number
+  userId: number | undefined
 }
 
 export interface ILearnToken{

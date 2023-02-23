@@ -4,7 +4,7 @@ import { ILearner } from "../../@types/entity/ILearner";
 @InputType()
 class LearnerSignUpInput implements ILearner{
   @Field()
-  name: string
+  fullname: string
   @Field()
   username: string
   @Field()
