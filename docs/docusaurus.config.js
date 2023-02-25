@@ -95,7 +95,7 @@ const config = {
               },
               {
                 label: 'Santiago Cujaban',
-                href: 'https://github.com/JustSomeon3'
+                href: 'https://github.com/santiago-cujaban'
               }
             ],
           },
@@ -111,6 +111,10 @@ const config = {
                 label: 'Getting Started',
                 to: '/docs/intro',
               },
+              {
+                label: 'Design System',
+                to: '/docs/designSystem/intro'
+              }
             ],
           },
         ],
