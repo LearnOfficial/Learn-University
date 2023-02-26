@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 import { DATABASE_CONFIG } from "./deployment.js";
-import Learner from "./entity/Learner.js";
+import { entities } from "./entity/index.js";
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   database: "LearnDatabase",
   synchronize: true,
   logging: true,
-  entities: [Learner],
+  entities: entities, 
   subscribers: [],
   migrations: []
 })

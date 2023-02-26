@@ -1,21 +1,34 @@
-import { createParamDecorator } from "type-graphql";
+import { StandaloneServerContextFunctionArgument } from "@apollo/server/dist/esm/standalone";
+import { createParamDecorator } from "type-graphql"; 
+import jwt from "jsonwebtoken";
+import { JWT_CONFIG } from "./deployment.js";
 
 export interface ILearnServerContext {
-  userId: number
+  userId?: number,
+  iat?: number,
 };
 
-async function LearnContext(): Promise<ILearnServerContext>{
-  return {
-    userId: 1
-  };
-}  
+async function LearnContext({ req }: StandaloneServerContextFunctionArgument): Promise<ILearnServerContext> {
+  const token = req?.headers?.authorization as string;
+  if(!token){
+    return {};
+  } 
 
-//Typegraphql param decorator
-function CurrentUser(){
-  return createParamDecorator<ILearnServerContext>(({context}) => context.userId);
+  let payload: ILearnServerContext = {};
+
+  jwt.verify(token, JWT_CONFIG.secret, (err, decoded) => {
+    payload = decoded as {};
+  });
+
+  return payload;
 }
 
-export { 
+//Typegraphql param decorator
+function CurrentUser() {
+  return createParamDecorator<ILearnServerContext>(({ context }) => context.userId);
+}
+
+export {
   LearnContext,
   CurrentUser
 };

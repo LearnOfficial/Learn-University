@@ -1,18 +1,19 @@
 import { createHmac } from "crypto";
 import { Field, ID, ObjectType } from "type-graphql";
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, Repository } from "typeorm";
+import { AfterLoad, BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, Repository } from "typeorm";
 import type { ILearner } from "../@types/entity/ILearner.js";
 import { AppDataSource } from "../data-source.js";
+import { JWT_CONFIG } from "../deployment.js";
 
 
 @ObjectType("LearnerType")
 @Entity({ name: "Learner" })
-export class Learner implements ILearner {
+class Learner implements ILearner {
   private repository: Repository<Learner>;
 
   @Field(() => ID)
   @PrimaryGeneratedColumn()
-  id: number
+  id?: number
 
   @Field()
   @Column()
@@ -39,7 +40,7 @@ export class Learner implements ILearner {
   @BeforeUpdate()
   setPassword() {
     if (this.password) {
-      this.password = createHmac('sha256', this.password).digest('hex')
+      this.password = createHmac('sha256', JWT_CONFIG.secret).update(this.password).digest('hex')
     }
   }
 
@@ -48,17 +49,18 @@ export class Learner implements ILearner {
     this.repository = AppDataSource.getRepository(Learner);
   }
 
-  createLearner() {
-    this.repository.save(this);
+  async createLearner(): Promise<void>{
+    await this.repository.save(this);
   }
 
-  updateLearner() {
-    this.repository.save(this)
-
+  async updateLearner(): Promise<void>{
+    await this.createLearner();
   }
 
-  deleteLearner() {
-    this.repository.remove(this)
+  async deleteLearner(): Promise<void>{
+    await this.repository.delete({
+      id: this.id
+    })
   }
 
   async readLearner(): Promise<Learner | null> { 
@@ -66,9 +68,9 @@ export class Learner implements ILearner {
       return await this.repository.findOneBy({id: this.id});
     } 
 
-    let learner = await this.repository.findOneBy({email: this.email});
+    let learner = await this.repository.findOneBy({username: this.username})
     if(!learner){
-      learner = await this.repository.findOneBy({username: this.username})
+      learner = await this.repository.findOneBy({email: this.email});
     }
     
     return learner;

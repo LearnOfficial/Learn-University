@@ -4,10 +4,11 @@ import { AppDataSource } from "../../data-source.js";
 import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
 import { JWT_CONFIG } from "../../deployment.js";
-import { ILearnTokenPayload } from "../../@types/resolver/learner/ILearnerToken.js";
+import { ILearnToken, ILearnTokenPayload } from "../../@types/resolver/learner/ILearnerToken.js";
 import { LearnerToken } from "./LearnerToken.js";
-import { LearnerSignUpInput } from "./LearnerInput.js";
+import { LearnerLogInInput, LearnerSignUpInput } from "./LearnerInput.js";
 import { CurrentUser, type ILearnServerContext } from "../../context.js";
+import { createHmac } from "crypto";
 
 
 
@@ -25,25 +26,25 @@ export class LearnerResolver {
     return await learner.readLearner();
   }
 
-  @Mutation(() => LearnerToken)
-  async createLearner(@Arg("learnerInput") learnerInput: LearnerSignUpInput): Promise<LearnerToken> {
+  @Mutation(() => LearnerToken, { nullable: true })
+  async SignUp(@Arg("signupInput") signupInput: LearnerSignUpInput): Promise<LearnerToken | null> {
     //find if there is someone with actually email
-    const learner = new Learner(learnerInput);
+    let learner: Learner | null = new Learner(signupInput);
 
     //check if the user is already in the Database
     let currentLearner = await learner.readLearner()
 
     if (!currentLearner) {
-      learner.createLearner()
-      currentLearner = await learner.readLearner();
+      await learner.createLearner()
+      currentLearner = await learner.readLearner(); 
+    } else {
+      throw new GraphQLError("The user is registered.");
     }
 
     //Generate the token
     const payload: ILearnTokenPayload = {
-      userId: currentLearner?.id
+      userId: learner?.id
     };
-
-    console.log(payload);
 
     const token: LearnerToken = {
       token: jwt.sign(payload, JWT_CONFIG.secret)
@@ -52,11 +53,53 @@ export class LearnerResolver {
     return token;
   }
 
+  @Mutation(() => LearnerToken)
+  async LogIn(@Arg("loginInput") loginInput: LearnerLogInInput): Promise<ILearnToken> {
+
+    if(!loginInput.username && !loginInput.email){
+      throw new GraphQLError("You must provide an username.");
+    }
+
+    let learner: Learner | null = new Learner();
+
+    //[TODO]: The user must define email or username.
+    learner.email = loginInput.email;
+    learner.username = loginInput.username;
+    learner = await learner.readLearner();
+
+    if (!learner) {
+      throw new GraphQLError("The user is not registered."); 
+    } 
+
+    const passwordHash = createHmac("SHA256", JWT_CONFIG.secret).update(loginInput.password).digest("hex");
+    if (!(learner?.password == passwordHash)) {
+      throw new GraphQLError("The password is incorrect.");
+    }
+
+    const payload: ILearnTokenPayload = {
+      userId: learner?.id
+    }
+
+    return {
+      token: jwt.sign(payload, JWT_CONFIG.secret)
+    }
+  }
+
   @Authorized()
   @Mutation(() => Learner)
   async updateLearner(@Arg("learnerInput") learnerInput: LearnerSignUpInput): Promise<Learner> {
     const learner = new Learner();
     return learner;
+  }
+
+  @Authorized()
+  @Mutation(() => String)
+  async deleteLearner(@CurrentUser() currentUser: number): Promise<String> {
+    let learner: Learner | null = new Learner();
+    learner.id = currentUser;
+    learner = await learner.readLearner();
+    await learner?.deleteLearner();
+    return `User ${currentUser} deleted.`;
   }
 }
 
