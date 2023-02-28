@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Introduction
 The Learn Server is where the business logic of Learn's client capabilities 
 is stored and managed. This includes processes such as user registration,
@@ -45,23 +49,31 @@ This section describes the most important directories and files of the
 project setup.
 
 ```bash
-server
-├── README.md
-├── jest.config.ts
-├── nodemon.json
-├── package-lock.json
-├── package.json
-├── src
-│   ├── data-source.ts
-│   ├── deployment.ts
-│   ├── entity
-│   │   ├── Learner.ts
-│   │   └── __test__
-│   │       └── Learner.test.ts
+server/src
+├── auth-checker.ts
+├── data-source.ts
+├── deployment.ts
+├── entity
+│   ├── Learner.ts
+│   └── __test__
+│       └── Learner.test.ts
+├── index.ts
+├── resolver
 │   ├── index.ts
-│   └── resolver
-│       └── LearnerResolver.ts
-└── tsconfig.json
+│   ├── interfaces
+│   │   └── User.ts
+│   └── learner
+│       ├── LearnerInput.ts
+│       ├── LearnerResolver.ts
+│       └── LearnerToken.ts
+└── @types
+    ├── entity
+    │   └── ILearner.ts
+    ├── interface
+    │   └── IUser.ts
+    └── resolver
+        └── learner
+            └── ILearnerToken.ts
 ```
 
 * `index.ts`: The entry point. 
@@ -70,5 +82,6 @@ server
 * `entity/`: Contains classes or entities.
 * `resolver/`: Contains the GraphQL resolver.
 * `**/__test__/**`: Contains jest tests.
+* `@types/`: Contains shared types to the client.
 
 
