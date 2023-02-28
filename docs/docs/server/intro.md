@@ -4,10 +4,10 @@ sidebar_position: 1
 
 # Get Started with Learn Server
 
-In this tutorial helps you:
+This tutorial will help you:
 
 * Start the Learn Server
-* Understant Learn Server structure
+* Understand Learn Server structure
 
 
 ## Step 1: Clone repository

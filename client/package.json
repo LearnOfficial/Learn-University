@@ -1,0 +1,19 @@
+{ 
+  "name": "Learn",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "mobile": "yarn workspace @Learn/mobile start",
+    "android": "yarn workspace @Learn/mobile react-native run-android"
+  }, 
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/react-native",
+      "**/react-native/**"
+    ]
+  },
+  "license": "MIT"
+}

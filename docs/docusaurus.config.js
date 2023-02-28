@@ -7,11 +7,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Learn',
-  tagline: 'Learning management system ispired in self-taught.',
+  tagline: 'Learning Management System Inspired in Autodidacticism',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
+  
   url: 'https://camilo-camargo.github.io',
+  
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/Learn/',
@@ -58,8 +60,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      //image: 'img/docusaurus-social-card.jpg', !! For twitter references, see: https://github.com/facebook/docusaurus/issues/2968
       navbar: {
+
+        //hides the navbar, remove or set to false!!
+        hideOnScroll:true,
+
         title: 'Learn',
         logo: {
           alt: 'Learn Icon',
@@ -72,11 +78,26 @@ const config = {
             position: 'left',
             label: 'Getting Started',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/camilo-camargo/Learn',
-            label: 'GitHub',
+            type:'docSidebar',
+            sidebarId: 'intro',
+            position: 'left',
+            label: 'Design System',
+          },
+          {
+            type: 'dropdown',
+            label: 'Creators',
             position: 'right',
+            items:[
+              {
+                label: 'Camilo Camargo',
+                href: 'https://github.com/camilo-camargo'
+              },
+              {
+                label: 'Santiago Cujaban',
+                href: 'https://github.com/santiago-cujaban'
+              }
+            ],
           },
         ],
       },
@@ -90,6 +111,10 @@ const config = {
                 label: 'Getting Started',
                 to: '/docs/intro',
               },
+              {
+                label: 'Design System',
+                to: '/docs/designSystem/intro'
+              }
             ],
           },
         ],

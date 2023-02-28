@@ -10,7 +10,6 @@ const entities: Array<any> = [
   LearningFile,
   Activity,
   Technique
-]; 
-
+];
 
 export {entities};
