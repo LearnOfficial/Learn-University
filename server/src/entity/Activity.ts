@@ -43,7 +43,7 @@ export default class Activity implements IActivity{
         })
       }
     
-      async readLearningFile(): Promise<Activity | null> { 
+      async readActivity(): Promise<Activity | null> { 
         return await this.repository.findOneBy({id: this.id});
       }
 

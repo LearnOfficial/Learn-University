@@ -43,7 +43,7 @@ export default class Technique implements ITechnique{
         })
       }
     
-      async readLearningFile(): Promise<Technique | null> { 
+      async readTechnique(): Promise<Technique | null> { 
         return await this.repository.findOneBy({id: this.id});
       }
 }
