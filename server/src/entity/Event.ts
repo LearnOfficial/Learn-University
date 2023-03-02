@@ -1,7 +1,12 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { Column, Entity, PrimaryGeneratedColumn, Repository } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Repository } from "typeorm";
+import type { Relation } from "typeorm";
 import type { EventTypeEnum, IEvent } from "../@types/entity/IEvent";
 import { AppDataSource } from "../data-source.js";
+import Activity from "./Activity.js";
+import Learner from "./Learner.js";
+import Technique from "./Technique.js";
+import LearningFile from "./LearningFiles.js";
 
 @ObjectType("EventType")
 @Entity({name: "Event"})
@@ -32,6 +37,19 @@ export default class Event implements IEvent{
   @Field()
   @Column()
   type: EventTypeEnum;
+
+  @ManyToOne(() => Learner, (learner) => learner.id)
+  learner: Relation<Learner>
+
+  @OneToOne(() => Activity, (activity) => activity.id) 
+  activities: Activity
+
+  @OneToOne(() => Technique, (technique) => technique.id)
+  @JoinColumn()
+  technique: Technique 
+
+  @OneToMany(() => LearningFile, (learningFile) => learningFile.id)
+  learningFiles: Relation<LearningFile>[]
 
   constructor(params?: IEvent){
     Object.assign(this, params);

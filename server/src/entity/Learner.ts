@@ -1,9 +1,11 @@
 import { createHmac } from "crypto";
 import { Field, ID, ObjectType } from "type-graphql";
-import { AfterLoad, BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, Repository } from "typeorm";
+import { AfterLoad, BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, Repository } from "typeorm";
 import type { ILearner } from "../@types/entity/ILearner.js";
 import { AppDataSource } from "../data-source.js";
+import Event from "./Event.js";
 import { JWT_CONFIG } from "../deployment.js";
+import Technique from "./Technique.js";
 
 
 @ObjectType("LearnerType")
@@ -43,6 +45,12 @@ class Learner implements ILearner {
       this.password = createHmac('sha256', JWT_CONFIG.secret).update(this.password).digest('hex')
     }
   }
+
+  @OneToMany(() => Event, (event) => event.id)
+  events: Event[]
+
+  @OneToMany(() => Technique, (technique) => technique.id)
+  techniques: Technique[]
 
   constructor(params?: ILearner) {
     Object.assign(this, params);
