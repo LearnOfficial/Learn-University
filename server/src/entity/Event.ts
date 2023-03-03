@@ -6,7 +6,7 @@ import { AppDataSource } from "../data-source.js";
 import Activity from "./Activity.js";
 import Learner from "./Learner.js";
 import Technique from "./Technique.js";
-import LearningFile from "./LearningFiles.js";
+import LearningFile from "./LearningFile.js";
 
 @ObjectType("EventType")
 @Entity({name: "Event"})
