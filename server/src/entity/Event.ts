@@ -41,7 +41,7 @@ export default class Event implements IEvent{
   @ManyToOne(() => Learner, (learner) => learner.id)
   learner: Relation<Learner>
 
-  @OneToOne(() => Activity, (activity) => activity.id) 
+  @OneToMany(() => Activity, (activity) => activity.id) 
   activities: Activity
 
   @OneToOne(() => Technique, (technique) => technique.id)
