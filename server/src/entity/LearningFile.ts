@@ -14,11 +14,15 @@ export default class LearningFile implements ILearningFile{
 
     @Field()
     @Column()
-    fileName: string
+    fileName: string;
     
     @Field()
     @Column({length:10})
-    format: string
+    format: string;
+
+    @Field()
+    @Column()
+    externalLink: string;
 
     constructor(params?: ILearningFile){
         Object.assign(this, params);

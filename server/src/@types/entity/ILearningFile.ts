@@ -1,5 +1,6 @@
 export type ILearningFile = {
     id?: number,
     fileName:string,
-    format:string
+    format:string,
+    externalLink?: string
 }

@@ -5,7 +5,7 @@ import { EventTypeEnum, IEvent } from "../../@types/entity/IEvent.js";
 class EventInput implements IEvent {
     @Field()
     title: string;
-    @Field()
+    @Field({nullable: true})
     description: string;
     @Field()
     startDate: Date;
@@ -21,7 +21,7 @@ class EventUpdateInput implements IEvent {
     id: number;
     @Field()
     title: string;
-    @Field()
+    @Field({nullable: true})
     description: string;
     @Field()
     startDate: Date;
