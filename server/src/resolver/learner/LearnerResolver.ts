@@ -28,7 +28,7 @@ export class LearnerResolver {
 
   @Mutation(() => LearnerToken, { nullable: true })
   async SignUp(@Arg("signupInput") signupInput: LearnerSignUpInput): Promise<LearnerToken | null> {
-    //find if there is someone with actually email
+    //find if the email already exists
     let learner: Learner | null = new Learner(signupInput);
 
     //check if the user is already in the Database

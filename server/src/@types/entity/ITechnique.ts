@@ -1,5 +1,5 @@
 export type ITechnique = {
-    id: number,
+    id?: number,
     title: string,
     breakTime: Date,
     interval: number,

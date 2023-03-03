@@ -29,6 +29,7 @@ export default class Technique implements ITechnique {
   @ManyToOne(() => Learner, (learner) => learner.id)
   learner: Relation<Learner>
 
+<<<<<<< HEAD
 
   constructor(params?: ITechnique) {
     Object.assign(this, params);
@@ -53,3 +54,28 @@ export default class Technique implements ITechnique {
     return await this.repository.findOneBy({ id: this.id });
   }
 }
+=======
+    constructor(params?: ITechnique){
+        Object.assign(this, params);
+        this.repository = AppDataSource.getRepository(Technique);
+      }
+    
+      async createTechnique(): Promise<void>{
+        await this.repository.save(this);
+      }
+    
+      async updateTechnique(): Promise<void>{
+        await this.createTechnique();
+      }
+    
+      async deleteTechnique(): Promise<void>{
+        await this.repository.delete({
+          id: this.id
+        })
+      }
+    
+      async readTechnique(): Promise<Technique | null> { 
+        return await this.repository.findOneBy({id: this.id});
+      }
+}
+>>>>>>> entities

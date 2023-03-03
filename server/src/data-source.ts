@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   username: DATABASE_CONFIG.username,
   password: DATABASE_CONFIG.password,
   database: "LearnDatabase",
-  synchronize: true,
+  synchronize: true, // Change to false once database is created
   logging: true,
   entities: entities, 
   subscribers: [],

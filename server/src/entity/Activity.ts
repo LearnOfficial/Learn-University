@@ -28,6 +28,7 @@ export default class Activity implements IActivity {
   @Column()
   endTime: Date;
 
+<<<<<<< HEAD
   @ManyToOne(() => Event, (event) => event.id)
   event: Relation<Event>
 
@@ -60,6 +61,30 @@ export default class Activity implements IActivity {
   async readLearningFile(): Promise<Activity | null> {
     return await this.repository.findOneBy({ id: this.id });
   }
+=======
+    constructor(params?: IActivity){
+        Object.assign(this, params);
+        this.repository = AppDataSource.getRepository(Activity);
+      }
+    
+      async createActivity(): Promise<void>{
+        await this.repository.save(this);
+      }
+    
+      async updateActivity(): Promise<void>{
+        await this.createActivity();
+      }
+    
+      async deleteActivity(): Promise<void>{
+        await this.repository.delete({
+          id: this.id
+        })
+      }
+    
+      async readActivity(): Promise<Activity | null> { 
+        return await this.repository.findOneBy({id: this.id});
+      }
+>>>>>>> entities
 
 
 }
