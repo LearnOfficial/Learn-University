@@ -44,13 +44,13 @@ class Learner implements ILearner {
     if (this.password) {
       this.password = createHmac('sha256', JWT_CONFIG.secret).update(this.password).digest('hex')
     }
-  }
+  } 
 
   @OneToMany(() => Event, (event) => event.id)
-  events: Event[]
-
+  events: [Event]
+  
   @OneToMany(() => Technique, (technique) => technique.id)
-  techniques: Technique[]
+  techniques: [Technique]
 
   constructor(params?: ILearner) {
     Object.assign(this, params);

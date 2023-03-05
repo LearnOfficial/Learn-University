@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Repository } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Repository } from "typeorm";
 import type { Relation } from "typeorm";
 import type { EventTypeEnum, IEvent } from "../@types/entity/IEvent";
 import { AppDataSource } from "../data-source.js";
@@ -70,8 +70,12 @@ export default class Event implements IEvent{
     })
   }
 
-  async readEvent(): Promise<Event | null> { 
-    return await this.repository.findOneBy({id: this.id});
+  async readEvent(): Promise<Array<Event> | null> { 
+    return await this.repository.find({
+      relations: {
+        learner: true
+      }
+    });
   }
 
 }

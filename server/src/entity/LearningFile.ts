@@ -24,10 +24,10 @@ export default class LearningFile implements ILearningFile {
   format: string
 
   @ManyToOne(() => Event, (event) => event.id)
-  events: Relation<Event>
+  event: Relation<Event>
 
   @ManyToOne(() => Activity, (activity) => activity.id)
-  activities: Relation<Activity>
+  activity: Relation<Activity>
 
   constructor(params?: ILearningFile) {
     Object.assign(this, params);

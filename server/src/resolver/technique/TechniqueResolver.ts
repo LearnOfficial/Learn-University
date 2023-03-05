@@ -1,16 +1,18 @@
 import { GraphQLError } from "graphql";
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, FieldResolver, Mutation, Resolver, Root } from "type-graphql";
+import Learner from "../../entity/Learner.js";
 import Technique from "../../entity/Technique.js";
 import { TechniqueInput, TechniqueUpdateInput } from "./TechniqueInput.js";
 
-@Resolver(Technique)
+@Resolver(() => Learner)
 export class TechniqueResolver {
 
-    // Given an id, returns the Technique object
-    @Query(() => Technique, { nullable: true })
-    async technique(@Arg("id") id: number) {
+    //TODO: Documentation
+    //NOTE: Get techniques from the current user
+    @FieldResolver(() => Technique, { nullable: true })
+    async technique(@Root() learner: Learner) {
         let technique = new Technique();
-        technique.id = id;
+        technique.learner = learner;
         return await technique.readTechnique();
     }
 

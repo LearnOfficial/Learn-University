@@ -26,7 +26,19 @@ class LearnerLogInInput implements ILearner{
 
 }
 
+@InputType()
+class LearnerUpdateInput implements ILearner{
+  @Field()
+  fullname: string
+  @Field()
+  password: string
+
+  username:string
+  email:string
+}
+
 export {
   LearnerSignUpInput,
-  LearnerLogInInput
+  LearnerLogInInput,
+  LearnerUpdateInput
 }
