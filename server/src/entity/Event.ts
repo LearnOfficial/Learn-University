@@ -70,7 +70,12 @@ export default class Event implements IEvent{
     })
   }
 
-  async readEvent(): Promise<Array<Event> | null> { 
+  async readEvent(): Promise<Array<Event> | Event | null> { 
+    if(this.id){
+      return await this.repository.findOneBy({
+        id: this.id
+      })
+    }
     return await this.repository.find({
       relations: {
         learner: true
