@@ -9,7 +9,7 @@ export enum EventTypeEnum {
 export type IEvent = {
   id?: number
   title: string,
-  description: string,
+  description?: string,
   startDate: Date,
   endDate: Date,
   type: EventTypeEnum
