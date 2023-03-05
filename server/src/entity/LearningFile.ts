@@ -1,11 +1,14 @@
 import { Field, ObjectType } from "type-graphql";
-import { Column, Entity, PrimaryGeneratedColumn, Repository } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Repository } from "typeorm";
 import type { ILearningFile } from "../@types/entity/ILearningFile";
+import Event from "./Event.js";
+import type { Relation } from "typeorm";
 import { AppDataSource } from "../data-source.js";
+import Activity from "./Activity.js";
 
 @ObjectType("LearningFileType")
-@Entity({name: "LearningFile"})
-export default class LearningFile implements ILearningFile{
+@Entity({ name: "LearningFile" })
+export default class LearningFile implements ILearningFile {
   private repository: Repository<LearningFile>;
 
     @Field()
