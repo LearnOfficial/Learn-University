@@ -7,8 +7,8 @@ import Learner from "../../entity/Learner.js";
 
 @Resolver(() => Learner)
 export class EventResolver {
- 
-  // Retrieve event with the actual learner
+
+  // Read events by current learner
   @FieldResolver(() => [Event], { nullable: true })
   async events(
     @Root() learner: Learner
@@ -19,7 +19,7 @@ export class EventResolver {
     return await event.readEvent();
   }
 
-  // Creates Event with the current user
+  // Creates Event by current learner
   @Mutation(() => Event, { nullable: true })
   async createEvent(
     @Arg("createInput") createInput: EventInput,
@@ -35,34 +35,33 @@ export class EventResolver {
     return event;
   }
 
-  // Updates an Event with the current user and by id
+  // Updates an Event by id
   @Mutation(() => Event || null)
   async updateEvent(
-    @Arg("updateInput") updateInput: EventUpdateInput,
-    @CurrentUser() currentUser: number
+    @Arg("updateInput") updateInput: EventUpdateInput
   ) {
-    const learner = new Learner();
-    learner.id = currentUser;
-
     const current = new Event(updateInput)
-    current.learner = learner;
-
     let event = await current.readEvent();
 
     if (!event) {
       throw new GraphQLError("The Event does not exist.");
-    } else {
-      await current.updateEvent();
-    } 
-  
+    }
+
+    await current.updateEvent();
     return await current.readEvent();
   }
 
   // Delete an Event by id
   @Mutation(() => String)
   async deleteEvent(@Arg("id") id: number) {
-    let event = new Event();
+    let event: Event | null = new Event();
     event.id = id;
+    event = await event.readEvent() as Event;
+
+    if (!event) {
+      throw new GraphQLError("The Event does not exist.");
+    }
+
     return await event.deleteEvent();
   }
 
