@@ -79,12 +79,6 @@ const config = {
             label: 'Getting Started',
           },
           {
-            type:'docSidebar',
-            sidebarId: 'intro',
-            position: 'left',
-            label: 'Design System',
-          },
-          {
             type: 'dropdown',
             label: 'Creators',
             position: 'right',
@@ -111,10 +105,6 @@ const config = {
                 label: 'Getting Started',
                 to: '/docs/intro',
               },
-              {
-                label: 'Design System',
-                to: '/docs/designSystem/intro'
-              }
             ],
           },
         ],
