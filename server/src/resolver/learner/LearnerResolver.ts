@@ -1,13 +1,12 @@
-import { Arg, Authorized, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Field, FieldResolver, InputType, Mutation, Query, Resolver, Root } from "type-graphql";
 import Learner from "../../entity/Learner.js";
-import { AppDataSource } from "../../data-source.js";
 import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
 import { JWT_CONFIG } from "../../deployment.js";
 import { ILearnToken, ILearnTokenPayload } from "../../@types/resolver/learner/ILearnerToken.js";
 import { LearnerToken } from "./LearnerToken.js";
-import { LearnerLogInInput, LearnerSignUpInput } from "./LearnerInput.js";
-import { CurrentUser, type ILearnServerContext } from "../../context.js";
+import { LearnerLogInInput, LearnerSignUpInput, LearnerUpdateInput } from "./LearnerInput.js";
+import { CurrentUser } from "../../context.js";
 import { createHmac } from "crypto";
 
 
@@ -27,7 +26,7 @@ export class LearnerResolver {
   }
 
   @Mutation(() => LearnerToken, { nullable: true })
-  async SignUp(@Arg("signupInput") signupInput: LearnerSignUpInput): Promise<LearnerToken | null> {
+  async createLearner(@Arg("signupInput") signupInput: LearnerSignUpInput): Promise<LearnerToken | null> {
     //find if the email already exists
     let learner: Learner | null = new Learner(signupInput);
 
@@ -36,7 +35,7 @@ export class LearnerResolver {
 
     if (!currentLearner) {
       await learner.createLearner()
-      currentLearner = await learner.readLearner(); 
+      currentLearner = await learner.readLearner();
     } else {
       throw new GraphQLError("The user is registered.");
     }
@@ -54,9 +53,9 @@ export class LearnerResolver {
   }
 
   @Mutation(() => LearnerToken)
-  async LogIn(@Arg("loginInput") loginInput: LearnerLogInInput): Promise<ILearnToken> {
+  async readLearner(@Arg("loginInput") loginInput: LearnerLogInInput): Promise<ILearnToken> {
 
-    if(!loginInput.username && !loginInput.email){
+    if (!loginInput.username && !loginInput.email) {
       throw new GraphQLError("You must provide an username.");
     }
 
@@ -68,8 +67,8 @@ export class LearnerResolver {
     learner = await learner.readLearner();
 
     if (!learner) {
-      throw new GraphQLError("The user is not registered."); 
-    } 
+      throw new GraphQLError("The user is not registered.");
+    }
 
     const passwordHash = createHmac("SHA256", JWT_CONFIG.secret).update(loginInput.password).digest("hex");
     if (!(learner?.password == passwordHash)) {
@@ -87,8 +86,18 @@ export class LearnerResolver {
 
   @Authorized()
   @Mutation(() => Learner)
-  async updateLearner(@Arg("learnerInput") learnerInput: LearnerSignUpInput): Promise<Learner> {
-    const learner = new Learner();
+  async updateLearner(
+    @Arg("learnerInput") learnerInput: LearnerUpdateInput,
+    @CurrentUser() currentUser: number
+  ): Promise<Learner> {
+    let learner: Learner = new Learner();
+    learner.id = currentUser;
+    learner = await learner.readLearner() as Learner;
+
+    if (learnerInput.password) learner.password = learnerInput.password;
+    if (learnerInput.fullname) learner.fullname = learnerInput.fullname;
+
+    await learner?.updateLearner();
     return learner;
   }
 

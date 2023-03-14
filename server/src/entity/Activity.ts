@@ -1,11 +1,10 @@
 import { Field, ObjectType } from "type-graphql"
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Repository } from "typeorm"
+import { Column, Entity,  ManyToOne, OneToMany, PrimaryGeneratedColumn, Repository } from "typeorm"
 import type { IActivity } from "../@types/entity/IActivity";
 import { AppDataSource } from "../data-source.js";
 import type { Relation } from "typeorm";
-import LearningFile from "./LearningFile.js";
-import Technique from "./Technique.js";
 import Event from "./Event.js";
+import LearningFile from "./LearningFile.js";
 
 @ObjectType("ActivityType")
 @Entity({ name: "Activity" })
@@ -27,6 +26,12 @@ export default class Activity implements IActivity {
   @Field()
   @Column()
   endTime: Date;
+
+  @ManyToOne(() => Event, (event) => event.id)
+  event: Relation<Event>
+
+  @OneToMany(() => LearningFile, (learningFile) => learningFile.id)
+  learningFiles: [LearningFile]
 
   constructor(params?: IActivity) {
     Object.assign(this, params);
