@@ -5,16 +5,8 @@ import Learner from "../../entity/Learner.js";
 import Technique from "../../entity/Technique.js";
 import { TechniqueInput, TechniqueUpdateInput } from "./TechniqueInput.js";
 
-@Resolver(() => Learner)
+@Resolver()
 export class TechniqueResolver {
-
-  // Read techniques by current learner
-  @FieldResolver(() => Technique, { nullable: true })
-  async technique(@Root() learner: Learner) {
-    let technique = new Technique();
-    technique.learner = learner;
-    return await technique.readTechnique();
-  }
 
   // Create technique by current learner
   @Mutation(() => Technique, { nullable: true })

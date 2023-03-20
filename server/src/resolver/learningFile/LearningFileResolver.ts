@@ -1,20 +1,10 @@
 import { GraphQLError } from "graphql";
-import { Arg, FieldResolver, Mutation, Query, Resolver, Root } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import LearningFile from "../../entity/LearningFile.js";
 import { LearningFileInput, LearningFileUpdateInput } from "./LearningFileInput.js";
-import Event from "../../entity/Event.js";
-import Activity from "../../entity/Activity.js"
 
-@Resolver(() => Activity)
+@Resolver()
 export class LearningFileResolver {
-
-  //TODO: Implements learning files to Events.
-  @FieldResolver(() => LearningFile, { nullable: true })
-  async learningFile(@Root() activity: Activity) {
-    let learningFile = new LearningFile();
-    learningFile.activity = activity;
-    return await learningFile.readLearningFile();
-  }
 
   // Given LearningFile data, CREATES and returns LearningFile object
   @Mutation(() => LearningFile, { nullable: true })

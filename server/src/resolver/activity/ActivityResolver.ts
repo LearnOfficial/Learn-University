@@ -1,21 +1,10 @@
 import { GraphQLError } from "graphql";
-import { Arg, FieldResolver, Mutation, Resolver, Root } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import Activity from "../../entity/Activity.js";
-import Learner from "../../entity/Learner.js";
 import { ActivityInput, ActivityUpdateInput } from "./ActivityInput.js";
-import Event from "../../entity/Event.js";
 
-@Resolver(() => Event)
+@Resolver()
 export class ActivityResolver {
-    //TODO: Documentaton
-    //NOTE: Getting the activities from the Learner
-    @FieldResolver(() => Activity, { nullable: true })
-    async activity(@Root() event: Event) {
-        let activity = new Activity();
-        activity.event = event;
-        return await activity.readActivity();
-    }
-
     // Given Activity data, CREATES and returns Activity object
     @Mutation(() => Activity, { nullable: true })
     async createActivity(@Arg("createInput") createInput: ActivityInput) {
