@@ -1,14 +1,19 @@
 import { GraphQLError } from "graphql";
 import { Arg, Mutation, Resolver } from "type-graphql";
 import Activity from "../../entity/Activity.js";
+import Event from "../../entity/Event.js";
 import { ActivityInput, ActivityUpdateInput } from "./ActivityInput.js";
 
 @Resolver()
 export class ActivityResolver {
+    
     // Given Activity data, CREATES and returns Activity object
     @Mutation(() => Activity, { nullable: true })
     async createActivity(@Arg("createInput") createInput: ActivityInput) {
+        const event = new Event;
+        event.id = createInput.eventId;
         let activity: Activity | null = new Activity(createInput);
+        activity.event = event;
         await activity.createActivity();
         return await activity.readActivity();
     }

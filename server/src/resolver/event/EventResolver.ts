@@ -4,6 +4,7 @@ import Event from "../../entity/Event.js"
 import { EventInput, EventUpdateInput } from "./EventInput.js";
 import { CurrentUser } from "../../context.js";
 import Learner from "../../entity/Learner.js";
+import Technique from "../../entity/Technique.js";
 
 @Resolver()
 export class EventResolver {
@@ -14,11 +15,15 @@ export class EventResolver {
     @Arg("createInput") createInput: EventInput,
     @CurrentUser() currentUser: number
   ) {
+    const technique = new Technique;
     let learner = new Learner();
+    
     learner.id = currentUser;
+    technique.id = createInput.techniqueId;
 
     let event: Event | null = new Event(createInput);
     event.learner = learner;
+    event.technique = technique;
     await event.createEvent();
 
     return event;

@@ -23,6 +23,10 @@ export default class LearningFile implements ILearningFile {
   @Column({ length: 10 })
   format: string
 
+  @Field()
+  @Column()
+  externalLink: string;
+
   @ManyToOne(() => Event, (event) => event.id)
   event: Relation<Event>
 
