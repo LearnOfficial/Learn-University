@@ -1,9 +1,10 @@
 import { Field, ObjectType } from "type-graphql";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Repository } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Repository } from "typeorm";
 import type { Relation } from "typeorm";
 import type { ITechnique } from "../@types/entity/ITechnique";
 import { AppDataSource } from "../data-source.js";
-import Learner from "./Learner.js";
+import Learner from "./Learner.js"; 
+import Event from "./Event.js";
 
 @ObjectType("TechniqueType")
 @Entity({ name: "Technique" })
@@ -28,6 +29,9 @@ export default class Technique implements ITechnique {
 
   @ManyToOne(() => Learner, (learner) => learner.id)
   learner: Relation<Learner>
+
+  @OneToMany(() => Event, (event) => event.id)
+  event: Relation<Event>
 
   constructor(params?: ITechnique) {
     Object.assign(this, params);

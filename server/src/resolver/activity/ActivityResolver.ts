@@ -8,7 +8,7 @@ import { ActivityInput, ActivityUpdateInput } from "./ActivityInput.js";
 export class ActivityResolver {
     
     // Given Activity data, CREATES and returns Activity object
-    @Mutation(() => Activity, { nullable: true })
+    @Mutation(() => [Activity], { nullable: true }) 
     async createActivity(@Arg("createInput") createInput: ActivityInput) {
         const event = new Event;
         event.id = createInput.eventId;
@@ -43,7 +43,6 @@ export class ActivityResolver {
             throw new GraphQLError("The activity does not exist.");
         } else {
             await activity.deleteActivity();
-            return `Activity ${TEMP.title} was deleted`;
         }
     }
 

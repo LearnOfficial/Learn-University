@@ -5,14 +5,14 @@ import LearningFile from "../../entity/LearningFile.js";
 
 @Resolver(() => Event)
 export class EventFieldResolver {
-    @FieldResolver(() => Activity, { nullable: true })
+    @FieldResolver(() => [Activity], { nullable: true })
     async activity(@Root() event: Event) {
         let activity = new Activity();
         activity.event = event;
         return await activity.readActivity();
     }
 
-    @FieldResolver(() => LearningFile, { nullable: true })
+    @FieldResolver(() => [LearningFile] , { nullable: true })
     async learningFile(@Root() event: Event) {
         let learningFile = new LearningFile();
         learningFile.event = event;

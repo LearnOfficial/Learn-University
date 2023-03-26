@@ -9,7 +9,7 @@ import Activity from "../../entity/Activity.js";
 export class LearningFileResolver {
 
   // Given LearningFile data, CREATES and returns LearningFile object
-  @Mutation(() => LearningFile, { nullable: true })
+  @Mutation(() => [LearningFile], { nullable: true })
   async createLearningFile(@Arg("createInput") createInput: LearningFileInput) {
     const event = new Event;
     const activity = new Activity;
@@ -48,7 +48,6 @@ export class LearningFileResolver {
       throw new GraphQLError("The Learning File does not exist.");
     } else {
       await learningFile.deleteLearningFile();
-      return `Learning File ${TEMP.fileName} was deleted`;
     }
   }
 

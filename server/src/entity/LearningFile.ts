@@ -52,8 +52,34 @@ export default class LearningFile implements ILearningFile {
     })
   }
 
-  async readLearningFile(): Promise<LearningFile | null> {
-    return await this.repository.findOneBy({ id: this.id });
-  }
+  async readLearningFile(): Promise<LearningFile[] | null> {
+    let learningFiles: LearningFile[];
+    if (this.activity) {
+      learningFiles = await this.repository.find({
+        relations: {
+          activity: true
+        },
+        where: {
+          activity: {
+            id: this.activity.id
+          }
+        }
+      })
+    }
+    else if(this.event) {
+      learningFiles = await this.repository.find({
+        relations: {
+          event: true
+        },
+        where: {
+          event: {
+            id: this.event.id
+          }
+        }
+      });
+    }
 
+
+    return learningFiles!;
+  }
 }
