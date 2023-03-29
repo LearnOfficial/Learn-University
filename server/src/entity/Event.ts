@@ -76,8 +76,10 @@ export default class Event implements IEvent{
       })
     }
     return await this.repository.find({
-      relations: {
-        learner: true
+      where:{
+        learner : {
+          id : this.learner.id
+        },
       }
     });
   }

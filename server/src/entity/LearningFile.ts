@@ -56,9 +56,6 @@ export default class LearningFile implements ILearningFile {
     let learningFiles: LearningFile[];
     if (this.activity) {
       learningFiles = await this.repository.find({
-        relations: {
-          activity: true
-        },
         where: {
           activity: {
             id: this.activity.id
@@ -68,9 +65,6 @@ export default class LearningFile implements ILearningFile {
     }
     else if(this.event) {
       learningFiles = await this.repository.find({
-        relations: {
-          event: true
-        },
         where: {
           event: {
             id: this.event.id

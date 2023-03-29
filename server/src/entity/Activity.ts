@@ -54,11 +54,7 @@ export default class Activity implements IActivity {
 
   async readActivity(): Promise<Activity[] | null> {
     return await this.repository.find({
-      relations: {
-        event: true,
-      },
       where: {
-        id: this.id,
         event: {
           id: this.event.id
         }
