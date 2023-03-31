@@ -17,7 +17,7 @@ export class LearnerFieldResolver {
   }
 
   // Read techniques by current learner
-  @FieldResolver(() => Technique, { nullable: true })
+  @FieldResolver(() => [Technique], { nullable: true })
   async technique(@Root() learner: Learner) {
     let technique = new Technique();
     technique.learner = learner;

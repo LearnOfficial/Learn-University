@@ -24,7 +24,6 @@ export class EventResolver {
     let event: Event | null = new Event(createInput);
     event.learner = learner;
     event.technique = technique;
-    console.log(event);
     await event.createEvent();
     return event;
   }

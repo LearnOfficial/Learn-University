@@ -3,7 +3,7 @@ import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn,
 import type { Relation } from "typeorm";
 import type { ITechnique } from "../@types/entity/ITechnique";
 import { AppDataSource } from "../data-source.js";
-import Learner from "./Learner.js"; 
+import Learner from "./Learner.js";
 import Event from "./Event.js";
 
 @ObjectType("TechniqueType")
@@ -52,7 +52,20 @@ export default class Technique implements ITechnique {
     })
   }
 
-  async readTechnique(): Promise<Technique | null> {
-    return await this.repository.findOneBy({ id: this.id });
+  async readTechnique(): Promise<Technique | Technique[] | null> {
+    if (this.id) {
+      return await this.repository.findOneBy({ id: this.id });
+    }
+
+    if (this.learner.id) {
+      return await this.repository.find({
+        where: {
+          learner: {
+            id: this.learner.id
+          }
+        }
+      });
+    }
+    return null;
   }
 }

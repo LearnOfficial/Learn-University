@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql";
-import { Arg, FieldResolver, Mutation, Resolver, Root } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import { CurrentUser } from "../../context.js";
 import Learner from "../../entity/Learner.js";
 import Technique from "../../entity/Technique.js";
@@ -44,7 +44,7 @@ export class TechniqueResolver {
   async deleteTechnique(@Arg("id") id: number) {
     let technique: Technique | null = new Technique();
     technique.id = id;
-    technique = await technique.readTechnique();
+    technique = await technique.readTechnique() as Technique;
     if (!technique) {
       throw new GraphQLError("The Technique does not exist.");
     }
