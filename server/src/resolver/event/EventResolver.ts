@@ -12,7 +12,7 @@ export class EventResolver {
   // Creates Event by current learner
   @Mutation(() => Event, { nullable: true })
   async createEvent(
-    @Arg("createInput") createInput: EventInput,
+    @Arg("createEvent") createInput: EventInput,
     @CurrentUser() currentUser: number
   ) {
     const technique = new Technique;
@@ -31,7 +31,7 @@ export class EventResolver {
   // Updates an Event by id
   @Mutation(() => Event || null)
   async updateEvent(
-    @Arg("updateInput") updateInput: EventUpdateInput
+    @Arg("updateEvent") updateInput: EventUpdateInput
   ) {
     const current = new Event(updateInput)
     let event = await current.readEvent();

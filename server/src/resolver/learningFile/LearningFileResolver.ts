@@ -10,7 +10,7 @@ export class LearningFileResolver {
 
   // Given LearningFile data, CREATES and returns LearningFile object
   @Mutation(() => [LearningFile], { nullable: true })
-  async createLearningFile(@Arg("createInput") createInput: LearningFileInput) {
+  async createLearningFile(@Arg("createLearningFile") createInput: LearningFileInput) {
     const event = new Event;
     const activity = new Activity;
     event.id = createInput.eventId;
@@ -24,7 +24,7 @@ export class LearningFileResolver {
 
   // Given LearningFile data and ID, UPDATES and returns LearningFile object
   @Mutation(() => LearningFile || null)
-  async updateLearningFile(@Arg("updateInput") updateInput: LearningFileUpdateInput) {
+  async updateLearningFile(@Arg("updateLearningFile") updateInput: LearningFileUpdateInput) {
     const ACTUAL = new LearningFile(updateInput)
     const OLD = new LearningFile();
     OLD.id = updateInput.id;
