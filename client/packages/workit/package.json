@@ -5,7 +5,9 @@
   "license": "MIT",
   "dependencies": {
     "react": "^18.2.0",
-    "react-native": "^0.71.6"
+    "react-native": "^0.71.6",
+    "next": "^13.3.0",
+    "react-native-svg": "^13.9.0"
   },
   "devDependencies": {
     "@tsconfig/react-native": "^2.0.3",
