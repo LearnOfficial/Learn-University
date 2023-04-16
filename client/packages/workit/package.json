@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.71.6"
+  },
   "devDependencies": {
     "@tsconfig/react-native": "^2.0.3",
     "@types/react": "^18.0.28",
