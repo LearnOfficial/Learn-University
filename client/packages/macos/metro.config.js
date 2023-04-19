@@ -8,16 +8,9 @@
 
 const { makeMetroConfig } = require("@rnx-kit/metro-config");
 const MetroSymlinksResolver = require("@rnx-kit/metro-resolver-symlinks");
+const path = require("path");
 
 module.exports = makeMetroConfig({
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: true,
-      },
-    }),
-  },
   resolver: {
     resolveRequest: MetroSymlinksResolver(),
   }
