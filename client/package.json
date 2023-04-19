@@ -13,7 +13,8 @@
     "nohoist": [
       "**/react-native",
       "**/react-native/**",
-      "**/react-native-macos"
+      "**/react-native-macos",
+      "**/next"
     ]
   },
   "license": "MIT"
