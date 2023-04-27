@@ -1,25 +1,17 @@
 import { GraphQLError } from "graphql";
-import { Arg, FieldResolver, Mutation, Resolver, Root } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import { CurrentUser } from "../../context.js";
 import Learner from "../../entity/Learner.js";
 import Technique from "../../entity/Technique.js";
 import { TechniqueInput, TechniqueUpdateInput } from "./TechniqueInput.js";
 
-@Resolver(() => Learner)
+@Resolver()
 export class TechniqueResolver {
-
-  // Read techniques by current learner
-  @FieldResolver(() => Technique, { nullable: true })
-  async technique(@Root() learner: Learner) {
-    let technique = new Technique();
-    technique.learner = learner;
-    return await technique.readTechnique();
-  }
 
   // Create technique by current learner
   @Mutation(() => Technique, { nullable: true })
   async createTechnique(
-    @Arg("createInput") createInput: TechniqueInput,
+    @Arg("createTechnique") createInput: TechniqueInput,
     @CurrentUser() currentUser: number
   ) {
 
@@ -35,7 +27,7 @@ export class TechniqueResolver {
 
   // Updates a technique by id
   @Mutation(() => Technique || null)
-  async updateTechnique(@Arg("updateInput") updateInput: TechniqueUpdateInput) {
+  async updateTechnique(@Arg("updateTechnique") updateInput: TechniqueUpdateInput) {
     const current = new Technique(updateInput);
     let technique = await current.readTechnique();
 
@@ -52,7 +44,7 @@ export class TechniqueResolver {
   async deleteTechnique(@Arg("id") id: number) {
     let technique: Technique | null = new Technique();
     technique.id = id;
-    technique = await technique.readTechnique();
+    technique = await technique.readTechnique() as Technique;
     if (!technique) {
       throw new GraphQLError("The Technique does not exist.");
     }

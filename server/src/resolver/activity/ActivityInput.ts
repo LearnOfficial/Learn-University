@@ -9,6 +9,8 @@ class ActivityInput implements IActivity{
     startTime: Date;
     @Field()
     endTime: Date;
+    @Field()
+    eventId: number
 }
 
 @InputType()

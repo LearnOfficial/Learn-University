@@ -13,6 +13,8 @@ class EventInput implements IEvent {
     endDate: Date;
     @Field()
     type: EventTypeEnum;
+    @Field()
+    techniqueId: number;
 }
 
 @InputType()

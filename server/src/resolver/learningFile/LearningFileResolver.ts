@@ -1,32 +1,30 @@
 import { GraphQLError } from "graphql";
-import { Arg, FieldResolver, Mutation, Query, Resolver, Root } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import LearningFile from "../../entity/LearningFile.js";
-import { LearningFileInput, LearningFileUpdateInput } from "./LearningFileInput.js";
 import Event from "../../entity/Event.js";
-import Activity from "../../entity/Activity.js"
+import { LearningFileInput, LearningFileUpdateInput } from "./LearningFileInput.js";
+import Activity from "../../entity/Activity.js";
 
-@Resolver(() => Activity)
+@Resolver()
 export class LearningFileResolver {
 
-  //TODO: Implements learning files to Events.
-  @FieldResolver(() => LearningFile, { nullable: true })
-  async learningFile(@Root() activity: Activity) {
-    let learningFile = new LearningFile();
-    learningFile.activity = activity;
-    return await learningFile.readLearningFile();
-  }
-
   // Given LearningFile data, CREATES and returns LearningFile object
-  @Mutation(() => LearningFile, { nullable: true })
-  async createLearningFile(@Arg("createInput") createInput: LearningFileInput) {
+  @Mutation(() => [LearningFile], { nullable: true })
+  async createLearningFile(@Arg("createLearningFile") createInput: LearningFileInput) {
+    const event = new Event;
+    const activity = new Activity;
+    event.id = createInput.eventId;
+    activity.id = createInput.activityId;
     let learningFile: LearningFile | null = new LearningFile(createInput);
+    learningFile.event = event;
+    learningFile.activity = activity;
     await learningFile.createLearningFile();
     return await learningFile.readLearningFile();
   }
 
   // Given LearningFile data and ID, UPDATES and returns LearningFile object
   @Mutation(() => LearningFile || null)
-  async updateLearningFile(@Arg("updateInput") updateInput: LearningFileUpdateInput) {
+  async updateLearningFile(@Arg("updateLearningFile") updateInput: LearningFileUpdateInput) {
     const ACTUAL = new LearningFile(updateInput)
     const OLD = new LearningFile();
     OLD.id = updateInput.id;
@@ -50,7 +48,6 @@ export class LearningFileResolver {
       throw new GraphQLError("The Learning File does not exist.");
     } else {
       await learningFile.deleteLearningFile();
-      return `Learning File ${TEMP.fileName} was deleted`;
     }
   }
 
