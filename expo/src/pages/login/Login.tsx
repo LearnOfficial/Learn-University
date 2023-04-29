@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 
 
@@ -10,29 +10,14 @@ type ButtonProps = {
 };
 const Button = ({ title, onPress }: ButtonProps) => (
   <TouchableOpacity
+    className="flex justify-center items-center h-10 p-3 rounded bg-slate-900"
     onPress={onPress}
-    style={styleButton.buttonView}
   >
-    <Text>{title}</Text>
+    <Text
+      className="text-slate-50 font-bold"
+    >{title}</Text>
   </TouchableOpacity>
 );
-
-const styleButton = StyleSheet.create({
-  buttonView: {
-    alignSelf: 'stretch',
-    padding: 10,
-    borderRadius: 5,
-    textAlign: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-    elevation: 12,
-  }
-});
 
 const LOGIN_GQL = gql`
   mutation($loginInput: LearnerLogInInput!){ 
@@ -47,20 +32,21 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState<string>("");
   const [onLogin, { data, loading, error }] = useMutation(LOGIN_GQL);
 
-  if(data){
+  if (data) {
     navigation.navigate("Home");
   }
 
   return (
-    <View style={styles.inputView}>
-      <View style={styles.loginInputView}>
+    <View className="flex w-screen h-screen justify-center items-center bg-white">
+      <View className="flex w-64 h-64 gap-3">
+        <View className="flex" />
         <TextInput
-          style={styles.loginInput}
+          className="block p-3 border rounded"
           placeholder="username"
           onChangeText={setUsername}
         />
         <TextInput
-          style={styles.loginInput}
+          className="p-3 border rounded"
           placeholder="password"
           secureTextEntry
           onChangeText={setPassword}
@@ -83,22 +69,3 @@ export default function Login({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  inputView: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  loginInputView: {
-    flex: 1,
-    gap: 10,
-    width: 200,
-    maxHeight: 100,
-  },
-  loginInput: {
-    padding: 10,
-    border: "1px solid black",
-    borderRadius: 5
-  }
-});
