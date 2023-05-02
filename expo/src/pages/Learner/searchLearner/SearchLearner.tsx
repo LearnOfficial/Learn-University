@@ -4,10 +4,14 @@ import Button from "../../components/Button";
 
 // Displays the results of the query 'searchUser'
 const DisplayUserInformation = () => {
-
+  return(
+    <>
+      
+    </>
+  );
 }
 
-export default function SearchStudent(){
+export default function SearchLearner(){
   const [username, setUsername] = useState<string>("");
 
   return(
@@ -23,7 +27,7 @@ export default function SearchStudent(){
           title="Buscar Estudiante"
           onPress={()=>console.log({username})}
           />
-        
+        <DisplayUserInformation/>
       </div>
     </>
   )

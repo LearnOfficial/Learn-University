@@ -2,8 +2,6 @@ import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
-
-
 type ButtonProps = {
   title: string;
   onPress: any
