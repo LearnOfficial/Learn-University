@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
+import SearchStudent from "./pages/searchStudent/SearchStudent";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -16,11 +17,12 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerShown: false
+            headerShown: true
           }}
         >
-          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Search Student" component={SearchStudent} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>
