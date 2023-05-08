@@ -23,7 +23,7 @@ services:
     container_name: "learn-server" 
     build: .
     ports: 
-      - "8080:4000"
+      - "4000:8080"
     depends_on:
       db:
         condition: service_healthy
