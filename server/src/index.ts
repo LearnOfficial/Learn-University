@@ -17,7 +17,7 @@ const schema = await buildSchema({
   resolvers: resolvers,
   authChecker: authChecher,
   authMode: "null",
-  validate: {forbidUnknownValues: false}
+  validate: { forbidUnknownValues: false }
 })
 
 
