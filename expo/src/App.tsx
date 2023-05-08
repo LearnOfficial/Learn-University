@@ -20,9 +20,9 @@ export default function App() {
             headerShown: true
           }}
         >
-          <Stack.Screen name="Update Student" component={UpdateLearner} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Update Student" component={UpdateLearner} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>
