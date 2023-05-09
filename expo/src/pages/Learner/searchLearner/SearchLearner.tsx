@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity } from "react-native";
-import Button from "../../components/Button";
+import Button from "../../../components/Button";
 
 // Displays the results of the query 'searchUser'
 const DisplayUserInformation = () => {

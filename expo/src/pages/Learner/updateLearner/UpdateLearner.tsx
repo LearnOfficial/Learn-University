@@ -2,11 +2,6 @@ import { TextInput } from "react-native";
 import Button from "../../../components/Button";
 import { useState } from "react";
 
-/*
-
-THIS PAGE RECYCLES FROM CREATE Learner
-
-*/
 export default function UpdateLearner(){
 
   const [fullname, setFullname] = useState<String>("");
