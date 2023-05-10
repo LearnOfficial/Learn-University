@@ -1,40 +1,33 @@
-import { Text, TextInput } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import { useState } from "react";
 import { Picker } from '@react-native-picker/picker';
 import Button from "../../components/Button";
 import {
-  TimePickerModal
+  TimePickerModal,
+  DatePickerInput
   // @ts-ignore 
 } from "react-native-paper-dates"
 
-export default function UpdateEvent() {
+
+
+export default function CreateEvent() {
   const [title, setTitle] = useState<String>("");
   const [description, setDescription] = useState<String>("");
 
-
-  const [date, setDate] = useState<String>("");
-  const [iniTime, setIniTime] = useState<String>("");
-  const [endTime, setEndTime] = useState<String>("");
+  const[date, setDate] = useState<Date>();
 
   const [enableStartTime, setEnableStartTime] = useState<boolean>(false);
   const [enableEndTime, setEnableEndTime] = useState<boolean>(false);
 
 
-
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [typeEvent, setTypeEvent] = useState<Number>();
 
-
-  /*
-  TODO: datetimepicker is not compatible with web. So we'll add date and time picker separately
-  */
-
   return (
 
-    <div className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <h1>Create Event</h1>
-
-      <div className="flex flex-col">
+    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
+      <Text className="font-bold">ACTUALIZAR EVENTO</Text>
+      <View className="flex flex-col">
 
         <TextInput
           onChangeText={setTitle}
@@ -43,42 +36,49 @@ export default function UpdateEvent() {
         />
 
         <TextInput
-          onChangeText={setTitle}
+          onChangeText={setDescription}
           className="p-3 border rounded"
           placeholder="Descripción"
         />
 
-        <TextInput placeholder="Año/Mes/Dia" onChangeText={setDate} className="p-3 border rounded" />
-
-        <div className="flex flex-row">
-          <Text className="p-2 text-center grow">Tiempo inicial</Text>
-          <Text className="p-2 text-center grow">Tiempo Final</Text>
-        </div>
-
-        <div className="flex flex-row">
-          <TimePickerModal 
-            visible={enableStartTime}
-            onConfirm={() => setEnableStartTime(false)}
+        <DatePickerInput 
+          locale="es"
+          label={"Fecha"}
+          value={date}
+          onChange={(d)=>{setDate(d)}}
+          inputMode="start"
           />
 
+        <View className="flex flex-row">
+          <Text className="p-2 text-center grow">{}</Text>
+          <Text className="p-2 text-center grow">{}</Text>
+        </View>
+
+        <View className="flex flex-row">
+          <TimePickerModal 
+            visible={enableStartTime}
+            onConfirm={({hours, minutes}) => {setEnableStartTime(false); console.log(hours, minutes)}}
+            onDismiss={() => setEnableStartTime(false)}
+          />
           <Button
-            title="Start Time"
+            title="Tiempo Inicial"
             onPress={() => setEnableStartTime(!enableStartTime)}
           />
 
           <TimePickerModal 
-            visible={enableStartTime}
-            onConfirm={() => setEnableEndTime(false)}
+            visible={enableEndTime}
+            onConfirm={({hours, minutes}) => {setEnableEndTime(false); console.log(hours, minutes)}}
+            onDismiss={() => setEnableEndTime(false)}
           />
 
           <Button
-            title="End Time"
+            title="Tiempo Final"
             onPress={() => setEnableEndTime(!enableEndTime)}
           />
 
-        </div>
+        </View>
 
-        <div className="p-3 border rounded grow">
+        <View className="p-3 border rounded grow">
           <Picker
             selectedValue={selectedLanguage}
             onValueChange={(itemValue, itemIndex) => {
@@ -90,12 +90,12 @@ export default function UpdateEvent() {
               <Picker.Item label="Irrelevante" value={3}/>
               <Picker.Item label="Flexible" value={4}/>
           </Picker>
-        </div>
+        </View>
         <Button
           title="Crear Evento"
           onPress={() => console.log()}
         />
-      </div>
-    </div>
+      </View>
+    </View>
   );
 }

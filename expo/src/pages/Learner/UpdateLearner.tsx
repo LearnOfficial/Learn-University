@@ -1,4 +1,4 @@
-import { TextInput } from "react-native";
+import { TextInput, View } from "react-native";
 import Button from "../../components/Button";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ export default function UpdateLearner(){
 
   return(
     <>
-    <div className="flex flex-col w-screen h-screen justify-center items-center bg-white">
+    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
         <h1 className="p-5">Actualizar Estudiante</h1>
         <TextInput 
         onChangeText={setFullname}
@@ -35,7 +35,7 @@ export default function UpdateLearner(){
         placeholder="Contraseña"/>
 
         <Button title="Registrarse" onPress={()=>{console.log("hola")}}/>
-      </div>
+      </View>
     </>
   );
 }
