@@ -1,9 +1,7 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import  * as ALL from "./layout";
+import { Home, Login, DeleteEvent } from "./pages";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -20,7 +18,7 @@ export default function App() {
             headerShown: true
           }}
         >
-          <Stack.Screen name="verifying..." component={ALL.DeleteEvent} />
+          <Stack.Screen name="verifying..." component={DeleteEvent} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
