@@ -1,7 +1,10 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Home, Login, DeleteEvent, CreateEvent, UpdateEvent } from "./pages";
+import { useEffect, useState } from "react";
+import { Home, Login } from "./pages";
+import { readToken } from "./storage/token";
+import { SetTokenContext, TokenContext } from "./storage/TokenContext";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -10,20 +13,35 @@ export default function App() {
     cache: new InMemoryCache()
   });
 
+  const [token, setToken] = useState<string | null | undefined >();
+  setTimeout(() => {}, 1000);
+  useEffect(() => {
+    readToken().then((t) => {
+      setToken(t || "");
+    })
+  }, []);
+
+  //read if there is a token
+  //TODO: add splash screen meanwhile read a token 
+
   return (
-    <ApolloProvider client={client}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: true
-          }}
-        >
-          <Stack.Screen name="verifying..." component={DeleteEvent} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Login" component={Login} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ApolloProvider>
+    <TokenContext.Provider value={token}>
+      <SetTokenContext.Provider value={setToken}>
+        <ApolloProvider client={client}>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: true
+              }}
+            >
+              <Stack.Screen name="verifying..." component={Home} />
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Login" component={Login} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ApolloProvider>
+      </SetTokenContext.Provider>
+    </TokenContext.Provider>
   );
 }
 

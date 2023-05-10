@@ -1,22 +1,9 @@
 import { gql, useMutation } from "@apollo/client";
-import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { saveToken, readToken } from "../../storage/token";
-
-type ButtonProps = {
-  title: string;
-  onPress: any
-};
-const Button = ({ title, onPress }: ButtonProps) => (
-  <TouchableOpacity
-    className="flex justify-center items-center h-10 p-3 rounded bg-slate-900"
-    onPress={onPress}
-  >
-    <Text
-      className="text-slate-50 font-bold"
-    >{title}</Text>
-  </TouchableOpacity>
-);
+import { useContext, useState } from "react";
+import { TextInput, View } from "react-native";
+import Button from "../../components/Button";
+import { saveToken } from "../../storage/token";
+import { SetTokenContext, TokenContext } from "../../storage/TokenContext";
 
 const LOGIN_GQL = gql`
   mutation($loginInput: LearnerLogInInput!){ 
@@ -29,13 +16,16 @@ const LOGIN_GQL = gql`
 export default function Login({ navigation }) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const token = useContext(TokenContext);
+  const setTokenContext = useContext(SetTokenContext);
   const [onLogin, { data, loading, error }] = useMutation(LOGIN_GQL);
 
   if (data) {
+    const newToken = data.readLearner.token;
     (async () => {
-      await saveToken(data?.readLearner?.token);
+      await saveToken(newToken);
     })();
-
+    setTokenContext!(newToken);
     navigation.navigate("Home");
   }
 
