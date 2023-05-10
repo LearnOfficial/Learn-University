@@ -1,7 +1,7 @@
-import { TextInput, Text } from "react-native";
+import { Text, TextInput } from "react-native";
 import { useState } from "react";
 import { Picker } from '@react-native-picker/picker';
-import Button from "../../../components/Button";
+import Button from "../../components/Button";
 import {
   TimePickerModal
   // @ts-ignore 
@@ -78,17 +78,17 @@ export default function CreateEvent() {
 
         </div>
 
-        <div className="p-3 border rounded">
+        <div className="p-3 border rounded grow">
           <Picker
             selectedValue={selectedLanguage}
             onValueChange={(itemValue, itemIndex) => {
               setSelectedLanguage(itemValue);
               setTypeEvent(itemValue)
             }}>
-            <Picker.Item label="Important" value={1} />
-            <Picker.Item label="Normal" value={2} />
-            <Picker.Item label="Irrelevant" value={3} />
-            <Picker.Item label="Flexible" value={4} />
+              <Picker.Item label="Importante" value={1}/>
+              <Picker.Item label="Normal" value={2}/>
+              <Picker.Item label="Irrelevante" value={3}/>
+              <Picker.Item label="Flexible" value={4}/>
           </Picker>
         </div>
         <Button

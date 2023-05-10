@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import CreateEvent from "./pages/Events/createEvent/CreateEvent";
+import  * as ALL from "./layout";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -20,7 +20,7 @@ export default function App() {
             headerShown: true
           }}
         >
-          <Stack.Screen name="Create Event" component={CreateEvent} />
+          <Stack.Screen name="de" component={ALL.DeleteEvent} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
