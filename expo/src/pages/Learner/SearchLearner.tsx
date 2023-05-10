@@ -15,21 +15,19 @@ export default function SearchLearner(){
   const [username, setUsername] = useState<string>("");
 
   return(
-    <>
-      <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-        <h1 className="p-5">Buscar Estudiante</h1>
-        <TextInput
-          onChangeText={setUsername}
-          className="p-3 border rounded"
-          placeholder="Nombre de usuario"
+    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
+      <h1 className="p-5">Buscar Estudiante</h1>
+      <TextInput
+        onChangeText={setUsername}
+        className="p-3 border rounded"
+        placeholder="Nombre de usuario"
+      />
+      <Button 
+        title="Buscar Estudiante"
+        onPress={()=>console.log({username})}
         />
-        <Button 
-          title="Buscar Estudiante"
-          onPress={()=>console.log({username})}
-          />
-        <DisplayUserInformation/>
-      </View>
-    </>
+      <DisplayUserInformation/>
+    </View>
   )
 
 }

@@ -10,32 +10,30 @@ export default function UpdateLearner(){
   const [password, setPassword] = useState<String>("");
 
   return(
-    <>
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-        <h1 className="p-5">Actualizar Estudiante</h1>
-        <TextInput 
-        onChangeText={setFullname}
-        className="p-3 border rounded"
-        placeholder="Nombre Completo"/>
+      <h1 className="p-5">Actualizar Estudiante</h1>
+      <TextInput 
+      onChangeText={setFullname}
+      className="p-3 border rounded"
+      placeholder="Nombre Completo"/>
 
-        <TextInput 
-        onChangeText={setUsername}
-        className="p-3 border rounded"
-        placeholder="Nombre de Usuario"/>
+      <TextInput 
+      onChangeText={setUsername}
+      className="p-3 border rounded"
+      placeholder="Nombre de Usuario"/>
 
-        <TextInput 
-        onChangeText={setEmail}
-        className="p-3 border rounded"
-        placeholder="Correo Electronico"/>
+      <TextInput 
+      onChangeText={setEmail}
+      className="p-3 border rounded"
+      placeholder="Correo Electronico"/>
 
-        <TextInput 
-        secureTextEntry
-        onChangeText={setPassword}
-        className="p-3 border rounded"
-        placeholder="Contraseña"/>
+      <TextInput 
+      secureTextEntry
+      onChangeText={setPassword}
+      className="p-3 border rounded"
+      placeholder="Contraseña"/>
 
-        <Button title="Registrarse" onPress={()=>{console.log("hola")}}/>
-      </View>
-    </>
+      <Button title="Registrarse" onPress={()=>{console.log("hola")}}/>
+    </View>
   );
 }

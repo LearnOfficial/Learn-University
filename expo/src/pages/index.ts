@@ -8,6 +8,11 @@ import DeleteEvent from "./Event/DeleteEvent";
 import SearchEvent from "./Event/SearchEvent";
 import UpdateEvent from "./Event/UpdateEvent";
 
+import CreateActivity from "./Activities/CreateActivity";
+import DeleteActivity from "./Activities/DeleteActivity";
+import SearchActivity from "./Activities/SearchActivity";
+import UpdateActivity from "./Activities/UpdateActivity";
+
 import Home from "./home/Home";
 import Login from "./login/Login";
 import Register from "./register/Register";
@@ -23,5 +28,9 @@ export {
   CreateEvent,
   DeleteEvent,
   SearchEvent,
-  UpdateEvent
+  UpdateEvent,
+  CreateActivity,
+  DeleteActivity,
+  SearchActivity,
+  UpdateActivity
 };

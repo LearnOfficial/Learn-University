@@ -2,7 +2,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
-import { Home, Login } from "./pages";
+import { CreateActivity, CreateEvent, DeleteEvent, Home, Login } from "./pages";
 import { readToken } from "./storage/token";
 import { SetTokenContext, TokenContext } from "./storage/TokenContext";
 
@@ -34,7 +34,7 @@ export default function App() {
                 headerShown: true
               }}
             >
-              <Stack.Screen name="verifying..." component={Home} />
+              <Stack.Screen name="verifying..." component={DeleteEvent} />
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Login" component={Login} />
             </Stack.Navigator>

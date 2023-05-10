@@ -8,7 +8,7 @@ export default function DeleteEvent(){
   return(  
     <View className='flex flex-col p-3 w-screen h-screen justify-center items-center bg-white'>
       <Text className="font-bold">ELIMINAR EVENTO</Text>
-      <View className='flex flex-row w-3/6 '>
+      <View className='flex flex-row w-3/6'>
         <TextInput 
           className='p-3 border rounded m-2 grow'
           onChangeText={setTitle}

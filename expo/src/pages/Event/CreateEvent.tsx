@@ -25,22 +25,23 @@ export default function CreateEvent() {
   return (
 
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <Text className="font-bold">CREAR EVENTO</Text>
+      <Text className="font-bold m-0.5">CREAR EVENTO</Text>
       <View className="flex flex-col">
 
         <TextInput
           onChangeText={setTitle}
-          className="p-3 border rounded"
+          className="p-3 border rounded m-0.5"
           placeholder="Titulo"
         />
 
         <TextInput
           onChangeText={setTitle}
-          className="p-3 border rounded"
+          className="p-3 border rounded m-0.5"
           placeholder="Descripción"
         />
 
-        <DatePickerInput 
+        <DatePickerInput
+          className="m-0.5"
           locale="es"
           label={"Fecha"}
           value={date}
@@ -49,12 +50,12 @@ export default function CreateEvent() {
           />
 
         <View className="flex flex-row">
-          <Text className="p-2 text-center grow">{}</Text>
-          <Text className="p-2 text-center grow">{}</Text>
+          <Text className="p-2 border rounded text-center grow m-0.5">{}</Text>
+          <Text className="p-2 border rounded text-center grow m-0.5">{}</Text>
         </View>
 
-        <View className="flex flex-row">
-          <TimePickerModal 
+        <View className="flex flex-row m-0.5">
+          <TimePickerModal
             visible={enableStartTime}
             onConfirm={({hours, minutes}) => {setEnableStartTime(false); console.log(hours, minutes)}}
             onDismiss={() => setEnableStartTime(false)}
@@ -77,7 +78,7 @@ export default function CreateEvent() {
 
         </View>
 
-        <View className="p-3 border rounded grow">
+        <View className="p-3 border rounded grow m-0.5">
           <Picker
             selectedValue={selectedLanguage}
             onValueChange={(itemValue, itemIndex) => {
