@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { saveToken } from "../../storage/token";
+import { saveToken, readToken } from "../../storage/token";
 
 type ButtonProps = {
   title: string;
@@ -32,6 +32,10 @@ export default function Login({ navigation }) {
   const [onLogin, { data, loading, error }] = useMutation(LOGIN_GQL);
 
   if (data) {
+    (async () => {
+      await saveToken(data?.readLearner?.token);
+    })();
+
     navigation.navigate("Home");
   }
 
