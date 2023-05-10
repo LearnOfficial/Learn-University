@@ -20,7 +20,7 @@ export default function App() {
             headerShown: true
           }}
         >
-          <Stack.Screen name="de" component={ALL.DeleteEvent} />
+          <Stack.Screen name="verifying..." component={ALL.DeleteEvent} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
