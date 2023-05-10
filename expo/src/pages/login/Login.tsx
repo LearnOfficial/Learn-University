@@ -45,19 +45,28 @@ export default function Login({ navigation }) {
           onChangeText={setPassword}
         />
 
-        <Button
-          title="Login"
-          onPress={() => {
-            onLogin({
-              variables: {
-                loginInput: {
-                  username: username,
-                  password: password
+        <View className="flex flex-row">
+          <Button
+            title="Login"
+            onPress={() => {
+              onLogin({
+                variables: {
+                  loginInput: {
+                    username: username,
+                    password: password
+                  }
                 }
-              }
-            });
-          }}
-        />
+              });
+            }}
+          />
+
+          <Button
+            title="Register"
+            onPress={() => {
+              navigation.navigate("Register")
+            }}
+          />
+        </View>
       </View>
     </View>
   );
