@@ -1,4 +1,3 @@
-import CreateLearner from "./Learner/CreateLearner";
 import InactivateLearner from "./Learner/InactivateLearner";
 import SearchLearner from "./Learner/SearchLearner";
 import UpdateLearner from "./Learner/UpdateLearner";
@@ -21,7 +20,6 @@ export {
   Home,
   Login,
   Register,
-  CreateLearner,
   InactivateLearner,
   SearchLearner,
   UpdateLearner,
