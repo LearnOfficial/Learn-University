@@ -18,7 +18,7 @@ export class ActivityResolver {
 
     // Given Activity data, CREATES and returns Activity object
     @Mutation(() => Activity, { nullable: true })
-    async createActivity(@Arg("createInput") createInput: ActivityInput) {
+    async createActivity(@Arg("createActivity") createInput: ActivityInput) {
         let activity: Activity | null = new Activity(createInput);
         await activity.createActivity();
         return await activity.readActivity();
@@ -26,7 +26,7 @@ export class ActivityResolver {
 
     // Given Activity data and ID, UPDATES and returns Activity object
     @Mutation(() => Activity || null)
-    async updateActivity(@Arg("updateInput") updateInput: ActivityUpdateInput) {
+    async updateActivity(@Arg("updateActivity") updateInput: ActivityUpdateInput) {
         const ACTUAL = new Activity(updateInput)
         const OLD = new Activity();
         OLD.id = updateInput.id;

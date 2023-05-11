@@ -95,7 +95,7 @@ export default function UpdateEvent() {
           </Picker>
         </View>
         <Button
-          title="Crear Evento"
+          title="Actualizar Evento"
           onPress={() => console.log()}
         />
       </View>

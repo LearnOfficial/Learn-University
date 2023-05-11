@@ -12,6 +12,11 @@ import DeleteActivity from "./Activity/DeleteActivity";
 import SearchActivity from "./Activity/SearchActivity";
 import UpdateActivity from "./Activity/UpdateActivity";
 
+import CreateTechnique from "./Technique/CreateTechnique";
+import DeleteTechnique from "./Technique/DeleteTechnique";
+import SearchTechnique from "./Technique/SearchTechnique";
+import UpdateTechnique from "./Technique/UpdateTechnique";
+
 import CreateLearningFile from "./LearningFile/CreateLearningFile";
 import DeleteLearningFile from "./LearningFile/DeleteLearningFile";
 import SearchLearningFile from "./LearningFile/SearchLearningFile";
@@ -37,5 +42,9 @@ export {
   UpdateActivity,
   CreateLearningFile,
   DeleteLearningFile,
-  SearchLearningFile
+  SearchLearningFile,
+  CreateTechnique,
+  DeleteTechnique,
+  SearchTechnique,
+  UpdateTechnique
 };

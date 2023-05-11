@@ -19,7 +19,7 @@ export class TechniqueResolver {
   // Create technique by current learner
   @Mutation(() => Technique, { nullable: true })
   async createTechnique(
-    @Arg("createInput") createInput: TechniqueInput,
+    @Arg("createTechnique") createInput: TechniqueInput,
     @CurrentUser() currentUser: number
   ) {
 
@@ -35,7 +35,7 @@ export class TechniqueResolver {
 
   // Updates a technique by id
   @Mutation(() => Technique || null)
-  async updateTechnique(@Arg("updateInput") updateInput: TechniqueUpdateInput) {
+  async updateTechnique(@Arg("updateTechnique") updateInput: TechniqueUpdateInput) {
     const current = new Technique(updateInput);
     let technique = await current.readTechnique();
 

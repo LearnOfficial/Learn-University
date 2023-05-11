@@ -67,7 +67,7 @@ export default function UpdateActivity(){
           />
         </View>
 
-        <Button title="Crear Actividad" onPress={()=>console.log()}/>
+        <Button title="Actualizar Actividad" onPress={()=>console.log()}/>
       </View>
 
     </View>
