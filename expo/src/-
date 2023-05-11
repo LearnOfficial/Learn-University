@@ -39,9 +39,7 @@ export default function App() {
             tabBarIcon: ({focused}) => {
               let Icon;
               if(route.name === "Home"){
-                Icon = focused ? 
-                  <Feather name="home" size={24} color={"blue"}/> :
-                  <Feather name="home" size={24}/>
+                Icon = <Feather name="home" size={24}/>
               }
               return Icon
             }

@@ -24,7 +24,6 @@ export default function CreateLearner({ navigation }) {
       await saveToken(newToken);
     })();
     setTokenContext!(newToken);
-    navigation.navigate("Home");
   }
 
   const [fullname, setFullname] = useState<String>("");
