@@ -7,10 +7,10 @@ import DeleteEvent from "./Event/DeleteEvent";
 import SearchEvent from "./Event/SearchEvent";
 import UpdateEvent from "./Event/UpdateEvent";
 
-import CreateActivity from "./Activities/CreateActivity";
-import DeleteActivity from "./Activities/DeleteActivity";
-import SearchActivity from "./Activities/SearchActivity";
-import UpdateActivity from "./Activities/UpdateActivity";
+import CreateActivity from "./Activity/CreateActivity";
+import DeleteActivity from "./Activity/DeleteActivity";
+import SearchActivity from "./Activity/SearchActivity";
+import UpdateActivity from "./Activity/UpdateActivity";
 
 import Home from "./home/Home";
 import Login from "./login/Login";
