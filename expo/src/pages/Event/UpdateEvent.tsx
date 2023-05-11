@@ -10,7 +10,7 @@ import {
 
 
 
-export default function CreateEvent() {
+export default function UpdateEvent() {
   const [title, setTitle] = useState<String>("");
   const [description, setDescription] = useState<String>("");
 

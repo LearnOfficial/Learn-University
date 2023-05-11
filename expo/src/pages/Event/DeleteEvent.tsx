@@ -7,31 +7,32 @@ export default function DeleteEvent(){
 
   return(  
     <View className='flex flex-col p-3 w-screen h-screen justify-center items-center bg-white'>
-      <Text className="font-bold">ELIMINAR EVENTO</Text>
-      <View className='flex flex-row w-3/6'>
+      <Text className="font-bold m-0.5">ELIMINAR EVENTO</Text>
+      
+      <View className='flex border rounded flex-row w-3/6'>
         <TextInput 
-          className='p-3 border rounded m-2 grow'
+          className='p-3 m-2 grow'
           onChangeText={setTitle}
           placeholder="Titulo Evento"
         />
 
-        <TouchableOpacity className='p-3' onPress={()=>console.log(title)}>
+        <TouchableOpacity className='p-3 justify-center items-center' onPress={()=>console.log(title)}>
           <FontAwesome name="search" size={26} color="black"/>
         </TouchableOpacity>
       </View>
     
       <View className='flex flex-col border rounded w-3/6 h-3/6'>
-        <View className="flex flex-row">
-          <Text className="flex grow">Evento 1</Text>
+        <View className="flex border rounded flex-row p-2 m-0.5">
+          <Text className="grow">Evento 1</Text>
           <TouchableOpacity onPress={()=>console.log(title)}>
-            <AntDesign className="flex grow-0" name="delete" size={26} color="red"/>
+            <AntDesign className="grow-0" name="delete" size={26} color="red"/>
           </TouchableOpacity>
         </View>
 
-        <View className="flex flex-row">
-          <Text className="flex grow">Evento 2</Text>
+        <View className="flex border rounded flex-row p-2 m-0.5">
+          <Text className="grow">Evento 2</Text>
           <TouchableOpacity onPress={()=>console.log(title)}>
-            <AntDesign className="flex grow-0" name="delete" size={26} color="red"/>
+            <AntDesign className="grow-0" name="delete" size={26} color="red"/>
           </TouchableOpacity>
         </View>
         
