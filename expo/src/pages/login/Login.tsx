@@ -26,7 +26,6 @@ export default function Login({ navigation }) {
       await saveToken(newToken);
     })();
     setTokenContext!(newToken);
-    navigation.navigate("Home");
   }
 
   return (
