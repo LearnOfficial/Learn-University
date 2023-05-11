@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
@@ -46,7 +47,7 @@ export default function App() {
               return Icon
             }
           })}>
-            <Tab.Screen name="Home" component={Home}/>
+            <Tab.Screen options={{headerShown:false}} name="Home" component={Home}/>
           </Tab.Navigator>
       </NavigationContainer>
       );
@@ -57,7 +58,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              headerShown: true
+              headerShown: false
             }}
           >
             <Stack.Screen name="Login" component={Login} />

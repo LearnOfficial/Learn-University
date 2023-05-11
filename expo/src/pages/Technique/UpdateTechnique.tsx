@@ -21,7 +21,7 @@ export default function UpdateTechnique(){
 
   return(
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <Text className="font-bold m-0.5">ACTUALIZAR ACTIVIDAD</Text>
+      <Text className="font-bold m-0.5">ACTUALIZAR TÉCNICA</Text>
       <View className="flex flex-col">
         <TextInput className="p-3 border rounded m-0.5" placeholder="Titulo de la Técnica" onChangeText={setTitle}/>
 

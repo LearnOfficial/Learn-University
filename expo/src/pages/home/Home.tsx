@@ -1,8 +1,13 @@
-import { gql, useQuery } from "@apollo/client";
+import { empty, gql, useQuery } from "@apollo/client";
 import { useContext } from "react";
-import { Button, View, Text } from "react-native";
+import { Button, View, Text, TouchableOpacity } from "react-native";
 import { saveToken } from "../../storage/token";
 import { SetTokenContext, TokenContext } from "../../storage/TokenContext";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import * as ALL from '../index';
+import { ScrollView } from "react-native-gesture-handler";
+import { Ionicons, Feather, MaterialIcons, AntDesign, FontAwesome5 } from '@expo/vector-icons'; 
+
 
 const HOME_GQL = gql`
   query {
@@ -16,7 +21,8 @@ const HOME_GQL = gql`
 `;
 
 // TODO: add type to navigation
-export default function Home({ navigation }: any) {
+
+function Content({ navigation }: any){
   const token = useContext(TokenContext);
 
   const {data, loading, error} = useQuery(HOME_GQL, {
@@ -47,4 +53,91 @@ export default function Home({ navigation }: any) {
       />
     </View>
   )
+}
+
+
+
+export default function Home() {
+  function CustomDrawerContent({ navigation }:any) {
+    return (
+      <ScrollView>
+        <TouchableOpacity className="p-3 justify-center items-center border-b-2" onPress={()=>{navigation.navigate('Inicio')}}>
+          <FontAwesome5 name="home" size={24} color="blue" />
+        </TouchableOpacity>
+        <View className="flex flex-row items-center justify-center">
+          <Ionicons name="ios-add-circle-outline" size={24} color="blue" />
+          <Text className="p-3 font-bold grow text-center border-b">CREAR</Text>
+        </View>
+
+        <Text onPress={()=>{navigation.navigate('Técnica')}} className="p-2 font-medium grow text-left indent-5">Técnica</Text>
+        <Text onPress={()=>{navigation.navigate('Evento')}} className="p-2 font-medium grow text-left indent-5">Evento</Text>
+        <Text onPress={()=>{navigation.navigate('Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
+        <Text onPress={()=>{navigation.navigate('Archivo de Aprendizaje')}} className="p-2 font-medium grow text-left indent-5">Archivos de Aprendizaje</Text>
+
+        <View className="flex flex-row items-center justify-center">
+          <MaterialIcons name="update" size={24} color="blue" />
+          <Text className="p-3 font-bold grow text-center border-b">ACTUALIZAR</Text>
+        </View>
+
+        <Text onPress={()=>{navigation.navigate('Actualizar Aprendiz')}} className="p-2 font-medium grow text-left indent-5">Aprendiz</Text>
+        <Text onPress={()=>{navigation.navigate('Actualizar Técnica')}} className="p-2 font-medium grow text-left indent-5">Técnica</Text>
+        <Text onPress={()=>{navigation.navigate('Actualizar Evento')}} className="p-2 font-medium grow text-left indent-5">Evento</Text>
+        <Text onPress={()=>{navigation.navigate('Actualizar Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
+
+        <View className="flex flex-row items-center justify-center">
+          <Feather name="search" size={24} color="blue" />
+          <Text className="p-3 font-bold grow text-center border-b">BUSCAR</Text>
+        </View>
+
+        <Text onPress={()=>{navigation.navigate('Buscar Aprendiz')}} className="p-2 font-medium grow text-left indent-5">Aprendiz</Text>
+        <Text onPress={()=>{navigation.navigate('Buscar Técnica')}} className="p-2 font-medium grow text-left indent-5">Técnica</Text>
+        <Text onPress={()=>{navigation.navigate('Buscar Evento')}} className="p-2 font-medium grow text-left indent-5">Evento</Text>
+        <Text onPress={()=>{navigation.navigate('Buscar Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
+        <Text onPress={()=>{navigation.navigate('Buscar Archivo de Aprendizaje')}}className="p-2 font-medium grow text-left indent-5">Archivos de Aprendizaje</Text>
+
+        <View className="flex flex-row items-center justify-center">
+          <AntDesign name="delete" size={24} color="blue" />
+          <Text className="p-3 font-bold grow text-center border-b">ELIMINAR</Text>
+        </View>
+
+        <Text onPress={()=>{navigation.navigate('Inactivar Aprendiz')}} className="p-2 font-medium grow text-left indent-5">Aprendiz</Text>
+        <Text onPress={()=>{navigation.navigate('Eliminar Técnica')}} className="p-2 font-medium grow text-left indent-5">Técnica</Text>
+        <Text onPress={()=>{navigation.navigate('Eliminar Evento')}}className="p-2 font-medium grow text-left indent-5">Evento</Text>
+        <Text onPress={()=>{navigation.navigate('Eliminar Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
+        <Text onPress={()=>{navigation.navigate('Eliminar Archivo de Aprendizaje')}} className="p-2 font-medium grow text-left indent-5">Archivos de Aprendizaje</Text>
+
+      </ScrollView>
+    );
+  }
+  const Drawer = createDrawerNavigator();
+  return(
+    <Drawer.Navigator  drawerContent={(props) => <CustomDrawerContent {...props} />}
+     screenOptions={{headerTransparent:true}} useLegacyImplementation initialRouteName="Inicio">
+
+      <Drawer.Screen name="Inicio" component={Content} />
+      <Drawer.Screen name="Actualizar Aprendiz" component={ALL.UpdateLearner} />
+      <Drawer.Screen name="Buscar Aprendiz" component={ALL.SearchLearner} />
+      <Drawer.Screen name="Inactivar Aprendiz" component={ALL.InactivateLearner} />
+
+      <Drawer.Screen name="Técnica" component={ALL.CreateTechnique} />
+      <Drawer.Screen name="Actualizar Técnica" component={ALL.UpdateTechnique} />
+      <Drawer.Screen name="Buscar Técnica" component={ALL.SearchTechnique} />
+      <Drawer.Screen name="Eliminar Técnica" component={ALL.DeleteTechnique} />
+      
+      <Drawer.Screen name="Evento" component={ALL.CreateEvent} />
+      <Drawer.Screen name="Actualizar Evento" component={ALL.UpdateEvent} />
+      <Drawer.Screen name="Buscar Evento" component={ALL.SearchEvent} />
+      <Drawer.Screen name="Eliminar Evento" component={ALL.DeleteEvent} />
+
+      <Drawer.Screen name="Actividad" component={ALL.CreateActivity} />
+      <Drawer.Screen name="Actualizar Actividad" component={ALL.UpdateActivity} />
+      <Drawer.Screen name="Buscar Actividad" component={ALL.SearchActivity} />
+      <Drawer.Screen name="Eliminar Actividad" component={ALL.DeleteActivity} />
+      
+      <Drawer.Screen name="Archivo de Aprendizaje" component={ALL.CreateLearningFile} />
+      <Drawer.Screen name="Buscar Archivo de Aprendizaje" component={ALL.SearchLearningFile} />
+      <Drawer.Screen name="Eliminar Archivo de Aprendizaje" component={ALL.DeleteLearningFile} />
+
+    </Drawer.Navigator>
+  );
 }
