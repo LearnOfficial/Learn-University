@@ -13,6 +13,7 @@ import {
 export default function UpdateEvent() {
   const [title, setTitle] = useState<String>("");
   const [description, setDescription] = useState<String>("");
+  const [technique, setTechnique] = useState<String>("");
 
   const[date, setDate] = useState<Date>();
 
@@ -77,6 +78,8 @@ export default function UpdateEvent() {
           />
 
         </View>
+
+        <TextInput className="p-3 border rounded" placeholder="Tecnica de Aprendizaje" onChangeText={setTechnique}/>
 
         <View className="p-3 border rounded grow">
           <Picker

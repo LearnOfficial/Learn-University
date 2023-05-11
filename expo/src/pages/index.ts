@@ -12,6 +12,10 @@ import DeleteActivity from "./Activity/DeleteActivity";
 import SearchActivity from "./Activity/SearchActivity";
 import UpdateActivity from "./Activity/UpdateActivity";
 
+import CreateLearningFile from "./LearningFile/CreateLearningFile";
+import DeleteLearningFile from "./LearningFile/DeleteLearningFile";
+import SearchLearningFile from "./LearningFile/SearchLearningFile";
+
 import Home from "./home/Home";
 import Login from "./login/Login";
 import Register from "./register/Register";
@@ -30,5 +34,8 @@ export {
   CreateActivity,
   DeleteActivity,
   SearchActivity,
-  UpdateActivity
+  UpdateActivity,
+  CreateLearningFile,
+  DeleteLearningFile,
+  SearchLearningFile
 };

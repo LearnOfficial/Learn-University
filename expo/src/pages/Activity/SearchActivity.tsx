@@ -22,11 +22,11 @@ export default function SearchActivity(){
       </View>
 
       <View className='flex flex-col m-0.5 w-1/2 border rounded items-stretch'>
-        <View className='flex border rounded flex-row p-2 m-0.5'>
+        <View className='border rounded p-2 m-0.5'>
           <Text className='grow'> Contenido 1 </Text>
         </View>
 
-        <View className='flex border rounded flex-row p-2 m-0.5'>
+        <View className='border rounded p-2 m-0.5'>
           <Text className='grow'> Contenido 2 </Text>
         </View>        
       </View>

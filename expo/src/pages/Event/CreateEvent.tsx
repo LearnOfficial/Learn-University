@@ -11,6 +11,7 @@ import {
 export default function CreateEvent() {
   const [title, setTitle] = useState<String>("");
   const [description, setDescription] = useState<String>("");
+  const [technique, setTechnique] = useState<String>("");
 
   const[date, setDate] = useState<Date>();
   const [time, setTime] = useState<String>("");
@@ -78,7 +79,9 @@ export default function CreateEvent() {
 
         </View>
 
-        <View className="p-3 border rounded grow m-0.5">
+        <TextInput className="p-3 border rounded" placeholder="Tecnica de Aprendizaje" onChangeText={setTechnique}/>
+
+        <View className="p-3 border rounded m-0.5">
           <Picker
             selectedValue={selectedLanguage}
             onValueChange={(itemValue, itemIndex) => {
