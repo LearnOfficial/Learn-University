@@ -38,19 +38,26 @@ function Content({ navigation }: any){
   return (
     <View className="flex w-screen h-screen gap-10 justify-center items-center">
       <View className="flex">
-        <Text>Welcome to Learn</Text>
+        <Text className="font-bold">Welcome to Learn!</Text>
         <Text>{data?.learner?.id}</Text>
         <Text>{data?.learner?.username}</Text>
         <Text>{data?.learner?.fullname}</Text>
         <Text>{data?.learner?.email}</Text>
       </View>
-      <Button
-        title="Logout"
-        onPress={async () => {
-          setTokenContext!("");
-          await saveToken("");
-        }}
-      />
+      <View className="flex flex-col gap-2">
+        <TouchableOpacity>
+          <Text className="p-2 rounded  font-bold text-white bg-red-600 ">
+            Eliminar Aprendiz
+          </Text>
+        </TouchableOpacity>
+        <Button
+          title="Logout"
+          onPress={async () => {
+            setTokenContext!("");
+            await saveToken("");
+          }}
+        />
+      </View>
     </View>
   )
 }

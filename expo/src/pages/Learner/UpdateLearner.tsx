@@ -33,7 +33,7 @@ export default function UpdateLearner(){
       className="p-3 border rounded"
       placeholder="Contraseña"/>
 
-      <Button title="Registrarse" onPress={()=>{console.log("hola")}}/>
+      <Button title="Actualizar Información" onPress={()=>{console.log("hola")}}/>
       </View>
     </View>
   );
