@@ -25,6 +25,10 @@ export default function CreateLearner({ navigation }) {
     })();
     setTokenContext!(newToken);
   }
+  
+  if(error){
+    alert("No se ha podido conectar a la Base de Datos.");
+  }
 
   const [fullname, setFullname] = useState<String>("");
   const [username, setUsername] = useState<String>("");
@@ -69,6 +73,8 @@ export default function CreateLearner({ navigation }) {
                   }
                 }
               });
+            }else{
+              alert("Todos los campos son obligatorios.")
             }
           }} />
         </View>

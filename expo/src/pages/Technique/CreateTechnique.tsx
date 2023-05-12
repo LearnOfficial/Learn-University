@@ -48,7 +48,14 @@ export default function CreateTechnique() {
           <TextInput
             value={`${focusTime}`}
             className="p-3 border rounded m-0.5"
-            onChangeText={(e) => setFocusTime(parseInt(e))}
+            onChangeText={(e) => {
+              const regex= /[a-zA-Z]/g;
+              if(regex.test(e) || /\s\t\n/g.test(e)){
+                setFocusTime(0);
+              }else{
+                setFocusTime(parseInt(e));
+              }
+            }}
           />
         </View>
 
@@ -57,7 +64,14 @@ export default function CreateTechnique() {
           <TextInput
             value={`${breakTime}`}
             className="p-3 border rounded m-0.5"
-            onChangeText={(e) => setBreakTime(parseInt(e))}
+            onChangeText={(e) => {
+              const regex= /[a-zA-Z]/g;
+              if(regex.test(e) || /\s\t\n/g.test(e)){
+                setBreakTime(0);
+              }else{
+                setBreakTime(parseInt(e));
+              }
+            }}
           />
         </View>
 
@@ -66,7 +80,14 @@ export default function CreateTechnique() {
           <TextInput
             value={`${interval}`}
             className="p-3 border rounded m-0.5"
-            onChangeText={(e) => setInterval(parseInt(e))}
+            onChangeText={(e) => {
+              const regex= /[a-zA-Z]/g;
+              if(regex.test(e) || /\s\t\n/g.test(e)){
+                setInterval(0);
+              }else{
+                setInterval(parseInt(e));
+              }
+            }}
           />
         </View>
       </View>
