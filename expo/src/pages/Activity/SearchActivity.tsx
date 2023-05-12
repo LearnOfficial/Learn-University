@@ -1,68 +1,86 @@
+import { gql, useQuery } from '@apollo/client';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import {useContext, useState} from 'react';
+import { Picker } from '@react-native-picker/picker';
+import { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { TokenContext } from '../../storage/TokenContext';
-import { gql, useQuery } from '@apollo/client';
 
-const USER_ACTIVITIES_GQL=gql`
-query{
-  learner {
-    events {
-      id, title
+const USER_EVENTS_GQL = gql`
+  query{
+    learner {
+      events {
+        id
+        title
+        activity{
+          id
+          title
+        }
+      }
     }
   }
-}
 `
 
-
-export default function SearchActivity(){
-
+export default function SearchActivity() {
   const token = useContext(TokenContext);
-  const {data, loading, error} = useQuery(USER_ACTIVITIES_GQL, {
-    context:{headers: { Authorization: token }}
+  const context = { context: { headers: { Authorization: token } } };
+  const eventQuery = useQuery(USER_EVENTS_GQL, {
+    ...context
   });
-  
-  const [event, setEvent] = useState<String>("");
+
+
+  const [eventId, setEventId] = useState<number>(1);
   const [title, setTitle] = useState<String>("");
 
+  if (eventQuery.data) {
+    const events = eventQuery.data?.learner?.events as [];
+    const activities = events[parseInt(eventId as any)-1]?.activity;
 
-  if(data){
-    const activities = data?.learner?.events?.activity as [];
-    return(
+    return (
       <View className='flex flex-col w-screen h-screen justify-center items-center bg-white'>
         <View className='flex flex-row border m-0.5'>
           <View className='flex flex-col'>
-            <TextInput className='p-3 border-b border-r ' onChangeText={setEvent} placeholder='Evento Padre'/>
-            <TextInput className='p-3  border-r ' onChangeText={setTitle} placeholder='Titulo de la Actividad'/>
+
+            <Picker
+              className="p-3"
+              selectedValue={eventId}
+              onValueChange={(value) => {
+                setEventId(value);
+              }}
+            >
+              {
+                eventQuery.data &&
+                events.map((event: any, index: number) => {
+                  return <Picker.Item key={index} label={event.title} value={event.id} />
+                })
+              }
+            </Picker>
+
+
+            <TextInput className='p-3 border-r' onChangeText={setTitle} placeholder='Titulo de la Actividad' />
           </View>
 
-          <TouchableOpacity className='flex p-3 justify-center items-center' onPress={()=>console.log(event)}>
-            <FontAwesome name="search" size={26} color="black"/>
+          <TouchableOpacity className='flex p-3 justify-center items-center' onPress={() => console.log(eventId)}>
+            <FontAwesome name="search" size={26} color="black" />
           </TouchableOpacity>
         </View>
 
-        <View className='flex flex-col m-0.5 w-1/2 border rounded items-stretch'>
-           {
-            activities?.map((activity: any, index) => {
+        <View className='flex flex-col border rounded items-stretch'>
+          {
+            activities &&
+            activities.map((activity: any, index: number) => {
               return (
-                <View className='flex flex-row border rounded p-2 m-0.5 items-center' key={index} >
-                  <Text className="grow">{activity.title}</Text>
-                  <TouchableOpacity onPress={()=>console.log(title)}>
+                <View key={index} className='flex flex-row border rounded p-2 m-0.5 items-center'>
+                  <Text className='grow'>{activity?.title}</Text>
+                  <TouchableOpacity onPress={() => console.log(title)}>
                     <AntDesign className="grow-0" name="delete" size={26} color="red"/>
                   </TouchableOpacity>
                 </View>
-              )
+              );
             })
           }
         </View>
+
       </View>
     );
   }
-  
-  return (
-    <View className='flex w-screen h-screen justify-center items-center'>
-      <Text>No existen Actividades</Text>
-    </View>
-  )
-  
 }
