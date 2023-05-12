@@ -86,7 +86,8 @@ export default function Home() {
 
         <View className="flex flex-row items-center justify-center">
           <Feather name="search" size={24} color="blue" />
-          <Text className="p-3 font-bold grow text-center border-b">BUSCAR</Text>
+          <AntDesign name="delete" size={24} color="blue" />
+          <Text className="p-3 font-bold grow text-center border-b">BUSCAR / ELIMINAR</Text>
         </View>
 
         <Text onPress={()=>{navigation.navigate('Buscar Aprendiz')}} className="p-2 font-medium grow text-left indent-5">Aprendiz</Text>
@@ -94,17 +95,6 @@ export default function Home() {
         <Text onPress={()=>{navigation.navigate('Buscar Evento')}} className="p-2 font-medium grow text-left indent-5">Evento</Text>
         <Text onPress={()=>{navigation.navigate('Buscar Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
         <Text onPress={()=>{navigation.navigate('Buscar Archivo de Aprendizaje')}}className="p-2 font-medium grow text-left indent-5">Archivos de Aprendizaje</Text>
-
-        <View className="flex flex-row items-center justify-center">
-          <AntDesign name="delete" size={24} color="blue" />
-          <Text className="p-3 font-bold grow text-center border-b">ELIMINAR</Text>
-        </View>
-
-        <Text onPress={()=>{navigation.navigate('Inactivar Aprendiz')}} className="p-2 font-medium grow text-left indent-5">Aprendiz</Text>
-        <Text onPress={()=>{navigation.navigate('Eliminar Técnica')}} className="p-2 font-medium grow text-left indent-5">Técnica</Text>
-        <Text onPress={()=>{navigation.navigate('Eliminar Evento')}}className="p-2 font-medium grow text-left indent-5">Evento</Text>
-        <Text onPress={()=>{navigation.navigate('Eliminar Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
-        <Text onPress={()=>{navigation.navigate('Eliminar Archivo de Aprendizaje')}} className="p-2 font-medium grow text-left indent-5">Archivos de Aprendizaje</Text>
 
       </ScrollView>
     );
@@ -116,27 +106,22 @@ export default function Home() {
 
       <Drawer.Screen name="Inicio" component={Content} />
       <Drawer.Screen name="Actualizar Aprendiz" component={ALL.UpdateLearner} />
-      <Drawer.Screen name="Buscar Aprendiz" component={ALL.SearchLearner} />
       <Drawer.Screen name="Inactivar Aprendiz" component={ALL.InactivateLearner} />
 
       <Drawer.Screen name="Técnica" component={ALL.CreateTechnique} />
       <Drawer.Screen name="Actualizar Técnica" component={ALL.UpdateTechnique} />
       <Drawer.Screen name="Buscar Técnica" component={ALL.SearchTechnique} />
-      <Drawer.Screen name="Eliminar Técnica" component={ALL.DeleteTechnique} />
       
       <Drawer.Screen name="Evento" component={ALL.CreateEvent} />
       <Drawer.Screen name="Actualizar Evento" component={ALL.UpdateEvent} />
       <Drawer.Screen name="Buscar Evento" component={ALL.SearchEvent} />
-      <Drawer.Screen name="Eliminar Evento" component={ALL.DeleteEvent} />
 
       <Drawer.Screen name="Actividad" component={ALL.CreateActivity} />
       <Drawer.Screen name="Actualizar Actividad" component={ALL.UpdateActivity} />
       <Drawer.Screen name="Buscar Actividad" component={ALL.SearchActivity} />
-      <Drawer.Screen name="Eliminar Actividad" component={ALL.DeleteActivity} />
       
       <Drawer.Screen name="Archivo de Aprendizaje" component={ALL.CreateLearningFile} />
       <Drawer.Screen name="Buscar Archivo de Aprendizaje" component={ALL.SearchLearningFile} />
-      <Drawer.Screen name="Eliminar Archivo de Aprendizaje" component={ALL.DeleteLearningFile} />
 
     </Drawer.Navigator>
   );
