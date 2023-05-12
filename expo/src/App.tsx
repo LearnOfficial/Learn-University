@@ -12,7 +12,7 @@ import { Feather } from "@expo/vector-icons";
 export default function App() {
 
   const client = new ApolloClient({
-    uri: 'http://localhost:4000',
+    uri: 'http://localhost:8080',
     cache: new InMemoryCache()
   });
 
