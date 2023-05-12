@@ -38,15 +38,13 @@ export default function CreateTechnique() {
     )
   }
 
-
   return (
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white gap-6">
-      <Text className="font-bold m-0.5">CREAR TÉCNICA</Text>
       <View className="flex flex-col">
         <TextInput className="p-3 border rounded m-0.5" placeholder="Titulo de la Técnica" onChangeText={setTitle} />
 
         <View className="flex flex-row justify-between items-center gap-6">
-          <Text>Tiempo de concentracion (min)</Text>
+          <Text>Tiempo de concentración (min)</Text>
           <TextInput
             value={`${focusTime}`}
             className="p-3 border rounded m-0.5"
@@ -64,7 +62,7 @@ export default function CreateTechnique() {
         </View>
 
         <View className="flex flex-row justify-between items-center gap-6">
-          <Text>Intervalo de repeticion</Text>
+          <Text>Intervalo de repetición</Text>
           <TextInput
             value={`${interval}`}
             className="p-3 border rounded m-0.5"

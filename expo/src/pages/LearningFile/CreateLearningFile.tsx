@@ -16,7 +16,6 @@ TODO: add document picker
 
   return(
     <View className='flex flex-col w-screen h-screen justify-center items-center bg-white'>
-      <Text className="font-bold m-0.5">CREAR ARCHIVO DE APRENDIZAJE</Text>
       <View className='flex flex-col'>
       <Text className='font-bold m-0.5 text-center'>Archivo Local</Text>
 

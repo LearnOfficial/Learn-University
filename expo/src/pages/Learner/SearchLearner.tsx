@@ -16,7 +16,6 @@ export default function SearchLearner(){
 
   return(
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <h1 className="p-5">Buscar Estudiante</h1>
       <TextInput
         onChangeText={setUsername}
         className="p-3 border rounded"

@@ -11,7 +11,7 @@ export default function UpdateLearner(){
 
   return(
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <h1 className="p-5">Actualizar Estudiante</h1>
+      <View className="flex flex-col">
       <TextInput 
       onChangeText={setFullname}
       className="p-3 border rounded"
@@ -34,6 +34,7 @@ export default function UpdateLearner(){
       placeholder="Contraseña"/>
 
       <Button title="Registrarse" onPress={()=>{console.log("hola")}}/>
+      </View>
     </View>
   );
 }

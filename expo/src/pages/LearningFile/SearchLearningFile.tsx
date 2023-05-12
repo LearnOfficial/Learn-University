@@ -13,7 +13,6 @@ const [fileExtension, setFileExtension]= useState<String>('');
 
   return(
     <View className='flex flex-col w-screen h-screen justify-center items-center bg-white'>
-      <Text className="font-bold m-0.5">BUSCAR ARCHIVO DE APRENDIZAJE</Text>
       <View className='flex flex-col'>
 
         <View className='flex flex-row border rounded'>
