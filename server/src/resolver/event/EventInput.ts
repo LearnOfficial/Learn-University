@@ -17,24 +17,6 @@ class EventInput implements IEvent {
     techniqueId: number;
 }
 
-@InputType()
-class EventUpdateInput implements IEvent {
-    @Field()
-    id: number;
-    @Field()
-    title: string;
-    @Field({nullable: true})
-    description: string;
-    @Field()
-    startDate: Date;
-    @Field()
-    endDate: Date;
-    @Field()
-    type: EventTypeEnum;
-}
-
-
 export {
     EventInput,
-    EventUpdateInput
 }

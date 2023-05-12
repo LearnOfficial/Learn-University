@@ -1,7 +1,7 @@
 import { GraphQLError } from "graphql";
 import { Arg, Mutation, Resolver } from "type-graphql";
 import Event from "../../entity/Event.js"
-import { EventInput, EventUpdateInput } from "./EventInput.js";
+import { EventInput } from "./EventInput.js";
 import { CurrentUser } from "../../context.js";
 import Learner from "../../entity/Learner.js";
 import Technique from "../../entity/Technique.js";
@@ -31,7 +31,7 @@ export class EventResolver {
   // Updates an Event by id
   @Mutation(() => Event || null)
   async updateEvent(
-    @Arg("updateEvent") updateInput: EventUpdateInput
+    @Arg("updateEvent") updateInput: EventInput
   ) {
     const current = new Event(updateInput)
     let event = await current.readEvent();
