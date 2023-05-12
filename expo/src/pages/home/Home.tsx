@@ -69,10 +69,10 @@ export default function Home() {
           <Text className="p-3 font-bold grow text-center border-b">CREAR</Text>
         </View>
 
-        <Text onPress={()=>{navigation.navigate('Técnica')}} className="p-2 font-medium grow text-left indent-5">Técnica</Text>
-        <Text onPress={()=>{navigation.navigate('Evento')}} className="p-2 font-medium grow text-left indent-5">Evento</Text>
-        <Text onPress={()=>{navigation.navigate('Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
-        <Text onPress={()=>{navigation.navigate('Archivo de Aprendizaje')}} className="p-2 font-medium grow text-left indent-5">Archivos de Aprendizaje</Text>
+        <Text onPress={()=>{navigation.navigate('Crear Técnica')}} className="p-2 font-medium grow text-left indent-5">Técnica</Text>
+        <Text onPress={()=>{navigation.navigate('Crear Evento')}} className="p-2 font-medium grow text-left indent-5">Evento</Text>
+        <Text onPress={()=>{navigation.navigate('Crear Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
+        <Text onPress={()=>{navigation.navigate('Crear Archivo de Aprendizaje')}} className="p-2 font-medium grow text-left indent-5">Archivos de Aprendizaje</Text>
 
         <View className="flex flex-row items-center justify-center">
           <MaterialIcons name="update" size={24} color="blue" />
@@ -107,19 +107,19 @@ export default function Home() {
       <Drawer.Screen name="Actualizar Aprendiz" component={ALL.UpdateLearner} />
       <Drawer.Screen name="Inactivar Aprendiz" component={ALL.InactivateLearner} />
 
-      <Drawer.Screen name="Técnica" component={ALL.CreateTechnique} />
+      <Drawer.Screen name="Crear Técnica" component={ALL.CreateTechnique} />
       <Drawer.Screen name="Actualizar Técnica" component={ALL.UpdateTechnique} />
       <Drawer.Screen name="Buscar Técnica" component={ALL.SearchTechnique} />
       
-      <Drawer.Screen name="Evento" component={ALL.CreateEvent} />
+      <Drawer.Screen name="Crear Evento" component={ALL.CreateEvent} />
       <Drawer.Screen name="Actualizar Evento" component={ALL.UpdateEvent} />
       <Drawer.Screen name="Buscar Evento" component={ALL.SearchEvent} />
 
-      <Drawer.Screen name="Actividad" component={ALL.CreateActivity} />
+      <Drawer.Screen name="Crear Actividad" component={ALL.CreateActivity} />
       <Drawer.Screen name="Actualizar Actividad" component={ALL.UpdateActivity} />
       <Drawer.Screen name="Buscar Actividad" component={ALL.SearchActivity} />
       
-      <Drawer.Screen name="Archivo de Aprendizaje" component={ALL.CreateLearningFile} />
+      <Drawer.Screen name="Crear Archivo de Aprendizaje" component={ALL.CreateLearningFile} />
       <Drawer.Screen name="Buscar Archivo de Aprendizaje" component={ALL.SearchLearningFile} />
 
     </Drawer.Navigator>

@@ -43,9 +43,6 @@ export default function CreateActivity() {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
 
-
-
-
   const [enableStartTime, setEnableStartTime] = useState<boolean>(false);
   const [enableEndTime, setEnableEndTime] = useState<boolean>(false);
 
