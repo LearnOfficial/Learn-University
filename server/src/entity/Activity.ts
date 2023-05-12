@@ -21,11 +21,11 @@ export default class Activity implements IActivity {
 
   @Field()
   @Column()
-  startTime: Date;
+  startDate: Date;
 
   @Field()
   @Column()
-  endTime: Date;
+  endDate: Date;
 
   @ManyToOne(() => Event, (event) => event.id)
   event: Relation<Event>

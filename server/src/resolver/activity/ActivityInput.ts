@@ -6,26 +6,13 @@ class ActivityInput implements IActivity{
     @Field()
     title: string;
     @Field()
-    startTime: Date;
+    startDate: Date;
     @Field()
-    endTime: Date;
+    endDate: Date;
     @Field()
     eventId: number
 }
 
-@InputType()
-class ActivityUpdateInput implements IActivity{
-    @Field()
-    id: number;
-    @Field()
-    title: string;
-    @Field()
-    startTime: Date;
-    @Field()
-    endTime: Date;
-}
-
 export{
-    ActivityInput,
-    ActivityUpdateInput
+    ActivityInput
 }

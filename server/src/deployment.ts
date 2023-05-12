@@ -6,7 +6,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 await new Promise((resolve, reject) => {
   const env = dotenv.config({
-    path: path.resolve(".env-dev"),
+    path: path.resolve(".env-dev")
   });
 
   const error = env.error;
