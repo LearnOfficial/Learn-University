@@ -8,11 +8,11 @@ class LearningFileInput implements ILearningFile{
     @Field()
     fileName: string;
     @Field({nullable: true})
-    externalLink: string;
-    @Field()
-    eventId: number;
-    @Field()
-    activityId: number;
+    externalLink?: string;
+    @Field({nullable: true})
+    eventId?: number;
+    @Field({nullable: true})
+    activityId?: number;
 }
 
 @InputType()
