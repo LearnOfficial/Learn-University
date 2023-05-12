@@ -30,23 +30,22 @@ export default function Login({ navigation }) {
 
   return (
     <View className="flex w-screen h-screen justify-center items-center bg-white">
-      <View className="flex w-64 h-64 gap-3">
-        <View className="flex" />
+      <View className="flex flex-col gap-3">
         <TextInput
           className="block p-3 border rounded"
-          placeholder="username"
+          placeholder="Nombre Usuario"
           onChangeText={setUsername}
         />
         <TextInput
           className="p-3 border rounded"
-          placeholder="password"
+          placeholder="Contraseña"
           secureTextEntry
           onChangeText={setPassword}
         />
 
         <View className="flex flex-row">
           <Button
-            title="Login"
+            title="Iniciar Sesión"
             onPress={() => {
               if(username.length!=0 && password.length != 0){
                 onLogin({
@@ -62,7 +61,7 @@ export default function Login({ navigation }) {
           />
 
           <Button
-            title="Register"
+            title="Registrar"
             onPress={() => {
               navigation.navigate("Register")
             }}

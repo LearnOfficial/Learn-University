@@ -33,46 +33,46 @@ export default function CreateLearner({ navigation }) {
 
   return (
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <h1 className="p-5">Crear Estudiante</h1>
-      <TextInput
-        onChangeText={setFullname}
-        className="p-3 border rounded"
-        placeholder="Nombre Completo" />
+      <View className="flex flex-col">
+        <TextInput
+          onChangeText={setFullname}
+          className="p-3 border rounded"
+          placeholder="Nombre Completo" />
 
-      <TextInput
-        onChangeText={setUsername}
-        className="p-3 border rounded"
-        placeholder="Nombre de Usuario" />
+        <TextInput
+          onChangeText={setUsername}
+          className="p-3 border rounded"
+          placeholder="Nombre de Usuario" />
 
-      <TextInput
-        onChangeText={setEmail}
-        className="p-3 border rounded"
-        placeholder="Correo Electronico" />
+        <TextInput
+          onChangeText={setEmail}
+          className="p-3 border rounded"
+          placeholder="Correo Electronico" />
 
-      <TextInput
-        secureTextEntry
-        onChangeText={setPassword}
-        className="p-3 border rounded"
-        placeholder="Contraseña" />
+        <TextInput
+          secureTextEntry
+          onChangeText={setPassword}
+          className="p-3 border rounded"
+          placeholder="Contraseña" />
 
-      <View className="flex flex-row">
-        <Button title="Login" onPress={() => { navigation.navigate("Login") }} />
-        <Button title="Registrarse" onPress={()=>{
-          if(fullname.length != 0 && username.length != 0 && email.length != 0 && password.length!=0){
-            onRegister({
-              variables: {
-                signupInput: {
-                  username: username,
-                  email: email,
-                  fullname: fullname,
-                  password: password
+        <View className="flex flex-row">
+          <Button title="Iniciar Sesión" onPress={() => { navigation.navigate("Login") }} />
+          <Button title="Registrarme" onPress={()=>{
+            if(fullname.length != 0 && username.length != 0 && email.length != 0 && password.length!=0){
+              onRegister({
+                variables: {
+                  signupInput: {
+                    username: username,
+                    email: email,
+                    fullname: fullname,
+                    password: password
+                  }
                 }
-              }
-            });
-          }
-        }} />
+              });
+            }
+          }} />
+        </View>
       </View>
-
     </View>
   );
 }
