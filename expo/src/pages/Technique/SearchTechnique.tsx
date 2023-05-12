@@ -40,28 +40,12 @@ export default function SearchTechnique() {
               <FontAwesome name="search" size={26} color="black" />
             </TouchableOpacity>
           </View>
-
-          <View className='flex flex-col m-0.5 border rounded items-stretch'>
-            {
-              tecniques
-              .filter((technique: any) =>  {
-                if(technique?.title === "Pomodoro"){ 
-                  return true;
-                }
-                return false;
-
-              })
-              .map((technique: any) => {
-                return (
-                  <View className='border rounded p-2 m-0.5'>
-                    <Text className='grow'>{technique?.title}</Text>
-                  </View>
-                );
-              })
-            }
-          </View>
-
         </View>
+        <View className='flex flex-col m-0.5 w-1/2 border rounded items-stretch'>
+            <View className='border rounded p-2 m-0.5'>
+              <Text className='grow'> Contenido 1 </Text>
+            </View>
+          </View>
       </View>
     );
   }
