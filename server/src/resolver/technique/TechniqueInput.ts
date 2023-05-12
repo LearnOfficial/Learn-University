@@ -6,7 +6,9 @@ class TechniqueInput implements ITechnique {
   @Field()
   title: string;
   @Field()
-  breakTime: Date;
+  focusTime: number;
+  @Field()
+  breakTime: number;
   @Field()
   interval: number;
 }
@@ -18,7 +20,9 @@ class TechniqueUpdateInput implements ITechnique {
   @Field()
   title: string;
   @Field()
-  breakTime: Date;
+  focusTime: number;
+  @Field()
+  breakTime: number;
   @Field()
   interval: number;
 }
