@@ -1,29 +1,75 @@
+import { gql, useQuery } from "@apollo/client";
 import { FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { TokenContext } from "../../storage/TokenContext";
 
-export default function SearchTechnique(){
+const USER_TECHNIQUES_GQL = gql`
+query {
+  learner {
+    technique {
+      id
+      title
+      breakTime
+      focusTime
+      interval
+    }
+  }
+}
+`
 
-  const [title, setTitle] = useState<String>("")
+export default function SearchTechnique() {
+  const token = useContext(TokenContext);
+  console.log(token);
+  const { data, loading, error } = useQuery(USER_TECHNIQUES_GQL, {
+    context: { headers: { Authorization: token } }
+  });
 
-  return(
-    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <View className="flex flex-col">
+  const [title, setTitle] = useState<String>("");
 
-        <View className="flex flex-row border rounded m-0.5">
-          <TextInput className="p-3 border-r-2" placeholder="Titulo de la Técnica" onChangeText={setTitle}/>
-          <TouchableOpacity className='flex p-3 justify-center items-center' onPress={()=>console.log()}>
-            <FontAwesome name="search" size={26} color="black"/>
-          </TouchableOpacity>
-        </View>
+  if (data) {
+    const tecniques = data?.learner?.technique as [];
 
-        <View className='flex flex-col m-0.5 border rounded items-stretch'>
-          <View className='border rounded p-2 m-0.5'>
-            <Text className='grow'> Contenido 1 </Text>
+    return (
+      <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
+        <View className="flex flex-col">
+
+          <View className="flex flex-row border rounded m-0.5">
+            <TextInput className="p-3 border-r-2" placeholder="Titulo de la Técnica" onChangeText={setTitle} />
+            <TouchableOpacity className='flex p-3 justify-center items-center' onPress={() => console.log()}>
+              <FontAwesome name="search" size={26} color="black" />
+            </TouchableOpacity>
           </View>
-        </View>
 
+          <View className='flex flex-col m-0.5 border rounded items-stretch'>
+            {
+              tecniques
+              .filter((technique: any) =>  {
+                if(technique?.title === "Pomodoro"){ 
+                  return true;
+                }
+                return false;
+
+              })
+              .map((technique: any) => {
+                return (
+                  <View className='border rounded p-2 m-0.5'>
+                    <Text className='grow'>{technique?.title}</Text>
+                  </View>
+                );
+              })
+            }
+          </View>
+
+        </View>
       </View>
+    );
+  }
+
+
+  return (
+    <View>
+      <Text>No existen técnicas</Text>
     </View>
-  );
+  )
 }
