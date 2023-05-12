@@ -24,7 +24,7 @@ export default class LearningFile implements ILearningFile {
   format: string
 
   @Field()
-  @Column()
+  @Column({ nullable: true })
   externalLink: string;
 
   @ManyToOne(() => Event, (event) => event.id)
@@ -39,7 +39,7 @@ export default class LearningFile implements ILearningFile {
   }
 
   async createLearningFile(): Promise<void> {
-    await this.repository.save(this);
+    const learningFile = await this.repository.save(this);
   }
 
   async updateLearningFile(): Promise<void> {
@@ -52,9 +52,20 @@ export default class LearningFile implements ILearningFile {
     })
   }
 
-  async readLearningFile(): Promise<LearningFile[] | null> {
+  async readLearningFileById(): Promise<LearningFile | null> {
+    let learningFile: LearningFile | null;
+
+    learningFile = await this.repository.findOneBy({
+      id: this.id
+    }) 
+
+    return learningFile;
+  }
+
+  async readLearningFile(): Promise<LearningFile[] | LearningFile | null> {
     let learningFiles: LearningFile[];
-    if (this.activity) {
+
+    if (this.activity?.id) {
       learningFiles = await this.repository.find({
         where: {
           activity: {
@@ -63,7 +74,7 @@ export default class LearningFile implements ILearningFile {
         }
       })
     }
-    else if(this.event) {
+    else if (this.event?.id) {
       learningFiles = await this.repository.find({
         where: {
           event: {
@@ -71,8 +82,18 @@ export default class LearningFile implements ILearningFile {
           }
         }
       });
+    } else if (this.event?.id && this.activity?.id) {
+      learningFiles = await this.repository.find({
+        where: {
+          event: {
+            id: this.event.id
+          },
+          activity: {
+            id: this.activity.id
+          }
+        }
+      })
     }
-
 
     return learningFiles!;
   }

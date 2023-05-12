@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql";
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Mutation, ObjectType, Resolver } from "type-graphql";
 import LearningFile from "../../entity/LearningFile.js";
 import Event from "../../entity/Event.js";
 import { LearningFileInput, LearningFileUpdateInput } from "./LearningFileInput.js";
@@ -9,17 +9,27 @@ import Activity from "../../entity/Activity.js";
 export class LearningFileResolver {
 
   // Given LearningFile data, CREATES and returns LearningFile object
-  @Mutation(() => [LearningFile], { nullable: true })
+  @Mutation(() => LearningFile, { nullable: true })
   async createLearningFile(@Arg("createLearningFile") createInput: LearningFileInput) {
-    const event = new Event;
-    const activity = new Activity;
-    event.id = createInput.eventId;
-    activity.id = createInput.activityId;
+    let event;
+    let activity;
+
     let learningFile: LearningFile | null = new LearningFile(createInput);
-    learningFile.event = event;
-    learningFile.activity = activity;
+
+    if (createInput.eventId) {
+      event = new Event;
+      event.id = createInput.eventId;
+      learningFile.event = event;
+    } 
+
+    if (createInput.activityId) {
+      activity = new Activity;
+      activity.id = createInput?.activityId;
+      learningFile.activity = activity;
+    }
+
     await learningFile.createLearningFile();
-    return await learningFile.readLearningFile();
+    return await learningFile.readLearningFileById();
   }
 
   // Given LearningFile data and ID, UPDATES and returns LearningFile object
