@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { useContext, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { TokenContext } from "../../storage/TokenContext";
@@ -20,7 +20,7 @@ query {
 
 export default function SearchTechnique() {
   const token = useContext(TokenContext);
-  console.log(token);
+  
   const { data, loading, error } = useQuery(USER_TECHNIQUES_GQL, {
     context: { headers: { Authorization: token } }
   });
@@ -29,7 +29,7 @@ export default function SearchTechnique() {
 
   if (data) {
     const tecniques = data?.learner?.technique as [];
-
+    
     return (
       <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
         <View className="flex flex-col">
@@ -42,9 +42,18 @@ export default function SearchTechnique() {
           </View>
         </View>
         <View className='flex flex-col m-0.5 w-1/2 border rounded items-stretch'>
-            <View className='border rounded p-2 m-0.5'>
-              <Text className='grow'> Contenido 1 </Text>
-            </View>
+            {
+              tecniques.map((technique:any, index)=>{
+                return(
+                  <View className='flex flex-row border rounded p-2 m-0.5 items-center' key={index}>
+                    <Text className='grow'> {technique.title} </Text>
+                    <TouchableOpacity onPress={()=>console.log(title)}>
+                      <AntDesign className="grow-0" name="delete" size={26} color="red"/>
+                    </TouchableOpacity>
+                  </View>
+                )
+              })
+            }
           </View>
       </View>
     );

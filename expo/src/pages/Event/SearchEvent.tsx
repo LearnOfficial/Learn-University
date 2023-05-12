@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { TouchableOpacity, TextInput, View, Text } from "react-native";
 import { TokenContext } from '../../storage/TokenContext';
 import { gql, useQuery } from '@apollo/client';
@@ -43,12 +43,15 @@ export default function SearchEvent() {
           </TouchableOpacity>
         </View>
 
-        <View className='flex flex-col m-0.5 border rounded items-stretch'>
+        <View className='flex flex-col m-0.5 w-1/2 border rounded items-stretch'>
           {
             events.map((event: any, index) => {
               return (
-                <View key={index} >
+                <View className='flex flex-row border rounded p-2 m-0.5 items-center' key={index} >
                   <Text className="grow">{event.title}</Text>
+                  <TouchableOpacity onPress={()=>console.log(title)}>
+                    <AntDesign className="grow-0" name="delete" size={26} color="red"/>
+                  </TouchableOpacity>
                 </View>
               )
             })
