@@ -27,7 +27,6 @@ export default function UpdateEvent() {
   return (
 
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <Text className="font-bold">ACTUALIZAR EVENTO</Text>
       <View className="flex flex-col">
 
         <TextInput

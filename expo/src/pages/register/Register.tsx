@@ -56,7 +56,7 @@ export default function CreateLearner({ navigation }) {
           placeholder="Contraseña" />
 
         <View className="flex flex-row">
-          <Button title="Iniciar Sesión" onPress={() => { navigation.navigate("Login") }} />
+          <Button title="Cancelar" onPress={() => { navigation.navigate("Login") }} />
           <Button title="Registrarme" onPress={()=>{
             if(fullname.length != 0 && username.length != 0 && email.length != 0 && password.length!=0){
               onRegister({

@@ -9,7 +9,6 @@ export default function SearchActivity(){
 
   return(
     <View className='flex flex-col w-screen h-screen justify-center items-center bg-white'>
-      <Text className='font-bold m-0.5'>BUSCAR ACTIVIDAD</Text>
       <View className='flex flex-row m-0.5'>
         <View className='flex flex-col'>
           <TextInput className='p-3 border rounded m-0.5' onChangeText={setEvent} placeholder='Evento Padre'/>

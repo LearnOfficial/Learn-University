@@ -26,7 +26,6 @@ export default function CreateEvent() {
   return (
 
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <Text className="font-bold m-0.5">CREAR EVENTO</Text>
       <View className="flex flex-col">
 
         <TextInput

@@ -8,7 +8,6 @@ export default function SearchEvent(){
 
   return(
     <View className='flex flex-col p-3 w-screen h-screen justify-center items-center bg-white'>
-      <Text className="font-bold">BUSCAR EVENTO</Text>
       <View className='flex flex-row w-3/6 '>
         <TextInput 
           className='p-3 border rounded m-2 grow'

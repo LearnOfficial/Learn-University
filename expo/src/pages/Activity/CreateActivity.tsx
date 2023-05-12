@@ -20,7 +20,6 @@ export default function CreateActivity(){
 
   return(
     <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <Text className="font-bold m-0.5">CREAR ACTIVIDAD</Text>
       <View className="flex flex-col">
         <TextInput onChangeText={setEvent} className="p-3 border rounded m-0.5" placeholder="Evento Padre"/>
         <TextInput onChangeText={setTitle} className="p-3 border rounded m-0.5" placeholder="Titulo de la Actividad"/>

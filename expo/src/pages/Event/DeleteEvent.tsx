@@ -7,7 +7,6 @@ export default function DeleteEvent(){
 
   return(  
     <View className='flex flex-col p-3 w-screen h-screen justify-center items-center bg-white'>
-      <Text className="font-bold m-0.5">ELIMINAR EVENTO</Text>
       
       <View className='flex border rounded flex-row w-3/6'>
         <TextInput 
