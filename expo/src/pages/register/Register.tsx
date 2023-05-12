@@ -57,17 +57,19 @@ export default function CreateLearner({ navigation }) {
 
       <View className="flex flex-row">
         <Button title="Login" onPress={() => { navigation.navigate("Login") }} />
-        <Button title="Registrarse" onPress={() => {
-          onRegister({
-            variables: {
-              signupInput: {
-                username: username,
-                email: email,
-                fullname: fullname,
-                password: password
+        <Button title="Registrarse" onPress={()=>{
+          if(fullname.length != 0 && username.length != 0 && email.length != 0 && password.length!=0){
+            onRegister({
+              variables: {
+                signupInput: {
+                  username: username,
+                  email: email,
+                  fullname: fullname,
+                  password: password
+                }
               }
-            }
-          })
+            });
+          }
         }} />
       </View>
 

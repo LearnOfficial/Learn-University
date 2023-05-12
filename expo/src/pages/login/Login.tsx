@@ -48,14 +48,16 @@ export default function Login({ navigation }) {
           <Button
             title="Login"
             onPress={() => {
-              onLogin({
-                variables: {
-                  loginInput: {
-                    username: username,
-                    password: password
+              if(username.length!=0 && password.length != 0){
+                onLogin({
+                  variables: {
+                    loginInput: {
+                      username: username,
+                      password: password
+                    }
                   }
-                }
-              });
+                });
+              }
             }}
           />
 
