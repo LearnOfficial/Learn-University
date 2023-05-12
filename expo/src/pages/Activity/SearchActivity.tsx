@@ -9,10 +9,10 @@ export default function SearchActivity(){
 
   return(
     <View className='flex flex-col w-screen h-screen justify-center items-center bg-white'>
-      <View className='flex flex-row m-0.5'>
+      <View className='flex flex-row border m-0.5'>
         <View className='flex flex-col'>
-          <TextInput className='p-3 border rounded m-0.5' onChangeText={setEvent} placeholder='Evento Padre'/>
-          <TextInput className='p-3 border rounded m-0.5' onChangeText={setTitle} placeholder='Titulo de la Actividad'/>
+          <TextInput className='p-3 border-b border-r ' onChangeText={setEvent} placeholder='Evento Padre'/>
+          <TextInput className='p-3  border-r ' onChangeText={setTitle} placeholder='Titulo de la Actividad'/>
         </View>
 
         <TouchableOpacity className='flex p-3 justify-center items-center' onPress={()=>console.log(event)}>

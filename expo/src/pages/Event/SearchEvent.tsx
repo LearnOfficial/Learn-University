@@ -8,21 +8,24 @@ export default function SearchEvent(){
 
   return(
     <View className='flex flex-col p-3 w-screen h-screen justify-center items-center bg-white'>
-      <View className='flex flex-row w-3/6 '>
-        <TextInput 
-          className='p-3 border rounded m-2 grow'
-          onChangeText={setTitle}
-          placeholder="Titulo Evento"
-        />
+      <View className='flex flex-col '>
+        <View className='flex flex-row border rounded m-0.5'>
+          <TextInput 
+            className='p-3 border-r-2'
+            onChangeText={setTitle}
+            placeholder="Titulo Evento"
+          />
 
-        <TouchableOpacity className='p-3' onPress={()=>console.log(title)}>
-          <FontAwesome name="search" size={26} color="black"/>
-        </TouchableOpacity>
+          <TouchableOpacity className='flex p-3 justify-center items-center' onPress={() => console.log()}>
+            <FontAwesome name="search" size={26} color="black" />
+          </TouchableOpacity>
+        </View>
       </View>
     
-      <View className='border rounded w-3/6 h-3/6 justify-center'>
-        <View className='flex justify-center'>Evento 1</View>
-        <View className='flex justify-center'>Evento 2</View>
+      <View className='flex flex-col m-0.5 w-1/2 border rounded items-stretch'>
+        <View className='border rounded p-2 m-0.5'>
+          <Text className='grow'> Contenido 1 </Text>
+        </View>
       </View>
     </View>
   );
