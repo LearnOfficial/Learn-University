@@ -1,6 +1,7 @@
 export type ITechnique = {
     id?: number,
     title: string,
-    breakTime: Date,
+    focusTime: number,
+    breakTime: number,
     interval: number,
 }

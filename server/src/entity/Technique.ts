@@ -21,7 +21,11 @@ export default class Technique implements ITechnique {
 
   @Field()
   @Column()
-  breakTime: Date;
+  focusTime: number;
+
+  @Field()
+  @Column()
+  breakTime: number;
 
   @Field()
   @Column()
