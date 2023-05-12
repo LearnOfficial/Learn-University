@@ -14,7 +14,11 @@ export default function CreateEvent() {
   const [technique, setTechnique] = useState<String>("");
 
   const[date, setDate] = useState<Date>();
-  const [time, setTime] = useState<String>("");
+
+  const [startHour, setStartHour] = useState<Number>()
+  const [startMinute, setStartMinute] = useState<Number>()
+  const [endHour, setEndHour] = useState<Number>()
+  const [endMinute, setEndMinute] = useState<Number>()
 
   const [enableStartTime, setEnableStartTime] = useState<boolean>(false);
   const [enableEndTime, setEnableEndTime] = useState<boolean>(false);
@@ -50,14 +54,14 @@ export default function CreateEvent() {
           />
 
         <View className="flex flex-row">
-          <Text className="p-2 border rounded text-center grow m-0.5">{}</Text>
-          <Text className="p-2 border rounded text-center grow m-0.5">{}</Text>
+          <Text className="p-2 border rounded text-center grow m-0.5">{(startHour?.toString || startMinute?.toString)===undefined?"":startHour?.toString() + ":" + startMinute?.toString()}</Text>
+          <Text className="p-2 border rounded text-center grow m-0.5">{(endHour?.toString || endMinute?.toString)===undefined?"":endHour?.toString() + ":" + endMinute?.toString()}</Text>
         </View>
 
         <View className="flex flex-row m-0.5">
           <TimePickerModal
             visible={enableStartTime}
-            onConfirm={({hours, minutes}) => {setEnableStartTime(false); console.log(hours, minutes)}}
+            onConfirm={({hours, minutes}) => {setEnableStartTime(false); setStartHour(hours); setStartMinute(minutes)}}
             onDismiss={() => setEnableStartTime(false)}
           />
           <Button
@@ -67,7 +71,7 @@ export default function CreateEvent() {
 
           <TimePickerModal 
             visible={enableEndTime}
-            onConfirm={({hours, minutes}) => {setEnableEndTime(false); console.log(hours, minutes)}}
+            onConfirm={({hours, minutes}) => {setEnableEndTime(false); setEndHour(hours); setEndMinute(minutes)}}
             onDismiss={() => setEnableEndTime(false)}
           />
 
