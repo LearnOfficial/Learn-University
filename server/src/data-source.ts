@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
   port: DATABASE_CONFIG.port,
   username: DATABASE_CONFIG.username,
   password: DATABASE_CONFIG.password,
-  database: "LearnDatabase",
+  database: DATABASE_CONFIG.database,
   synchronize: true, // Change to false once database is created
   logging: true,
   entities: entities, 

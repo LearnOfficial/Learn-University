@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "type-graphql"
-import { Column, Entity,  ManyToOne, OneToMany, PrimaryGeneratedColumn, Repository } from "typeorm"
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Repository } from "typeorm"
 import type { IActivity } from "../@types/entity/IActivity";
 import { AppDataSource } from "../data-source.js";
 import type { Relation } from "typeorm";
@@ -52,8 +52,14 @@ export default class Activity implements IActivity {
     })
   }
 
-  async readActivity(): Promise<Activity | null> {
-    return await this.repository.findOneBy({ id: this.id });
+  async readActivity(): Promise<Activity[] | null> {
+    return await this.repository.find({
+      where: {
+        event: {
+          id: this.event.id
+        }
+      }
+    });
   }
 
 }

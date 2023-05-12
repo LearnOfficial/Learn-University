@@ -1,23 +1,13 @@
 import { GraphQLError } from "graphql";
-import { Arg, FieldResolver, Mutation, Query, Resolver, Root } from "type-graphql";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import Event from "../../entity/Event.js"
 import { EventInput, EventUpdateInput } from "./EventInput.js";
 import { CurrentUser } from "../../context.js";
 import Learner from "../../entity/Learner.js";
+import Technique from "../../entity/Technique.js";
 
-@Resolver(() => Learner)
+@Resolver()
 export class EventResolver {
-
-  // Read events by current learner
-  @FieldResolver(() => [Event], { nullable: true })
-  async events(
-    @Root() learner: Learner
-  ) {
-    let event = new Event();
-    console.log(learner.id);
-    event.learner = learner;
-    return await event.readEvent();
-  }
 
   // Creates Event by current learner
   @Mutation(() => Event, { nullable: true })
@@ -25,13 +15,16 @@ export class EventResolver {
     @Arg("createEvent") createInput: EventInput,
     @CurrentUser() currentUser: number
   ) {
+    const technique = new Technique;
     let learner = new Learner();
+    
     learner.id = currentUser;
+    technique.id = createInput.techniqueId;
 
     let event: Event | null = new Event(createInput);
     event.learner = learner;
+    event.technique = technique;
     await event.createEvent();
-
     return event;
   }
 

@@ -14,7 +14,7 @@ export default class Event implements IEvent{
   private repository: Repository<Event>;
   @Field(() => ID)
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Field()
   @Column({
@@ -44,8 +44,7 @@ export default class Event implements IEvent{
   @OneToMany(() => Activity, (activity) => activity.id) 
   activities: Activity
 
-  @OneToOne(() => Technique, (technique) => technique.id)
-  @JoinColumn()
+  @ManyToOne(() => Technique, (technique) => technique.id)
   technique: Technique 
 
   @OneToMany(() => LearningFile, (learningFile) => learningFile.id)
@@ -77,8 +76,10 @@ export default class Event implements IEvent{
       })
     }
     return await this.repository.find({
-      relations: {
-        learner: true
+      where:{
+        learner : {
+          id : this.learner.id
+        },
       }
     });
   }

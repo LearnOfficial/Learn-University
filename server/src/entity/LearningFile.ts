@@ -23,6 +23,10 @@ export default class LearningFile implements ILearningFile {
   @Column({ length: 10 })
   format: string
 
+  @Field()
+  @Column()
+  externalLink: string;
+
   @ManyToOne(() => Event, (event) => event.id)
   event: Relation<Event>
 
@@ -48,8 +52,28 @@ export default class LearningFile implements ILearningFile {
     })
   }
 
-  async readLearningFile(): Promise<LearningFile | null> {
-    return await this.repository.findOneBy({ id: this.id });
-  }
+  async readLearningFile(): Promise<LearningFile[] | null> {
+    let learningFiles: LearningFile[];
+    if (this.activity) {
+      learningFiles = await this.repository.find({
+        where: {
+          activity: {
+            id: this.activity.id
+          }
+        }
+      })
+    }
+    else if(this.event) {
+      learningFiles = await this.repository.find({
+        where: {
+          event: {
+            id: this.event.id
+          }
+        }
+      });
+    }
 
+
+    return learningFiles!;
+  }
 }
