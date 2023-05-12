@@ -8,6 +8,7 @@ import {
 } from "react-native-paper-dates"
 import { TokenContext } from "../../storage/TokenContext";
 import { gql, useMutation } from "@apollo/client";
+import { Snackbar } from "react-native-paper";
 
 const CREATE_TECHNIQUE_GQL = gql`
   mutation($createTechnique: TechniqueInput!){
@@ -29,13 +30,11 @@ export default function CreateTechnique() {
   const [breakTime, setBreakTime] = useState<number>(0);
   const [interval, setInterval] = useState<number>(0);
 
-  if (data) {
-    const createTechnique = data?.createTechnique;
-    return (
-      <View className="w-screen h-screen justify-center items-center">
-        <Text>Tecnica {createTechnique?.title} {createTechnique?.id} ID creada.</Text>
-      </View>
-    )
+
+  let technique;
+
+  if(data){ 
+    technique = data?.createTechnique;
   }
 
   return (
@@ -49,10 +48,10 @@ export default function CreateTechnique() {
             value={`${focusTime}`}
             className="p-3 border rounded m-0.5"
             onChangeText={(e) => {
-              const regex= /[a-zA-Z]/g;
-              if(regex.test(e) || /\s\t\n/g.test(e)){
+              const regex = /[a-zA-Z]/g;
+              if (regex.test(e) || /\s\t\n/g.test(e)) {
                 setFocusTime(0);
-              }else{
+              } else {
                 setFocusTime(parseInt(e));
               }
             }}
@@ -65,10 +64,10 @@ export default function CreateTechnique() {
             value={`${breakTime}`}
             className="p-3 border rounded m-0.5"
             onChangeText={(e) => {
-              const regex= /[a-zA-Z]/g;
-              if(regex.test(e) || /\s\t\n/g.test(e)){
+              const regex = /[a-zA-Z]/g;
+              if (regex.test(e) || /\s\t\n/g.test(e)) {
                 setBreakTime(0);
-              }else{
+              } else {
                 setBreakTime(parseInt(e));
               }
             }}
@@ -81,16 +80,32 @@ export default function CreateTechnique() {
             value={`${interval}`}
             className="p-3 border rounded m-0.5"
             onChangeText={(e) => {
-              const regex= /[a-zA-Z]/g;
-              if(regex.test(e) || /\s\t\n/g.test(e)){
+              const regex = /[a-zA-Z]/g;
+              if (regex.test(e) || /\s\t\n/g.test(e)) {
                 setInterval(0);
-              }else{
+              } else {
                 setInterval(parseInt(e));
               }
             }}
           />
         </View>
-      </View>
+      </View> 
+
+    { 
+        data && <Snackbar
+          className="text-slate-50"
+          visible={true}
+          onDismiss={() => {}}
+          action={{
+            label: 'Undo',
+            onPress: () => {
+            }
+          }}
+        > 
+          La técnica {technique?.title} se ha creado exitosamente.
+        </Snackbar>
+      }
+
       <Button
         title="Crear Técnica"
         onPress={() => {
@@ -106,6 +121,6 @@ export default function CreateTechnique() {
           });
         }}
       />
-    </View>
+    </View >
   );
 }
