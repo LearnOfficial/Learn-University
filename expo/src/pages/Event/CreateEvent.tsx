@@ -98,10 +98,10 @@ export default function CreateEvent() {
 
         <View className="flex-row">
           <View className="flex gap-1">
-            <Text className="p-2 border rounded text-center grow">{}</Text>
+            <Text className="p-2 border rounded text-center grow">{startDate?startDate.toLocaleDateString()+" "+startDate.toLocaleTimeString():""}</Text>
             <TimePickerModal
               visible={enableStartTime}
-              onConfirm={({ hours, minutes }) => { setEnableStartTime(false); console.log(hours, minutes) }}
+              onConfirm={({ hours, minutes }) => { setEnableStartTime(false); startDate?setStartDate(new Date(startDate.getDate()+startDate.getMonth()+startDate.getFullYear()+' '+hours+':'+minutes)):startDate}}
               onDismiss={() => setEnableStartTime(false)}
             />
 
@@ -112,10 +112,10 @@ export default function CreateEvent() {
           </View>
 
           <View className="flex gap-1">
-            <Text className="p-2 border rounded text-center grow">{}</Text>
+            <Text className="p-2 border rounded text-center grow">{endDate?endDate.toLocaleDateString()+" "+endDate.toLocaleTimeString():""}</Text>
             <TimePickerModal
               visible={enableEndTime}
-              onConfirm={({ hours, minutes }) => { setEnableEndTime(false); console.log(hours, minutes) }}
+              onConfirm={({ hours, minutes }) => { setEnableEndTime(false); endDate?setEndDate(new Date(endDate.getDate()+endDate.getMonth()+endDate.getFullYear()+' '+hours+':'+minutes)):endDate}}
               onDismiss={() => setEnableEndTime(false)}
             />
             <Button

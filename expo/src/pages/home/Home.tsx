@@ -90,7 +90,6 @@ export default function Home() {
           <Text className="p-3 font-bold grow text-center border-b">BUSCAR / ELIMINAR</Text>
         </View>
 
-        <Text onPress={()=>{navigation.navigate('Buscar Aprendiz')}} className="p-2 font-medium grow text-left indent-5">Aprendiz</Text>
         <Text onPress={()=>{navigation.navigate('Buscar Técnica')}} className="p-2 font-medium grow text-left indent-5">Técnica</Text>
         <Text onPress={()=>{navigation.navigate('Buscar Evento')}} className="p-2 font-medium grow text-left indent-5">Evento</Text>
         <Text onPress={()=>{navigation.navigate('Buscar Actividad')}} className="p-2 font-medium grow text-left indent-5">Actividad</Text>
