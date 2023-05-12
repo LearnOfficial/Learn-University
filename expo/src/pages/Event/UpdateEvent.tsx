@@ -59,7 +59,7 @@ export default function UpdateEvent() {
   }
 
   return (
-    <View className="flex w-screen h-screen justify-center items-center">
+    <View className="flex w-screen h-screen justify-center items-center bg-white">
       <View className="flex gap-3">
         <View className="flex">
           <TextInput
@@ -80,7 +80,7 @@ export default function UpdateEvent() {
           <DatePickerInput
             className=""
             locale="es"
-            label={"Fecha"}
+            label={"Fecha Inicia"}
             value={startDate}
             onChange={(d) => { setStartDate(d) }}
             inputMode="start"
@@ -89,7 +89,7 @@ export default function UpdateEvent() {
           <DatePickerInput
             className=""
             locale="es"
-            label={"Fecha"}
+            label={"Fecha Finaliza"}
             value={endDate}
             onChange={(d) => { setEndDate(d) }}
             inputMode="start"
@@ -98,10 +98,10 @@ export default function UpdateEvent() {
 
         <View className="flex-row">
           <View className="flex gap-1">
-            <Text className="p-2 border rounded text-center grow">{}</Text>
+            <Text className="p-2 border rounded text-center grow">{startDate?startDate.toLocaleDateString()+" "+startDate.toLocaleTimeString():""}</Text>
             <TimePickerModal
               visible={enableStartTime}
-              onConfirm={({ hours, minutes }) => { setEnableStartTime(false); console.log(hours, minutes) }}
+              onConfirm={({ hours, minutes }) => { setEnableStartTime(false); startDate?setStartDate(new Date(startDate.getDate()+startDate.getMonth()+startDate.getFullYear()+' '+hours+':'+minutes)):startDate}}
               onDismiss={() => setEnableStartTime(false)}
             />
 
@@ -112,10 +112,10 @@ export default function UpdateEvent() {
           </View>
 
           <View className="flex gap-1">
-            <Text className="p-2 border rounded text-center grow">{}</Text>
+            <Text className="p-2 border rounded text-center grow">{endDate?endDate.toLocaleDateString()+" "+endDate.toLocaleTimeString():""}</Text>
             <TimePickerModal
               visible={enableEndTime}
-              onConfirm={({ hours, minutes }) => { setEnableEndTime(false); console.log(hours, minutes) }}
+              onConfirm={({ hours, minutes }) => { setEnableEndTime(false); endDate?setEndDate(new Date(endDate.getDate()+endDate.getMonth()+endDate.getFullYear()+' '+hours+':'+minutes)):endDate}}
               onDismiss={() => setEnableEndTime(false)}
             />
             <Button
@@ -156,7 +156,7 @@ export default function UpdateEvent() {
         </View >
 
         <Button
-          title="Crear Evento"
+          title="Actualizar Evento"
           onPress={() => {
             onCreateEvent({
               variables: {

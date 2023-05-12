@@ -7,12 +7,9 @@ export default function UpdateActivity(){
 
   const [event, setEvent] = useState<String>("")
   const [title, setTitle] = useState<String>("")
-  const [date, setDate] = useState<Date>()
   
-  const [startHour, setStartHour] = useState<Number>()
-  const [endHour, setEndHour] = useState<Number>()
-  const [startMinute, setStartMinute] = useState<Number>()
-  const [endMinute, setEndMinute] = useState<Number>()
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
 
 
   const [enableStartTime, setEnableStartTime] = useState<boolean>(false);
@@ -27,26 +24,35 @@ export default function UpdateActivity(){
         <DatePickerInput
           className="m-0.5"
           locale="es"
-          label={"Fecha"}
-          value={date}
-          onChange={(d)=>{setDate(d)}}
+          label={"Fecha Inicia"}
+          value={startDate}
+          onChange={(d)=>{setStartDate(d)}}
+          inputMode="start"
+        />
+
+        <DatePickerInput
+          className="m-0.5"
+          locale="es"
+          label={"Fecha Finaliza"}
+          value={endDate}
+          onChange={(d)=>{setEndDate(d)}}
           inputMode="start"
         />
 
         <View className="flex flex-row m-0.5">
           <Text className="p-2 border rounded text-center grow">
-            {(startHour?.toString || startMinute?.toString)===undefined?"":startHour?.toString() + ":" + startMinute?.toString()}
+            {startDate?startDate.toLocaleDateString()+" "+startDate.toLocaleTimeString():""}
           </Text>
           
           <Text className="p-2 border rounded text-center grow">
-            {(endHour?.toString || endMinute?.toString)===undefined?"":endHour?.toString() + ":" + endMinute?.toString()}
+            {endDate?endDate.toLocaleDateString()+" "+endDate.toLocaleTimeString():""}
           </Text>
         </View>
 
         <View className="flex flex-row">
           <TimePickerModal 
             visible={enableStartTime}
-            onConfirm={({hours, minutes}) => {setEnableStartTime(false); setStartHour(hours); setStartMinute(minutes)}}
+            onConfirm={({hours, minutes}) => {setEnableStartTime(false); startDate?setStartDate(new Date(startDate.getDate()+startDate.getMonth()+startDate.getFullYear()+' '+hours+':'+minutes)):startDate}}
             onDismiss={() => setEnableStartTime(false)}
           />
           <Button
@@ -56,7 +62,7 @@ export default function UpdateActivity(){
 
           <TimePickerModal 
             visible={enableEndTime}
-            onConfirm={({hours, minutes}) => {setEnableEndTime(false); setEndHour(hours); setEndMinute(minutes)}}
+            onConfirm={({hours, minutes}) => {setEnableEndTime(false); endDate?setEndDate(new Date(endDate.getDate()+endDate.getMonth()+endDate.getFullYear()+' '+hours+':'+minutes)):endDate}}
             onDismiss={() => setEnableEndTime(false)}
           />
 

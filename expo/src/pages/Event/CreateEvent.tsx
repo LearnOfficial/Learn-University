@@ -59,7 +59,7 @@ export default function CreateEvent() {
   }
 
   return (
-    <View className="flex w-screen h-screen justify-center items-center">
+    <View className="flex w-screen h-screen justify-center items-center bg-white">
       <View className="flex gap-3">
         <View className="flex">
           <TextInput
@@ -80,7 +80,7 @@ export default function CreateEvent() {
           <DatePickerInput
             className=""
             locale="es"
-            label={"Fecha"}
+            label={"Fecha Inicia"}
             value={startDate}
             onChange={(d) => { setStartDate(d) }}
             inputMode="start"
@@ -89,7 +89,7 @@ export default function CreateEvent() {
           <DatePickerInput
             className=""
             locale="es"
-            label={"Fecha"}
+            label={"Fecha Finaliza"}
             value={endDate}
             onChange={(d) => { setEndDate(d) }}
             inputMode="start"

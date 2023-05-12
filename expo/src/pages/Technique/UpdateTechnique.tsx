@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, TextInput, Text } from "react-native";
 import Button from "../../components/Button";
 import {
@@ -6,51 +6,106 @@ import {
   DatePickerInput
   // @ts-ignore 
 } from "react-native-paper-dates"
+import { TokenContext } from "../../storage/TokenContext";
+import { gql, useMutation } from "@apollo/client";
 
-export default function UpdateTechnique(){
+const CREATE_TECHNIQUE_GQL = gql`
+  mutation($createTechnique: TechniqueInput!){
+    createTechnique(createTechnique: $createTechnique) {
+      id
+      title
+    }
+  }
+`
 
-  const [title, setTitle] = useState<String>("")
-  const [interval, setInterval] = useState<String>("")
+export default function UpdateTechnique() {
+  const token = useContext(TokenContext);
+  const [onCreateTechnique, { data, loading, error }] = useMutation(CREATE_TECHNIQUE_GQL, {
+    context: { headers: { Authorization: token } }
+  });
 
-  const [enableTime, setEnableTime] = useState<boolean>(false);
+  const [title, setTitle] = useState<String>("");
+  const [focusTime, setFocusTime] = useState<number>(0);
+  const [breakTime, setBreakTime] = useState<number>(0);
+  const [interval, setInterval] = useState<number>(0);
 
-  const [date, setDate] = useState<Date>()
-  const [hour, setHour] = useState<Number>()
-  const [minute, setMinute] = useState<Number>()
+  if (data) {
+    const createTechnique = data?.createTechnique;
+    return (
+      <View className="w-screen h-screen justify-center items-center">
+        <Text>Tecnica {createTechnique?.title} {createTechnique?.id} ID creada.</Text>
+      </View>
+    )
+  }
 
-
-  return(
-    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
+  return (
+    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white gap-6">
       <View className="flex flex-col">
-        <TextInput className="p-3 border rounded m-0.5" placeholder="Titulo de la Técnica" onChangeText={setTitle}/>
+        <TextInput className="p-3 border rounded m-0.5" placeholder="Titulo de la Técnica" onChangeText={setTitle} />
 
-        <DatePickerInput
-          className="m-0.5"
-          locale="es"
-          label={"Fecha"}
-          value={date}
-          onChange={(d)=>{setDate(d)}}
-          inputMode="start"
-        />
-
-        <View className="flex flex-row m-0.5">
-          <TimePickerModal
-            visible={enableTime}
-            onConfirm={({hours, minutes}) => {setEnableTime(false); setHour(hours); setMinute(minutes)}}
-            onDismiss={() => setEnableTime(false)}
+        <View className="flex flex-row justify-between items-center gap-6">
+          <Text>Tiempo de concentración (min)</Text>
+          <TextInput
+            value={`${focusTime}`}
+            className="p-3 border rounded m-0.5"
+            onChangeText={(e) => {
+              const regex= /[a-zA-Z]/g;
+              if(regex.test(e) || /\s\t\n/g.test(e)){
+                setFocusTime(0);
+              }else{
+                setFocusTime(parseInt(e));
+              }
+            }}
           />
-          <Button
-            title="Seleccionar Hora"
-            onPress={() => setEnableTime(!enableTime)}
-          />
-          <Text className="p-2 border rounded text-center grow m-0.5">
-            {(hour?.toString || minute?.toString)===undefined?"HH:MM":hour?.toString() + ":" + minute?.toString()}
-          </Text>
         </View>
 
-        <TextInput className="p-3 border rounded m-0.5" placeholder="Intervalo de Repetición" onChangeText={setInterval}/>
-        <Button title="Actualizar Técnica" onPress={()=>{console.log(title)}}/>
+        <View className="flex flex-row justify-between items-center gap-6">
+          <Text>Tiempo de descanso (min)</Text>
+          <TextInput
+            value={`${breakTime}`}
+            className="p-3 border rounded m-0.5"
+            onChangeText={(e) => {
+              const regex= /[a-zA-Z]/g;
+              if(regex.test(e) || /\s\t\n/g.test(e)){
+                setBreakTime(0);
+              }else{
+                setBreakTime(parseInt(e));
+              }
+            }}
+          />
+        </View>
+
+        <View className="flex flex-row justify-between items-center gap-6">
+          <Text>Intervalo de repetición</Text>
+          <TextInput
+            value={`${interval}`}
+            className="p-3 border rounded m-0.5"
+            onChangeText={(e) => {
+              const regex= /[a-zA-Z]/g;
+              if(regex.test(e) || /\s\t\n/g.test(e)){
+                setInterval(0);
+              }else{
+                setInterval(parseInt(e));
+              }
+            }}
+          />
+        </View>
       </View>
+      <Button
+        title="Actualizar Técnica"
+        onPress={() => {
+          onCreateTechnique({
+            variables: {
+              createTechnique: {
+                title: title,
+                breakTime: breakTime,
+                focusTime: focusTime,
+                interval: interval
+              }
+            }
+          });
+        }}
+      />
     </View>
   );
 }
