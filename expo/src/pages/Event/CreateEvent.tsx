@@ -1,5 +1,5 @@
 import { Text, TextInput, View } from "react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Picker } from '@react-native-picker/picker';
 import Button from "../../components/Button";
 import {
@@ -7,101 +7,173 @@ import {
   DatePickerInput
   // @ts-ignore 
 } from "react-native-paper-dates"
+import { TokenContext } from "../../storage/TokenContext";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { endEvent } from "react-native/Libraries/Performance/Systrace";
+
+const CREATE_EVENT_GQL = gql`
+  mutation($createEvent: EventInput!) {
+    createEvent(createEvent: $createEvent) {
+      id
+    }
+  }
+`
+
+const USER_TECHNIQUES = gql`
+query {
+  learner {
+    technique {
+      id
+      title
+    }
+  }
+}
+`
 
 export default function CreateEvent() {
+  const token = useContext(TokenContext);
+  const context = { context: { headers: { Authorization: token } } };
+  const [onCreateEvent, eventMutation] = useMutation(CREATE_EVENT_GQL, {
+    ...context
+  });
+
+  const techniqueQuery = useQuery(USER_TECHNIQUES, {
+    ...context
+  });
+
   const [title, setTitle] = useState<String>("");
   const [description, setDescription] = useState<String>("");
-  const [technique, setTechnique] = useState<String>("");
+  const [techniqueId, setTechniqueId] = useState<number>(1);
 
-  const[date, setDate] = useState<Date>();
 
-  const [startHour, setStartHour] = useState<Number>()
-  const [startMinute, setStartMinute] = useState<Number>()
-  const [endHour, setEndHour] = useState<Number>()
-  const [endMinute, setEndMinute] = useState<Number>()
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
 
   const [enableStartTime, setEnableStartTime] = useState<boolean>(false);
   const [enableEndTime, setEnableEndTime] = useState<boolean>(false);
 
+  const [type, setType] = useState<Number>(1);
 
-  const [selectedLanguage, setSelectedLanguage] = useState();
-  const [typeEvent, setTypeEvent] = useState<Number>();
+  if(eventMutation.data){
+    console.log(eventMutation.data);
+  }
 
   return (
-
-    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <View className="flex flex-col">
-
-        <TextInput
-          onChangeText={setTitle}
-          className="p-3 border rounded m-0.5"
-          placeholder="Titulo"
-        />
-
-        <TextInput
-          onChangeText={setTitle}
-          className="p-3 border rounded m-0.5"
-          placeholder="Descripción"
-        />
-
-        <DatePickerInput
-          className="m-0.5"
-          locale="es"
-          label={"Fecha"}
-          value={date}
-          onChange={(d)=>{setDate(d)}}
-          inputMode="start"
+    <View className="flex w-screen h-screen justify-center items-center">
+      <View className="flex gap-3">
+        <View className="flex">
+          <TextInput
+            onChangeText={setTitle}
+            className="p-3 border rounded"
+            placeholder="Titulo"
           />
 
-        <View className="flex flex-row">
-          <Text className="p-2 border rounded text-center grow m-0.5">{(startHour?.toString || startMinute?.toString)===undefined?"":startHour?.toString() + ":" + startMinute?.toString()}</Text>
-          <Text className="p-2 border rounded text-center grow m-0.5">{(endHour?.toString || endMinute?.toString)===undefined?"":endHour?.toString() + ":" + endMinute?.toString()}</Text>
-        </View>
-
-        <View className="flex flex-row m-0.5">
-          <TimePickerModal
-            visible={enableStartTime}
-            onConfirm={({hours, minutes}) => {setEnableStartTime(false); setStartHour(hours); setStartMinute(minutes)}}
-            onDismiss={() => setEnableStartTime(false)}
-          />
-          <Button
-            title="Tiempo Inicial"
-            onPress={() => setEnableStartTime(!enableStartTime)}
-          />
-
-          <TimePickerModal 
-            visible={enableEndTime}
-            onConfirm={({hours, minutes}) => {setEnableEndTime(false); setEndHour(hours); setEndMinute(minutes)}}
-            onDismiss={() => setEnableEndTime(false)}
-          />
-
-          <Button
-            title="Tiempo Final"
-            onPress={() => setEnableEndTime(!enableEndTime)}
+          <TextInput
+            onChangeText={setDescription}
+            className="p-3 border rounded"
+            placeholder="Descripción"
           />
 
         </View>
 
-        <TextInput className="p-3 border rounded" placeholder="Tecnica de Aprendizaje" onChangeText={setTechnique}/>
+        <View>
+          <DatePickerInput
+            className=""
+            locale="es"
+            label={"Fecha"}
+            value={startDate}
+            onChange={(d) => { setStartDate(d) }}
+            inputMode="start"
+          />
 
-        <View className="p-3 border rounded m-0.5">
+          <DatePickerInput
+            className=""
+            locale="es"
+            label={"Fecha"}
+            value={endDate}
+            onChange={(d) => { setEndDate(d) }}
+            inputMode="start"
+          />
+        </View>
+
+        <View className="flex-row">
+          <View className="flex gap-1">
+            <Text className="p-2 border rounded text-center grow">{}</Text>
+            <TimePickerModal
+              visible={enableStartTime}
+              onConfirm={({ hours, minutes }) => { setEnableStartTime(false); console.log(hours, minutes) }}
+              onDismiss={() => setEnableStartTime(false)}
+            />
+
+            <Button
+              title="Tiempo Inicial"
+              onPress={() => setEnableStartTime(!enableStartTime)}
+            />
+          </View>
+
+          <View className="flex gap-1">
+            <Text className="p-2 border rounded text-center grow">{}</Text>
+            <TimePickerModal
+              visible={enableEndTime}
+              onConfirm={({ hours, minutes }) => { setEnableEndTime(false); console.log(hours, minutes) }}
+              onDismiss={() => setEnableEndTime(false)}
+            />
+            <Button
+              title="Tiempo Final"
+              onPress={() => setEnableEndTime(!enableEndTime)}
+            />
+          </View>
+        </View>
+
+
+        <View className="flex">
           <Picker
-            selectedValue={selectedLanguage}
-            onValueChange={(itemValue, itemIndex) => {
-              setSelectedLanguage(itemValue);
-              setTypeEvent(itemValue)
-            }}>
-              <Picker.Item label="Importante" value={1}/>
-              <Picker.Item label="Normal" value={2}/>
-              <Picker.Item label="Irrelevante" value={3}/>
-              <Picker.Item label="Flexible" value={4}/>
+            className="p-3"
+            selectedValue={techniqueId}
+            onValueChange={(value) => {
+              setTechniqueId(value);
+            }}
+          >
+            {
+              techniqueQuery.data &&
+              techniqueQuery?.data?.learner?.technique?.map((technique: any, index: number) => {
+                return <Picker.Item key={index} label={technique.title} value={technique.id} />
+              })
+            }
           </Picker>
-        </View>
+
+          <Picker
+            className="p-3"
+            selectedValue={type}
+            onValueChange={(value) => {
+              setType(value)
+            }}>
+            <Picker.Item label="Importante" value={1} />
+            <Picker.Item label="Normal" value={2} />
+            <Picker.Item label="Irrelevante" value={3} />
+            <Picker.Item label="Flexible" value={4} />
+          </Picker>
+        </View >
+
         <Button
           title="Crear Evento"
-          onPress={() => console.log()}
+          onPress={() => {
+            onCreateEvent({
+              variables: {
+                createEvent: {
+                  title: title,
+                  description: description,
+                  startDate: startDate,
+                  endDate: endDate,
+                  techniqueId: parseInt(techniqueId as any),
+                  type: parseInt(type as any)
+                }
+              }
+            })
+          }}
         />
+
       </View>
-    </View>
+    </View >
   );
 }
