@@ -56,7 +56,6 @@ function Content({ navigation }: any){
 }
 
 
-
 export default function Home() {
   function CustomDrawerContent({ navigation }:any) {
     return (

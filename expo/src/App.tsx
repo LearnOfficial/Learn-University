@@ -33,8 +33,12 @@ export default function App() {
   const Tab = createBottomTabNavigator();
 
   if (token) {
-    Navigation = function() {
-      return (
+    Navigation = () => {
+      return <NavigationContainer>
+        <Home></Home>
+      </NavigationContainer>
+    }
+    { /*
       <NavigationContainer>
           <Tab.Navigator screenOptions={({route}) => ({
             tabBarIcon: ({focused}) => {
@@ -50,8 +54,8 @@ export default function App() {
             <Tab.Screen options={{headerShown:false}} name="Home" component={Home}/>
           </Tab.Navigator>
       </NavigationContainer>
-      );
     }
+     */}
   } else {
     Navigation = function() {
       return (
