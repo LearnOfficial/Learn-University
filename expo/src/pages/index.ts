@@ -1,20 +1,20 @@
-import InactivateLearner from "./Learner/InactivateLearner";
-import UpdateLearner from "./Learner/UpdateLearner";
+import InactivateLearner from "./learner/InactivateLearner";
+import UpdateLearner from "./learner/UpdateLearner";
 
-import CreateEvent from "./Event/CreateEvent";
-import SearchEvent from "./Event/SearchEvent";
-import UpdateEvent from "./Event/UpdateEvent";
+import CreateEvent from "./event/CreateEvent";
+import SearchEvent from "./event/SearchEvent";
+import UpdateEvent from "./event/UpdateEvent";
 
-import CreateActivity from "./Activity/CreateActivity";
-import SearchActivity from "./Activity/SearchActivity";
-import UpdateActivity from "./Activity/UpdateActivity";
+import CreateActivity from "./activity/CreateActivity";
+import SearchActivity from "./activity/SearchActivity";
+import UpdateActivity from "./activity/UpdateActivity";
 
-import CreateTechnique from "./Technique/CreateTechnique";
-import SearchTechnique from "./Technique/SearchTechnique";
-import UpdateTechnique from "./Technique/UpdateTechnique";
+import CreateTechnique from "./technique/CreateTechnique";
+import SearchTechnique from "./technique/SearchTechnique";
+import UpdateTechnique from "./technique/UpdateTechnique";
 
-import CreateLearningFile from "./LearningFile/CreateLearningFile";
-import SearchLearningFile from "./LearningFile/SearchLearningFile";
+import CreateLearningFile from "./learning_file/CreateLearningFile";
+import SearchLearningFile from "./learning_file/SearchLearningFile";
 
 import Home from "./home/Home";
 import Login from "./login/Login";
