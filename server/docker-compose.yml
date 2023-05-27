@@ -23,7 +23,7 @@ services:
     container_name: "learn-server" 
     build: .
     ports: 
-      - "4000:8080"
+      - "${SERVER_PORT}:8080"
     depends_on:
       db:
         condition: service_healthy
@@ -31,12 +31,12 @@ services:
 
     networks:
       gruber-net:
-        ipv4_address: 10.8.0.3
+        ipv4_address: "${SERVER_HOST}"
 
 networks:
   gruber-net:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.8.0.0/16
-          gateway: 10.8.0.1
+        - subnet: "${DOCKER_SUBNET}/16"
+          gateway: "${DOCKER_GATEWAY}"
