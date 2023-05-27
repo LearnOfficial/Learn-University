@@ -4,11 +4,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
-import { CreateEvent, Home, Login, Register } from "./pages";
 import { readToken } from "./storage/token";
 import { SetTokenContext, TokenContext } from "./storage/TokenContext";
 import { Feather } from "@expo/vector-icons";
 import { SplashScreen } from './pages/splash_screen/SplashScreen';
+import { Activity, Event, Home, LearningFile, Technique } from './pages';
 
 export default function App() {
 
@@ -43,7 +43,7 @@ export default function App() {
   if (token) {
     Navigation = () => {
       return <NavigationContainer>
-        <Tab.Navigator screenOptions={({ route }) => ({
+        <Tab.Navigator initialRouteName='Home' screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             let Icon;
             if (route.name === "Home") {
@@ -54,7 +54,11 @@ export default function App() {
             return Icon
           }
         })}>
+          <Tab.Screen options={{ headerShown: false }} name="Technique" component={Technique} />
+          <Tab.Screen options={{ headerShown: false }} name="Event" component={Event} />
           <Tab.Screen options={{ headerShown: false }} name="Home" component={Home} />
+          <Tab.Screen options={{ headerShown: false }} name="LearningFile" component={LearningFile} />
+          <Tab.Screen options={{ headerShown: false }} name="Activity" component={Activity} />
         </Tab.Navigator>
       </NavigationContainer>
     }
