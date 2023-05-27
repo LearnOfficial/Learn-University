@@ -4,20 +4,26 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
-import { Home, Login, Register } from "./pages";
+import { CreateEvent, Home, Login, Register } from "./pages";
 import { readToken } from "./storage/token";
 import { SetTokenContext, TokenContext } from "./storage/TokenContext";
 import { Feather } from "@expo/vector-icons";
+import { SplashScreen } from './pages/splash_screen/SplashScreen';
 
 export default function App() {
 
   const client = new ApolloClient({
-    uri: 'http://localhost:8080',
+    uri: 'http://localhost:4000',
     cache: new InMemoryCache()
   });
 
   const [token, setToken] = useState<string | null | undefined>();
-  setTimeout(() => { }, 1000);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  setTimeout(() => {
+    setIsLoaded(true);
+  }, 2000);
+
   useEffect(() => {
     readToken().then((t) => {
       setToken(t || "");
@@ -25,7 +31,9 @@ export default function App() {
   }, []);
 
   //read if there is a token
-  //TODO: add splash screen meanwhile read a token 
+  if (!isLoaded) {
+    return <SplashScreen />
+  }
 
   let Navigation;
 
@@ -35,27 +43,21 @@ export default function App() {
   if (token) {
     Navigation = () => {
       return <NavigationContainer>
-        <Home></Home>
-      </NavigationContainer>
-    }
-    { /*
-      <NavigationContainer>
-          <Tab.Navigator screenOptions={({route}) => ({
-            tabBarIcon: ({focused}) => {
-              let Icon;
-              if(route.name === "Home"){
-                Icon = focused ? 
-                  <Feather name="home" size={24} color={"blue"}/> :
-                  <Feather name="home" size={24}/>
-              }
-              return Icon
+        <Tab.Navigator screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused }) => {
+            let Icon;
+            if (route.name === "Home") {
+              Icon = focused ?
+                <Feather name="home" size={24} color={"blue"} /> :
+                <Feather name="home" size={24} />
             }
-          })}>
-            <Tab.Screen options={{headerShown:false}} name="Home" component={Home}/>
-          </Tab.Navigator>
+            return Icon
+          }
+        })}>
+          <Tab.Screen options={{ headerShown: false }} name="Home" component={Home} />
+        </Tab.Navigator>
       </NavigationContainer>
     }
-     */}
   } else {
     Navigation = function() {
       return (
