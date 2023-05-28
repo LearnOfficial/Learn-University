@@ -8,7 +8,8 @@ import { readToken } from "./storage/token";
 import { SetTokenContext, TokenContext } from "./storage/TokenContext";
 import { Feather } from "@expo/vector-icons";
 import { SplashScreen } from './pages/splash_screen/SplashScreen';
-import { Activity, Event, Home, LearningFile, Technique } from './pages';
+import { Activity, Event, Home, LearningFile, Login, Register, Technique } from './pages';
+import { useFonts } from 'expo-font';
 
 export default function App() {
 
@@ -20,9 +21,16 @@ export default function App() {
   const [token, setToken] = useState<string | null | undefined>();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
-  setTimeout(() => {
-    setIsLoaded(true);
-  }, 2000);
+  const [fontLoaded] = useFonts({
+    'Lexend': require('../assets/fonts/Lexend.ttf')
+  });
+
+
+  useEffect(() => {
+    if (fontLoaded) {
+      setIsLoaded(true);
+    }
+  }, [fontLoaded]);
 
   useEffect(() => {
     readToken().then((t) => {
