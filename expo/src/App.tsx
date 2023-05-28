@@ -11,11 +11,13 @@ import { SplashScreen } from './pages/splash_screen/SplashScreen';
 import { Activity, Event, Home, LearningFile, Login, Register, Technique } from './pages';
 import { useFonts } from 'expo-font';
 import { Setting } from './pages/settings/Setting';
+import { Header } from './components/Header';
+import {  StatusBar, Text, View } from 'react-native';
 
 export default function App() {
 
   const client = new ApolloClient({
-    uri: 'http://localhost:4000',
+    uri: 'http://192.168.21.11:4000',
     cache: new InMemoryCache()
   });
 
@@ -105,14 +107,16 @@ export default function App() {
               borderRadius: 50, 
               backgroundColor: "#A4D4FF"
             },
-            tabBarShowLabel: false
+            tabBarShowLabel: false,
+            header: ({}) => {
+              return <Header/>;
+            }
           })}>
-          <Tab.Screen options={{ headerShown: false }} name="Calendar" component={Technique} />
-          <Tab.Screen options={{ headerShown: false }} name="Notes" component={Event} />
-          <Tab.Screen options={{ headerShown: false }} name="Home" component={Home} />
-          <Tab.Screen options={{ headerShown: false }} name="Activity" component={LearningFile} />
-          {/*<Tab.Screen options={{ headerShown: false }} name="Group" component={Activity} />*/}
-          <Tab.Screen options={{ headerShown: false }} name="Setting" component={Setting} />
+          <Tab.Screen name="Calendar" component={Technique} />
+          <Tab.Screen name="Notes" component={Event} />
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Activity" component={LearningFile} />
+          <Tab.Screen name="Setting" component={Setting} />
         </Tab.Navigator>
       </NavigationContainer>
     }
@@ -135,6 +139,7 @@ export default function App() {
 
 
   return (
+    <>
     <TokenContext.Provider value={token}>
       <SetTokenContext.Provider value={setToken}>
         <ApolloProvider client={client}>
@@ -142,6 +147,8 @@ export default function App() {
         </ApolloProvider>
       </SetTokenContext.Provider>
     </TokenContext.Provider>
+      <StatusBar/>
+    </>
   );
 }
 

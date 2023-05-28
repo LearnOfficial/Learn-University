@@ -1,7 +1,7 @@
 import { empty, gql, useQuery } from "@apollo/client";
 import { Feather } from "@expo/vector-icons";
 import { useContext } from "react";
-import { Button, View, Text, TouchableOpacity, Image } from "react-native";
+import { Button, View, Text, TouchableOpacity, Image, SafeAreaView } from "react-native";
 import { saveToken } from "../../storage/token";
 import { SetTokenContext, TokenContext } from "../../storage/TokenContext";
 
@@ -35,29 +35,9 @@ export default function Home({ navigation }: any) {
   return (
     <View
       style={{ backgroundColor: "#FAFAFA" }}
-      className="flex w-full h-full py-7 px-3">
-
-      <View className="flex flex-row w-full justify-between items-center h-16">
-        <View className="flex flex-row">
-          <Image style={{ width: 50, height: 50 }} source={require('../../../assets/imgs/LearnIcon.png')} />
-          <View className="flex">
-            <Text style={{ fontFamily: "Lexend" }} className="font-bold">{data?.learner?.username}</Text>
-            <Text style={{ fontFamily: "Lexend" }}>{data?.learner?.email}</Text>
-          </View>
-        </View>
-        <Feather 
-          style={{
-            padding: 5
-          }}
-          name="log-out" 
-          size={24} 
-          color="#A4D4FF"
-          onPress={async () => {
-            setTokenContext!("");
-            await saveToken("");
-          }}
-        />
-      </View>
-    </View>
+      className="flex w-full h-full justify-center items-center"
+    >
+      <Text>Home</Text>
+   </View>
   )
 }
