@@ -31,7 +31,7 @@ export default function Login({ navigation }) {
 
   return (
     <View className="flex w-full h-full justify-center items-center" style={{backgroundColor: "#FAFAFA"}}>
-      <View className="flex flex-col" style={{gap: 12}}>
+      <View className="flex flex-col w-64" style={{gap: 12}}>
 
         <TextInput
           placeholder="Nombre Usuario"
@@ -43,7 +43,7 @@ export default function Login({ navigation }) {
           onChange={setPassword}
         />
 
-        <View className="flex flex-row">
+        <View className="flex flex-row justify-between">
           <Button
             title="Iniciar Sesión"
             onPress={() => {

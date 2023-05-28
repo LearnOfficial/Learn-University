@@ -38,7 +38,7 @@ export default function CreateLearner({ navigation }) {
 
   return (
     <View className="flex flex-col w-full h-full justify-center items-center" style={{backgroundColor: "#FAFAFA"}}>
-      <View className="flex flex-col" style={{gap: 12}}>
+      <View className="flex flex-col w-64" style={{gap: 12}}>
         <TextInput
           onChange={setFullname}
           placeholder="Nombre Completo" />
@@ -55,7 +55,7 @@ export default function CreateLearner({ navigation }) {
           onChange={setPassword}
           placeholder="Contraseña" />
 
-        <View className="flex flex-row">
+        <View className="flex flex-row justify-between">
           <Button title="Cancelar" onPress={() => { navigation.navigate("Login") }} />
           <Button title="Registrarme" onPress={()=>{
             if(fullname.length != 0 && username.length != 0 && email.length != 0 && password.length!=0){

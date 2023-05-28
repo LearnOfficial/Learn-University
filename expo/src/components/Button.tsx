@@ -4,12 +4,20 @@ type ButtonProps = {
   title: string;
   onPress: any
 };
-const Button = ({ title, onPress }:ButtonProps) => (
+const Button = ({ title, onPress }: ButtonProps) => (
   <TouchableOpacity
-    className="flex justify-center items-center h-10 p-3 m-0.5 rounded bg-slate-900"
+    className="flex"
     onPress={onPress}
   >
-    <Text className="text-slate-50 p-6 font-bold">{title}</Text>
+    <Text
+      className="flex rounded p-3"
+      style={{
+        color: "#FAFAFA",
+        backgroundColor: "#0C151C",
+        fontFamily: "Lexend",
+        fontWeight: "800"
+      }}
+    >{title}</Text>
   </TouchableOpacity>
 );
 
