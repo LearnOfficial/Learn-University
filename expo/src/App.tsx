@@ -10,11 +10,12 @@ import { Feather } from "@expo/vector-icons";
 import { SplashScreen } from './pages/splash_screen/SplashScreen';
 import { Activity, Event, Home, LearningFile, Login, Register, Technique } from './pages';
 import { useFonts } from 'expo-font';
+import { Setting } from './pages/settings/Setting';
 
 export default function App() {
 
   const client = new ApolloClient({
-    uri: 'http://192.168.21.11:4000',
+    uri: 'http://localhost:4000',
     cache: new InMemoryCache()
   });
 
@@ -78,10 +79,17 @@ export default function App() {
                   iconName = "activity";
                   color = focused ? activeColor: disableColor;
                   break;
+
                 case "Group":
                   iconName = "users";
                   color = focused ? activeColor: disableColor;
                   break;
+ 
+                case "Setting":
+                  iconName = "settings";
+                  color = focused ? activeColor: disableColor;
+                  break;
+ 
               }
               return <Feather 
                 name={iconName as any}
@@ -104,7 +112,8 @@ export default function App() {
           <Tab.Screen options={{ headerShown: false }} name="Notes" component={Event} />
           <Tab.Screen options={{ headerShown: false }} name="Home" component={Home} />
           <Tab.Screen options={{ headerShown: false }} name="Activity" component={LearningFile} />
-          <Tab.Screen options={{ headerShown: false }} name="Group" component={Activity} />
+          {/*<Tab.Screen options={{ headerShown: false }} name="Group" component={Activity} />*/}
+          <Tab.Screen options={{ headerShown: false }} name="Setting" component={Setting} />
         </Tab.Navigator>
       </NavigationContainer>
     }

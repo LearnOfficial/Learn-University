@@ -1,6 +1,7 @@
 import { empty, gql, useQuery } from "@apollo/client";
+import { Feather } from "@expo/vector-icons";
 import { useContext } from "react";
-import { Button, View, Text, TouchableOpacity } from "react-native";
+import { Button, View, Text, TouchableOpacity, Image } from "react-native";
 import { saveToken } from "../../storage/token";
 import { SetTokenContext, TokenContext } from "../../storage/TokenContext";
 
@@ -18,10 +19,10 @@ const HOME_GQL = gql`
 
 // TODO: add type to navigation
 
-export default function Home({ navigation }: any){
+export default function Home({ navigation }: any) {
   const token = useContext(TokenContext);
 
-  const {data, loading, error} = useQuery(HOME_GQL, {
+  const { data, loading, error } = useQuery(HOME_GQL, {
     context: {
       headers: {
         Authorization: token
@@ -32,22 +33,25 @@ export default function Home({ navigation }: any){
   const setTokenContext = useContext(SetTokenContext);
 
   return (
-    <View className="flex w-screen h-screen gap-10 justify-center items-center">
-      <View className="flex">
-        <Text className="font-bold">Welcome to Learn!</Text>
-        <Text>{data?.learner?.id}</Text>
-        <Text>{data?.learner?.username}</Text>
-        <Text>{data?.learner?.fullname}</Text>
-        <Text>{data?.learner?.email}</Text>
-      </View>
-      <View className="flex flex-col gap-2">
-        <TouchableOpacity>
-          <Text className="p-2 rounded  font-bold text-white bg-red-600 ">
-            Eliminar Aprendiz
-          </Text>
-        </TouchableOpacity>
-        <Button
-          title="Logout"
+    <View
+      style={{ backgroundColor: "#FAFAFA" }}
+      className="flex w-full h-full py-7 px-3">
+
+      <View className="flex flex-row w-full justify-between items-center h-16">
+        <View className="flex flex-row">
+          <Image style={{ width: 50, height: 50 }} source={require('../../../assets/imgs/LearnIcon.png')} />
+          <View className="flex">
+            <Text style={{ fontFamily: "Lexend" }} className="font-bold">{data?.learner?.username}</Text>
+            <Text style={{ fontFamily: "Lexend" }}>{data?.learner?.email}</Text>
+          </View>
+        </View>
+        <Feather 
+          style={{
+            padding: 5
+          }}
+          name="log-out" 
+          size={24} 
+          color="#A4D4FF"
           onPress={async () => {
             setTokenContext!("");
             await saveToken("");
