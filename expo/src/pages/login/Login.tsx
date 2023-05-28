@@ -1,7 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
 import { useContext, useState } from "react";
-import { TextInput, View } from "react-native";
+import { View } from "react-native";
 import Button from "../../components/Button";
+import { TextInput } from "../../components/TextInput";
 import { saveToken } from "../../storage/token";
 import { SetTokenContext, TokenContext } from "../../storage/TokenContext";
 
@@ -29,18 +30,17 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <View className="flex w-screen h-screen justify-center items-center bg-white">
-      <View className="flex flex-col gap-3">
+    <View className="flex w-full h-full justify-center items-center" style={{backgroundColor: "#FAFAFA"}}>
+      <View className="flex flex-col" style={{gap: 12}}>
+
         <TextInput
-          className="block p-3 border rounded"
           placeholder="Nombre Usuario"
-          onChangeText={setUsername}
+          onChange={setUsername}
         />
+
         <TextInput
-          className="p-3 border rounded"
           placeholder="Contraseña"
-          secureTextEntry
-          onChangeText={setPassword}
+          onChange={setPassword}
         />
 
         <View className="flex flex-row">

@@ -1,4 +1,5 @@
-import { TextInput, View } from "react-native";
+import { View } from "react-native";
+import { TextInput } from "../../components/TextInput";
 import Button from "../../components/Button";
 import { useContext, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
@@ -30,33 +31,28 @@ export default function CreateLearner({ navigation }) {
     alert("No se ha podido conectar a la Base de Datos.");
   }
 
-  const [fullname, setFullname] = useState<String>("");
-  const [username, setUsername] = useState<String>("");
-  const [email, setEmail] = useState<String>("");
-  const [password, setPassword] = useState<String>("");
+  const [fullname, setFullname] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   return (
-    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white">
-      <View className="flex flex-col">
+    <View className="flex flex-col w-full h-full justify-center items-center" style={{backgroundColor: "#FAFAFA"}}>
+      <View className="flex flex-col" style={{gap: 12}}>
         <TextInput
-          onChangeText={setFullname}
-          className="p-3 border rounded"
+          onChange={setFullname}
           placeholder="Nombre Completo" />
 
         <TextInput
-          onChangeText={setUsername}
-          className="p-3 border rounded"
+          onChange={setUsername}
           placeholder="Nombre de Usuario" />
 
         <TextInput
-          onChangeText={setEmail}
-          className="p-3 border rounded"
+          onChange={setEmail}
           placeholder="Correo Electronico" />
 
         <TextInput
-          secureTextEntry
-          onChangeText={setPassword}
-          className="p-3 border rounded"
+          onChange={setPassword}
           placeholder="Contraseña" />
 
         <View className="flex flex-row">
