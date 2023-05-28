@@ -100,7 +100,6 @@ export default function App() {
             tabBarStyle: {
               position: "absolute",
               marginHorizontal: "10%",
-              alignItems: "center",
               height: 60,
               bottom: 10,
               borderRadius: 50, 
