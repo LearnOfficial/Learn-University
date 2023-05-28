@@ -14,7 +14,7 @@ import { useFonts } from 'expo-font';
 export default function App() {
 
   const client = new ApolloClient({
-    uri: 'http://localhost:4000',
+    uri: 'http://192.168.21.11:4000',
     cache: new InMemoryCache()
   });
 
@@ -51,22 +51,60 @@ export default function App() {
   if (token) {
     Navigation = () => {
       return <NavigationContainer>
-        <Tab.Navigator initialRouteName='Home' screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused }) => {
-            let Icon;
-            if (route.name === "Home") {
-              Icon = focused ?
-                <Feather name="home" size={24} color={"blue"} /> :
-                <Feather name="home" size={24} />
-            }
-            return Icon
-          }
-        })}>
-          <Tab.Screen options={{ headerShown: false }} name="Technique" component={Technique} />
-          <Tab.Screen options={{ headerShown: false }} name="Event" component={Event} />
+        <Tab.Navigator
+          initialRouteName='Home'
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused }) => {
+              let iconName: string = "";
+              let color = "";
+              let activeColor = "#FAFAFA";
+              let disableColor = "#A4D4FF";
+              switch (route.name) {
+                case "Home":
+                  iconName = "home";
+                  color = focused ? activeColor: disableColor;
+                  break;
+
+                case "Notes":
+                  iconName = "edit";
+                  color = focused ? activeColor: disableColor;
+                  break;
+                case "Calendar":
+                  iconName = "calendar";
+                  color = focused ? activeColor: disableColor;
+                  break;
+
+                case "Activity":
+                  iconName = "activity";
+                  color = focused ? activeColor: disableColor;
+                  break;
+                case "Group":
+                  iconName = "users";
+                  color = focused ? activeColor: disableColor;
+                  break;
+              }
+              return <Feather 
+                name={iconName as any}
+                size={24}
+                color={color == disableColor ? activeColor: disableColor}
+                style={{backgroundColor: color, padding: 5, borderRadius: 5}}/>
+            },
+            tabBarStyle: {
+              position: "absolute",
+              marginHorizontal: "10%",
+              alignItems: "center",
+              height: 60,
+              bottom: 10,
+              borderRadius: 50, 
+              backgroundColor: "#A4D4FF"
+            },
+            tabBarShowLabel: false
+          })}>
+          <Tab.Screen options={{ headerShown: false }} name="Calendar" component={Technique} />
+          <Tab.Screen options={{ headerShown: false }} name="Notes" component={Event} />
           <Tab.Screen options={{ headerShown: false }} name="Home" component={Home} />
-          <Tab.Screen options={{ headerShown: false }} name="LearningFile" component={LearningFile} />
-          <Tab.Screen options={{ headerShown: false }} name="Activity" component={Activity} />
+          <Tab.Screen options={{ headerShown: false }} name="Activity" component={LearningFile} />
+          <Tab.Screen options={{ headerShown: false }} name="Group" component={Activity} />
         </Tab.Navigator>
       </NavigationContainer>
     }
