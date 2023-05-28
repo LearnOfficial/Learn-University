@@ -25,7 +25,7 @@ export function TextInput({
       placeholderTextColor="#3B648A"
       placeholder={placeholder}
       // TODO: remove any
-      onChange={onChange as any}
+      onChangeText={onChange as any}
     >
     </TextInputRN>
   );
