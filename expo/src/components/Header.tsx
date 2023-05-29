@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import { Feather } from "@expo/vector-icons";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
 import { saveToken } from "../storage/token";
 import { SetTokenContext, TokenContext } from "../storage/TokenContext";
@@ -20,6 +20,8 @@ const HOME_GQL = gql`
 
 // TODO: add type to navigation
 export function Header({ navigation }: any) {
+
+  // TODO: Reload when the user change their data
   const token = useContext(TokenContext);
 
   const { data, loading, error } = useQuery(HOME_GQL, {
@@ -31,10 +33,16 @@ export function Header({ navigation }: any) {
   });
 
   const setTokenContext = useContext(SetTokenContext);
+  if (data) {
+    if (data.learner == null) {
+      setTokenContext!("");
+      saveToken("");
+    }
+  }
 
   return (
     <View
-      style={{ backgroundColor: COLORS.imagin[350]}}
+      style={{ backgroundColor: COLORS.imagin[350] }}
       className="flex px-2">
 
       <View className="flex flex-row w-full justify-between items-center h-16">
@@ -43,6 +51,7 @@ export function Header({ navigation }: any) {
           <View className="flex">
             <Text style={{ fontFamily: "Lexend" }} className="font-bold">{data?.learner?.username}</Text>
             <Text style={{ fontFamily: "Lexend" }}>{data?.learner?.email}</Text>
+            <Text style={{ fontFamily: "Lexend" }}>{data?.learner?.fullname}</Text>
           </View>
         </View>
         <Feather
