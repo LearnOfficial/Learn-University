@@ -13,11 +13,12 @@ import { useFonts } from 'expo-font';
 import { Setting } from './pages/settings/Setting';
 import { Header } from './components/Header';
 import {  StatusBar, Text, View } from 'react-native';
+import { COLORS } from './styles/colors';
 
 export default function App() {
 
   const client = new ApolloClient({
-    uri: 'http://192.168.21.11:4000',
+    uri: 'http://localhost:4000',
     cache: new InMemoryCache()
   });
 
@@ -60,8 +61,8 @@ export default function App() {
             tabBarIcon: ({ focused }) => {
               let iconName: string = "";
               let color = "";
-              let activeColor = "#FAFAFA";
-              let disableColor = "#A4D4FF";
+              let activeColor = COLORS.imagin[350];
+              let disableColor = COLORS.creativity[350];
               switch (route.name) {
                 case "Home":
                   iconName = "home";
@@ -105,7 +106,7 @@ export default function App() {
               height: 60,
               bottom: 10,
               borderRadius: 50, 
-              backgroundColor: "#A4D4FF"
+              backgroundColor: COLORS.creativity[350]
             },
             tabBarShowLabel: false,
             header: ({}) => {

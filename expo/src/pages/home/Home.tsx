@@ -1,9 +1,8 @@
 import { empty, gql, useQuery } from "@apollo/client";
-import { Feather } from "@expo/vector-icons";
 import { useContext } from "react";
-import { Button, View, Text, TouchableOpacity, Image, SafeAreaView } from "react-native";
-import { saveToken } from "../../storage/token";
+import {  View, Text } from "react-native";
 import { SetTokenContext, TokenContext } from "../../storage/TokenContext";
+import { COLORS } from "../../styles/colors";
 
 
 const HOME_GQL = gql`
@@ -34,7 +33,7 @@ export default function Home({ navigation }: any) {
 
   return (
     <View
-      style={{ backgroundColor: "#FAFAFA" }}
+      style={{ backgroundColor: COLORS.imagin[350]}}
       className="flex w-full h-full justify-center items-center"
     >
       <Text>Home</Text>

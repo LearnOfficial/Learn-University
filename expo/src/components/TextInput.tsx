@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { TextInput as TextInputRN } from "react-native";
+import { COLORS } from "../styles/colors";
 type TextInputProps = {
   placeholder: string;
   onChange: Dispatch<SetStateAction<string>>;
@@ -15,14 +16,15 @@ export function TextInput({
       style={{
         fontFamily: 'Lexend',
         fontWeight: "500",
-        backgroundColor: onFocus ? "white" : "#E6F3FF",
-        borderColor: onFocus ? "#A4D4FF": "#E6F3FF",
+        backgroundColor: onFocus ? COLORS.imagin[350] : COLORS.creativity[120],
+        borderColor: onFocus ? COLORS.creativity[350]: COLORS.creativity[120],
+        color: COLORS.curiosity[350],
         borderWidth: 1
       }}
       onFocus={() => setOnFocus(true)}
       onBlur={() => setOnFocus(false)}
       className="p-2 rounded"
-      placeholderTextColor="#3B648A"
+      placeholderTextColor={COLORS.creativity[380]}
       placeholder={placeholder}
       // TODO: remove any
       onChangeText={onChange as any}

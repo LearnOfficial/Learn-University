@@ -1,4 +1,5 @@
 import { Text, TouchableOpacity } from "react-native";
+import { COLORS } from "../styles/colors";
 
 type ButtonProps = {
   title: string;
@@ -12,8 +13,8 @@ const Button = ({ title, onPress }: ButtonProps) => (
     <Text
       className="flex rounded p-3"
       style={{
-        color: "#FAFAFA",
-        backgroundColor: "#0C151C",
+        color: COLORS.imagin[350],
+        backgroundColor: COLORS.creativity[350],
         fontFamily: "Lexend",
         fontWeight: "800"
       }}

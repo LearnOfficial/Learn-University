@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { View, Text, Image } from "react-native";
 import { saveToken } from "../storage/token";
 import { SetTokenContext, TokenContext } from "../storage/TokenContext";
+import { COLORS } from "../styles/colors";
 
 
 const HOME_GQL = gql`
@@ -33,7 +34,7 @@ export function Header({ navigation }: any) {
 
   return (
     <View
-      style={{ backgroundColor: "#FAFAFA" }}
+      style={{ backgroundColor: COLORS.imagin[350]}}
       className="flex px-2">
 
       <View className="flex flex-row w-full justify-between items-center h-16">
@@ -50,7 +51,7 @@ export function Header({ navigation }: any) {
           }}
           name="log-out"
           size={24}
-          color="#A4D4FF"
+          color={COLORS.creativity[350]}
           onPress={async () => {
             setTokenContext!("");
             await saveToken("");
