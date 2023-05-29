@@ -18,7 +18,7 @@ import { COLORS } from './styles/colors';
 export default function App() {
 
   const client = new ApolloClient({
-    uri: 'http://localhost:4000',
+    uri: 'http://192.168.21.11:4000',
     cache: new InMemoryCache()
   });
 
@@ -56,7 +56,7 @@ export default function App() {
     Navigation = () => {
       return <NavigationContainer>
         <Tab.Navigator
-          initialRouteName='Home'
+          initialRouteName='Setting'
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused }) => {
               let iconName: string = "";
@@ -106,7 +106,7 @@ export default function App() {
               height: 60,
               bottom: 10,
               borderRadius: 50, 
-              backgroundColor: COLORS.creativity[350]
+              backgroundColor: COLORS.creativity[350],
             },
             tabBarShowLabel: false,
             header: ({}) => {
