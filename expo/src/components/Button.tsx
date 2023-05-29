@@ -7,12 +7,13 @@ type ButtonProps = {
 };
 const Button = ({ title, onPress }: ButtonProps) => (
   <TouchableOpacity
-    className="flex"
     onPress={onPress}
   >
     <Text
-      className="flex rounded p-3"
       style={{
+        textAlign: "center",
+        padding: 12,
+        borderRadius: 5,
         color: COLORS.imagin[350],
         backgroundColor: COLORS.creativity[350],
         fontFamily: "Lexend",

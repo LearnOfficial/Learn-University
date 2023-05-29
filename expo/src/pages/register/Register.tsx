@@ -1,10 +1,11 @@
-import { View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { TextInput } from "../../components/TextInput";
 import Button from "../../components/Button";
 import { useContext, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { saveToken } from "../../storage/token";
 import { SetTokenContext } from "../../storage/TokenContext";
+import { COLORS } from "../../styles/colors";
 
 const REGISTER_GQL = gql`
   mutation($signupInput: LearnerSignUpInput!){
@@ -26,8 +27,8 @@ export default function CreateLearner({ navigation }) {
     })();
     setTokenContext!(newToken);
   }
-  
-  if(error){
+
+  if (error) {
     alert("No se ha podido conectar a la Base de Datos.");
   }
 
@@ -37,8 +38,10 @@ export default function CreateLearner({ navigation }) {
   const [password, setPassword] = useState<string>("");
 
   return (
-    <View className="flex flex-col w-full h-full justify-center items-center" style={{backgroundColor: "#FAFAFA"}}>
-      <View className="flex flex-col w-64" style={{gap: 12}}>
+    <View className="flex w-full h-full justify-center p-3 md:items-center" style={{ backgroundColor: "#FAFAFA" }}>
+      <View className="flex flex-col md:w-96" style={{ gap: 12 }}>
+
+
         <TextInput
           onChange={setFullname}
           placeholder="Nombre Completo" />
@@ -55,10 +58,10 @@ export default function CreateLearner({ navigation }) {
           onChange={setPassword}
           placeholder="Contraseña" />
 
-        <View className="flex flex-row justify-between">
-          <Button title="Cancelar" onPress={() => { navigation.navigate("Login") }} />
-          <Button title="Registrarme" onPress={()=>{
-            if(fullname.length != 0 && username.length != 0 && email.length != 0 && password.length!=0){
+        <View className="flex" style={{gap: 12}}>
+
+          <Button title="Registrarme" onPress={() => {
+            if (fullname.length != 0 && username.length != 0 && email.length != 0 && password.length != 0) {
               onRegister({
                 variables: {
                   signupInput: {
@@ -69,10 +72,19 @@ export default function CreateLearner({ navigation }) {
                   }
                 }
               });
-            }else{
+            } else {
               alert("Todos los campos son obligatorios.")
             }
           }} />
+
+          <View className="flex flex-row" style={{gap: 7}}>
+            <Text style={{fontFamily: "Lexend"}}>Already have an account?</Text>
+            <TouchableOpacity
+              onPress={() => { navigation.navigate("Login") }}
+            >
+              <Text style={{fontFamily: "Lexend", fontWeight: "800", color: COLORS.creativity[350]}}>Sign in.</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
