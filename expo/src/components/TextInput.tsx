@@ -3,7 +3,7 @@ import { TextInput as TextInputRN } from "react-native";
 import { COLORS } from "../styles/colors";
 type TextInputProps = {
   placeholder: string;
-  onChange: Dispatch<SetStateAction<string>>;
+  onChange: (e: any) => void;
 }
 export function TextInput({
   placeholder,

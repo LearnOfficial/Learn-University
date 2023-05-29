@@ -1,9 +1,11 @@
 import { Text, View } from "react-native";
+import { Page } from "../../components/Page";
+import CreateTechnique from "./CreateTechnique";
 
 export function Technique() {
   return (
-    <View className="w-full h-full justify-center items-center">
-      <Text>Technique</Text>
-    </View>
+    <Page>
+      <CreateTechnique/>
+    </Page>
   );
 }

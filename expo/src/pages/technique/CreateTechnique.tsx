@@ -1,14 +1,10 @@
 import { useContext, useState } from "react";
-import { View, TextInput, Text } from "react-native";
+import { View } from "react-native";
 import Button from "../../components/Button";
-import {
-  TimePickerModal,
-  DatePickerInput
-  // @ts-ignore 
-} from "react-native-paper-dates"
 import { TokenContext } from "../../storage/TokenContext";
 import { gql, useMutation } from "@apollo/client";
-import { Snackbar } from "react-native-paper";
+import { TextInput } from "../../components/TextInput";
+import { Text } from "../../components/Text";
 
 const CREATE_TECHNIQUE_GQL = gql`
   mutation($createTechnique: TechniqueInput!){
@@ -38,16 +34,14 @@ export default function CreateTechnique() {
   }
 
   return (
-    <View className="flex flex-col w-screen h-screen justify-center items-center bg-white gap-6">
-      <View className="flex flex-col">
-        <TextInput className="p-3 border rounded m-0.5" placeholder="Titulo de la Técnica" onChangeText={setTitle} />
-
-        <View className="flex flex-row justify-between items-center gap-6">
+    <View style={{gap: 12}}>
+      <View className="flex flex-col" style={{gap: 12}}>
+        <TextInput placeholder="Titulo de la Técnica" onChange={setTitle} />
+        <View className="flex flex-row justify-between items-center">
           <Text>Tiempo de concentración (min)</Text>
           <TextInput
-            value={`${focusTime}`}
-            className="p-3 border rounded m-0.5"
-            onChangeText={(e) => {
+            placeholder="25"
+            onChange={(e) => {
               const regex = /[a-zA-Z]/g;
               if (regex.test(e) || /\s\t\n/g.test(e)) {
                 setFocusTime(0);
@@ -58,12 +52,11 @@ export default function CreateTechnique() {
           />
         </View>
 
-        <View className="flex flex-row justify-between items-center gap-6">
+        <View className="flex flex-row justify-between items-center">
           <Text>Tiempo de descanso (min)</Text>
           <TextInput
-            value={`${breakTime}`}
-            className="p-3 border rounded m-0.5"
-            onChangeText={(e) => {
+            placeholder="5"
+            onChange={(e) => {
               const regex = /[a-zA-Z]/g;
               if (regex.test(e) || /\s\t\n/g.test(e)) {
                 setBreakTime(0);
@@ -74,12 +67,11 @@ export default function CreateTechnique() {
           />
         </View>
 
-        <View className="flex flex-row justify-between items-center gap-6">
+        <View className="flex flex-row justify-between items-center">
           <Text>Intervalo de repetición</Text>
           <TextInput
-            value={`${interval}`}
-            className="p-3 border rounded m-0.5"
-            onChangeText={(e) => {
+            placeholder="5"
+            onChange={(e) => {
               const regex = /[a-zA-Z]/g;
               if (regex.test(e) || /\s\t\n/g.test(e)) {
                 setInterval(0);
@@ -90,21 +82,6 @@ export default function CreateTechnique() {
           />
         </View>
       </View> 
-
-    { 
-        data && <Snackbar
-          className="text-slate-50"
-          visible={true}
-          onDismiss={() => {}}
-          action={{
-            label: 'Undo',
-            onPress: () => {
-            }
-          }}
-        > 
-          La técnica {technique?.title} se ha creado exitosamente.
-        </Snackbar>
-      }
 
       <Button
         title="Crear Técnica"
