@@ -2,7 +2,7 @@ import { GraphQLError } from "graphql";
 import { Arg, Mutation, Resolver } from "type-graphql";
 import Activity from "../../entity/Activity.js";
 import Event from "../../entity/Event.js";
-import { ActivityInput } from "./ActivityInput.js";
+import { ActivityDeleteInput, ActivityInput } from "./ActivityInput.js";
 
 @Resolver()
 export class ActivityResolver {
@@ -19,7 +19,7 @@ export class ActivityResolver {
     }
 
     // Given Activity data and ID, UPDATES and returns Activity object
-    @Mutation(() => Activity || null)
+    @Mutation(() => Activity)
     async updateActivity(@Arg("updateActivity") updateInput: ActivityInput) {
         const current = new Activity(updateInput)
         let activity = await current.readActivity();
@@ -33,16 +33,18 @@ export class ActivityResolver {
     }
 
     // Given an ID, DELETE an Activity
-    @Mutation(() => String)
+    @Mutation(() => Activity)
     async deleteActivity(@Arg("id") id: number) {
-        let activity: Activity | null = new Activity();
-        activity.id = id
-        const TEMP = await activity.readActivity();
-        if (!TEMP) {
+        let activity: Activity = new Activity();
+        activity.id = id;
+
+        if (!await activity.readOneActivity()) {
             throw new GraphQLError("The activity does not exist.");
         } else {
             await activity.deleteActivity();
         }
+
+        return activity;
     }
 
 }

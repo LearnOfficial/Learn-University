@@ -1,7 +1,7 @@
 import { GraphQLError } from "graphql";
 import { Arg, Mutation, Resolver } from "type-graphql";
 import Event from "../../entity/Event.js"
-import { EventInput } from "./EventInput.js";
+import { EventInput, EventUpdateInput } from "./EventInput.js";
 import { CurrentUser } from "../../context.js";
 import Learner from "../../entity/Learner.js";
 import Technique from "../../entity/Technique.js";
@@ -17,7 +17,7 @@ export class EventResolver {
   ) {
     const technique = new Technique;
     let learner = new Learner();
-    
+
     learner.id = currentUser;
     technique.id = createInput.techniqueId;
 
@@ -31,7 +31,7 @@ export class EventResolver {
   // Updates an Event by id
   @Mutation(() => Event || null)
   async updateEvent(
-    @Arg("updateEvent") updateInput: EventInput
+    @Arg("updateEvent") updateInput: EventUpdateInput
   ) {
     const current = new Event(updateInput)
     let event = await current.readEvent();
@@ -45,17 +45,18 @@ export class EventResolver {
   }
 
   // Delete an Event by id
-  @Mutation(() => String)
+  @Mutation(() => Event)
   async deleteEvent(@Arg("id") id: number) {
     let event: Event | null = new Event();
     event.id = id;
-    event = await event.readEvent() as Event;
+    event = await event.readOneEventById();
 
     if (!event) {
       throw new GraphQLError("The Event does not exist.");
     }
 
-    return await event.deleteEvent();
+    await event.deleteEvent();
+    return event;
   }
 
 }

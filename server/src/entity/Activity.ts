@@ -47,9 +47,15 @@ export default class Activity implements IActivity {
   }
 
   async deleteActivity(): Promise<void> {
+    console.log("deleting"); 
     await this.repository.delete({
       id: this.id
     })
+  }
+
+
+  async readOneActivity(): Promise<Activity | null>{ 
+    return await this.repository.findOneBy({id: this.id});
   }
 
   async readActivity(): Promise<Activity[] | null> {
