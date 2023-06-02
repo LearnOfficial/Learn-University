@@ -13,6 +13,19 @@ class ActivityInput implements IActivity{
     eventId: number
 }
 
+@InputType()
+class ActivityDeleteInput implements IActivity{
+    @Field()
+    id: number;
+    @Field()
+    eventId: number; 
+
+    title: string;
+    endDate: Date;
+    startDate: Date;
+}
+
 export{
-    ActivityInput
+    ActivityInput,
+    ActivityDeleteInput
 }

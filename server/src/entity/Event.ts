@@ -67,6 +67,10 @@ export default class Event implements IEvent{
     await this.repository.delete({
       id: this.id
     })
+  } 
+
+  async readOneEventById(): Promise<Event | null>{
+    return await this.repository.findOneBy({id: this.id});
   }
 
   async readEvent(): Promise<Array<Event> | Event | null> { 
