@@ -40,7 +40,11 @@ export function Setting({ navigation }) {
   const [password, setPassword] = useState<string>("");
 
   return (
-    <Page>
+    <Page
+      // TODO: add refresh
+      refreshing={false}
+      onRefresh={() => { }}
+    >
       <View style={{ gap: 10 }}>
         <Separator title="Profile Zone" color={COLORS.creativity[320]} />
         <TextInput placeholder="Full name" onChange={setFullName} />

@@ -17,10 +17,13 @@ const HOME_GQL = gql`
 
 // TODO: add type to navigation
 export default function Home({ navigation }: any) {
-  const { data, loading, error } = useQuery(HOME_GQL, useGraphQLContext());
+  const { data, loading, error, refetch} = useQuery(HOME_GQL, useGraphQLContext());
 
   return (
-    <Page>
+    <Page
+      refreshing={loading}
+      onRefresh={refetch}
+    >
       <Text>{data.learner.fullname}</Text>
     </Page>
   )
