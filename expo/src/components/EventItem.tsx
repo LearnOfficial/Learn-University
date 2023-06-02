@@ -10,7 +10,7 @@ export type EventItemProps = {
   title: string;
   startDate: Date;
   endDate: Date;
-  children: React.ReactNode[];
+  children: React.ReactNode;
   onDelete?: () => void
 };
 

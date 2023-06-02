@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { TextInput, View, Text } from "react-native";
 import { TimePickerModal, DatePickerInput } from "react-native-paper-dates"
 import Button from "../../components/Button";
+import { Page } from "../../components/Page";
 import { TokenContext } from "../../storage/TokenContext";
 
 const USER_EVENTS_GQL = gql`
@@ -39,16 +40,20 @@ export default function CreateActivity() {
 
   const [eventId, setEventId] = useState<number>(1);
   const [title, setTitle] = useState<String>("");
-  
+
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
 
   const [enableStartTime, setEnableStartTime] = useState<boolean>(false);
   const [enableEndTime, setEnableEndTime] = useState<boolean>(false);
 
-  if (eventQuery.data) {
-    const events = eventQuery.data?.learner?.events as [];
-    return (
+  const events = eventQuery.data?.learner?.events as [];
+  return (
+    <Page
+      refreshing={false}
+      onRefresh={() => { }}
+    >
+
       <View className="flex w-screen h-screen justify-center items-center bg-white">
         <View className="flex gap-2">
           <TextInput
@@ -90,18 +95,18 @@ export default function CreateActivity() {
 
           <View className="flex flex-row m-0.5">
             <Text className="p-2 border rounded text-center grow">
-              {startDate?startDate.toLocaleDateString()+" "+startDate.toLocaleTimeString():""}
+              {startDate ? startDate.toLocaleDateString() + " " + startDate.toLocaleTimeString() : ""}
             </Text>
 
             <Text className="p-2 border rounded text-center grow">
-              {endDate?endDate.toLocaleDateString()+" "+endDate.toLocaleTimeString():""}
+              {endDate ? endDate.toLocaleDateString() + " " + endDate.toLocaleTimeString() : ""}
             </Text>
           </View>
 
           <View className="flex flex-row">
             <TimePickerModal
               visible={enableStartTime}
-              onConfirm={({ hours, minutes }) => { setEnableStartTime(false); startDate?setStartDate(new Date(startDate.getDate()+startDate.getMonth()+startDate.getFullYear()+' '+hours+':'+minutes)):startDate}}
+              onConfirm={({ hours, minutes }) => { setEnableStartTime(false); startDate ? setStartDate(new Date(startDate.getDate() + startDate.getMonth() + startDate.getFullYear() + ' ' + hours + ':' + minutes)) : startDate }}
               onDismiss={() => setEnableStartTime(false)}
             />
             <Button
@@ -111,7 +116,7 @@ export default function CreateActivity() {
 
             <TimePickerModal
               visible={enableEndTime}
-              onConfirm={({ hours, minutes }) => { setEnableEndTime(false); endDate?setEndDate(new Date(endDate.getDate()+endDate.getMonth()+endDate.getFullYear()+' '+hours+':'+minutes)):endDate}}
+              onConfirm={({ hours, minutes }) => { setEnableEndTime(false); endDate ? setEndDate(new Date(endDate.getDate() + endDate.getMonth() + endDate.getFullYear() + ' ' + hours + ':' + minutes)) : endDate }}
               onDismiss={() => setEnableEndTime(false)}
             />
 
@@ -137,8 +142,7 @@ export default function CreateActivity() {
             }}
           />
         </View>
-
       </View>
-    );
-  }
+    </Page>
+  );
 }
