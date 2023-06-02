@@ -46,8 +46,8 @@ export function EventItem({
         </TouchableOpacity>
       </View>
       <View className="flex flex-row justify-between" style={{ gap: 7 }}>
-        <Text>{`Start: ${startDate.getDate()} ${startDate.toLocaleString('locale', { month: "long" })} ${startDate.getHours()}`}</Text>
-        <Text>{`End: ${endDate.getDate()} ${endDate.toLocaleString('locale', { month: "long" })} ${endDate.getHours()}`}</Text>
+        <Text>{`Empieza: ${startDate.getDate()} ${startDate.toLocaleString('locale', { month: "long" })} ${startDate.getHours()}`}</Text>
+        <Text>{`Termina: ${endDate.getDate()} ${endDate.toLocaleString('locale', { month: "long" })} ${endDate.getHours()}`}</Text>
       </View>
       <View style={{ gap: 12 }}>
         {children}

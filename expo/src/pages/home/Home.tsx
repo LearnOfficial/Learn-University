@@ -40,7 +40,7 @@ export default function Home({ navigation }: any) {
     return (
       <Page refreshing={loading} onRefresh={() => { }}>
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <Text>No Events</Text>
+          <Text>No Hay Eventos</Text>
         </View>
       </Page>
     );
@@ -57,6 +57,7 @@ export default function Home({ navigation }: any) {
     >
       <>
         <AddContainer
+          text={"Crear Nuevo Evento"}
           onPress={() => { navigation.navigate("CreateEvent") }}
         />
         {
@@ -73,6 +74,7 @@ export default function Home({ navigation }: any) {
               >
                 <>
                   <AddContainer
+                    text = {"Crear Nuevo Actividad"}
                     onPress={() => { navigation.navigate("CreateActivity") }}
                   />
                   {

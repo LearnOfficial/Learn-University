@@ -46,10 +46,10 @@ export function Setting({ navigation }) {
       onRefresh={() => { }}
     >
       <View style={{ gap: 10 }}>
-        <Separator title="Profile Zone" color={COLORS.creativity[320]} />
-        <TextInput placeholder="Full name" onChange={setFullName} />
-        <TextInput placeholder="password" onChange={setPassword} />
-        <Button title="Save changes" onPress={() => {
+        <Separator title="Perfil" color={COLORS.creativity[320]} />
+        <TextInput placeholder="Nombre Completo" onChange={setFullName} />
+        <TextInput placeholder="Contraseña" onChange={setPassword} />
+        <Button title="Guardar Cambios" onPress={() => {
           // TODO: add check for fullname and password because can be empty
           onUpdateLearner({
             variables: {
@@ -63,9 +63,9 @@ export function Setting({ navigation }) {
       </View>
 
       <View style={{ gap: 10 }}>
-        <Separator title="Danger Zone" color={COLORS.forgot[320]} />
+        <Separator title="Zona Peligrosa" color={COLORS.forgot[320]} />
         <Button
-          title="Delete Account"
+          title="Eliminar Perfil"
           onPress={async () => {
             onDeleteLearner();
             setTokenContext!("");
