@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { TextInput } from "../../components/TextInput";
 import Button from "../../components/Button";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { saveToken } from "../../storage/token";
 import { SetTokenContext } from "../../storage/TokenContext";
@@ -20,18 +20,20 @@ export default function CreateLearner({ navigation }) {
   const [onRegister, { data, loading, error }] = useMutation(REGISTER_GQL);
   const setTokenContext = useContext(SetTokenContext);
 
-  if (data) {
-    const newToken = data?.createLearner?.token;
-    (async () => {
-      await saveToken(newToken);
-    })();
-    setTokenContext!(newToken);
-  }
-
-  if (error) {
-    alert("No se ha podido conectar a la Base de Datos.");
-  }
-
+  useEffect(()=>{
+    if (data) {
+      const newToken = data?.createLearner?.token;
+      (async () => {
+        await saveToken(newToken);
+      })();
+      setTokenContext!(newToken);
+    }
+  
+    if (error) {
+      alert("No se ha podido conectar a la Base de Datos.");
+    }
+  })
+  
   const [fullname, setFullname] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
