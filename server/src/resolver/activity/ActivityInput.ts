@@ -9,7 +9,7 @@ class ActivityInput implements IActivity{
     startDate: Date;
     @Field()
     endDate: Date;
-    @Field()
+    @Field({nullable: true})
     eventId: number
 }
 
