@@ -14,11 +14,12 @@ import { Setting } from './pages/settings/Setting';
 import { Header } from './components/Header';
 import {  StatusBar, Text, View } from 'react-native';
 import { COLORS } from './styles/colors';
+import { Notes } from './pages/notes/Notes';
 
 export default function App() {
 
   const client = new ApolloClient({
-    uri: 'http://192.168.21.11:4000',
+    uri: 'http://192.168.21.11:8080',
     cache: new InMemoryCache()
   });
 
@@ -56,7 +57,7 @@ export default function App() {
     Navigation = () => {
       return <NavigationContainer>
         <Tab.Navigator
-          initialRouteName='Setting'
+          initialRouteName='Notes'
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused }) => {
               let iconName: string = "";
@@ -114,7 +115,7 @@ export default function App() {
             }
           })}>
           <Tab.Screen name="Calendar" component={Technique} />
-          <Tab.Screen name="Notes" component={Event} />
+          <Tab.Screen name="Notes" component={Notes} />
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Activity" component={LearningFile} />
           <Tab.Screen name="Setting" component={Setting} />

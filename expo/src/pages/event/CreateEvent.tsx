@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { useContext, useState } from "react";
 import { Picker } from '@react-native-picker/picker';
-import {TextInput} from '../../components/TextInput';
+import { TextInput } from '../../components/TextInput';
 import {
   TimePickerModal,
   DatePickerInput
@@ -36,14 +36,29 @@ query {
   }
 }
 `
+ 
 
-export default function CreateEvent() {
+export type EventObject = { 
+  title: string;
+  description: string;
+  techniqueId: number;
+  startDate: Date;
+  endDate: Date;
+  type: number
+
+};
+
+export type CreateEventProps = {
+  onSubmit: (event: EventObject) => void;
+};
+
+export default function CreateEvent({ onSubmit }: CreateEventProps) {
   const [onCreateEvent, eventMutation] = useMutation(CREATE_EVENT_GQL, useGraphQLContext());
 
   const techniqueQuery = useQuery(USER_TECHNIQUES, useGraphQLContext());
 
-  const [title, setTitle] = useState<String>("");
-  const [description, setDescription] = useState<String>("");
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [techniqueId, setTechniqueId] = useState<number>(1);
 
 
@@ -53,17 +68,17 @@ export default function CreateEvent() {
   const [enableStartTime, setEnableStartTime] = useState<boolean>(false);
   const [enableEndTime, setEnableEndTime] = useState<boolean>(false);
 
-  const [type, setType] = useState<Number>(1);
+  const [type, setType] = useState<number>(1);
 
   if (eventMutation.data) {
     console.log(eventMutation.data);
   }
-  
+
   return (
-    <Page 
-    refreshing={false}
-    onRefresh={() => { }}>
-      <View style={{gap: 10}}>
+    <Page
+      refreshing={false}
+      onRefresh={() => { }}>
+      <View style={{ gap: 10 }}>
         <TextInput
           onChange={setTitle}
           placeholder="Titulo"
@@ -73,8 +88,8 @@ export default function CreateEvent() {
           placeholder="Descripción"
         />
       </View>
-      <Separator title="Detalles" color={COLORS.creativity[320]}/>
-      <View style={{justifyContent:"space-around", flexDirection:"row", alignItems:"center"}}>
+      <Separator title="Detalles" color={COLORS.creativity[320]} />
+      <View style={{ justifyContent: "space-around", flexDirection: "row", alignItems: "center" }}>
         <DatePickerInput
           locale="es"
           label={"Fecha Inicia"}
@@ -84,14 +99,14 @@ export default function CreateEvent() {
         />
         <TimePickerModal
           visible={enableStartTime}
-          onConfirm={({ hours, minutes }) => { setEnableStartTime(false); startDate?setStartDate(new Date(startDate.getDate()+startDate.getMonth()+startDate.getFullYear()+' '+hours+':'+minutes)):startDate}}
+          onConfirm={({ hours, minutes }) => { setEnableStartTime(false); startDate ? setStartDate(new Date(startDate.getDate() + startDate.getMonth() + startDate.getFullYear() + ' ' + hours + ':' + minutes)) : startDate }}
           onDismiss={() => setEnableStartTime(false)}
         />
         <Button
           title="⏰"
           onPress={() => setEnableStartTime(!enableStartTime)}
         />
-        <View style={{margin:10}}>
+        <View style={{ margin: 10 }}>
           <Feather name="arrow-right-circle" size={25} color="blue" />
         </View>
         <DatePickerInput
@@ -103,7 +118,7 @@ export default function CreateEvent() {
         />
         <TimePickerModal
           visible={enableEndTime}
-          onConfirm={({ hours, minutes }) => { setEnableEndTime(false); endDate?setEndDate(new Date(endDate.getDate()+endDate.getMonth()+endDate.getFullYear()+' '+hours+':'+minutes)):endDate}}
+          onConfirm={({ hours, minutes }) => { setEnableEndTime(false); endDate ? setEndDate(new Date(endDate.getDate() + endDate.getMonth() + endDate.getFullYear() + ' ' + hours + ':' + minutes)) : endDate }}
           onDismiss={() => setEnableEndTime(false)}
         />
         <Button
@@ -111,12 +126,12 @@ export default function CreateEvent() {
           onPress={() => setEnableEndTime(!enableEndTime)}
         />
       </View>
-      <View style={{justifyContent:"space-around", flexDirection:"row", alignItems:"center"}}>
-        <Text>{startDate?startDate.toLocaleDateString()+" "+startDate.toLocaleTimeString():"Tiempo de Inicio"}</Text>
-        <Text>{endDate?endDate.toLocaleDateString()+" "+endDate.toLocaleTimeString():"Tiempo de Finalización"}</Text>
+      <View style={{ justifyContent: "space-around", flexDirection: "row", alignItems: "center" }}>
+        <Text>{startDate ? startDate.toLocaleDateString() + " " + startDate.toLocaleTimeString() : "Tiempo de Inicio"}</Text>
+        <Text>{endDate ? endDate.toLocaleDateString() + " " + endDate.toLocaleTimeString() : "Tiempo de Finalización"}</Text>
       </View>
 
-      <View style={{gap:10}}>
+      <View style={{ gap: 10 }}>
         <View className="flex flex-row justify-end">
           <Text> ID Técnica </Text>
           <Picker
@@ -149,25 +164,35 @@ export default function CreateEvent() {
           </Picker>
         </View>
       </View>
-      
+
       <View>
         <Button
-            title="Crear Evento"
-            onPress={() => {
-              onCreateEvent({
-                variables: {
-                  createEvent: {
-                    title: title,
-                    description: description,
-                    startDate: startDate,
-                    endDate: endDate,
-                    techniqueId: parseInt(techniqueId as any),
-                    type: parseInt(type as any)
-                  }
+          title="Crear Evento"
+          onPress={() => {
+            onSubmit({
+              title: title,
+              description: description,
+              startDate: startDate!,
+              endDate: endDate!,
+              techniqueId: techniqueId,
+              type: type
+            });
+            /*
+            onCreateEvent({
+              variables: {
+                createEvent: {
+                  title: title,
+                  description: description,
+                  startDate: startDate,
+                  endDate: endDate,
+                  techniqueId: parseInt(techniqueId as any),
+                  type: parseInt(type as any)
                 }
-              })
-            }}
-          />
+              }
+            })*/
+
+          }}
+        />
       </View>
     </Page>
   );

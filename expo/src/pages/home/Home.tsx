@@ -101,7 +101,7 @@ export default function Home({ navigation }: any) {
   }
 
   return (
-    <Stack.Navigator screenOptions={{}}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Group>
         <Stack.Screen name="HomeEvents" component={HomeEvents} />
       </Stack.Group>

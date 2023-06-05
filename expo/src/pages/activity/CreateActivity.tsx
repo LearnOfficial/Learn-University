@@ -27,7 +27,22 @@ const CREATE_ACTIVITY_GQL = gql`
   }
 `
 
-export default function CreateActivity() {
+export type ActivityObject = {
+  title: string;
+  startDate: Date;
+  endDate: Date;
+};
+
+export type CreateActivityProps = {
+  isUnique: boolean;
+  onSubmit: (activity: ActivityObject) => void;
+};
+
+
+export default function CreateActivity({
+  onSubmit,
+  isUnique
+}: CreateActivityProps) {
   const token = useContext(TokenContext);
   const context = { context: { headers: { Authorization: token } } };
   const eventQuery = useQuery(USER_EVENTS_GQL, {
@@ -39,7 +54,7 @@ export default function CreateActivity() {
   });
 
   const [eventId, setEventId] = useState<number>(1);
-  const [title, setTitle] = useState<String>("");
+  const [title, setTitle] = useState<string>("");
 
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
@@ -62,7 +77,7 @@ export default function CreateActivity() {
             placeholder="Titulo de la Actividad"
           />
 
-          <Picker
+          { isUnique || <Picker
             className="p-3 border"
             selectedValue={eventId}
             onValueChange={(value) => {
@@ -76,6 +91,8 @@ export default function CreateActivity() {
               })
             }
           </Picker>
+
+          }
 
           <DatePickerInput
             locale="es"
@@ -129,7 +146,7 @@ export default function CreateActivity() {
           <Button
             title="Crear Actividad"
             onPress={() => {
-              onCreateActivity({
+              /*onCreateActivity({
                 variables: {
                   createActivity: {
                     title: title,
@@ -138,7 +155,12 @@ export default function CreateActivity() {
                     eventId: parseInt(eventId as any)
                   }
                 }
-              })
+              })*/
+              onSubmit({
+                title: title,
+                startDate: startDate!,
+                endDate: endDate!
+              });
             }}
           />
         </View>
