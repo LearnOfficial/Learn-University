@@ -41,14 +41,15 @@ export default class Event implements IEvent{
   @ManyToOne(() => Learner, (learner) => learner.id)
   learner: Relation<Learner>
 
-  @OneToMany(() => Activity, (activity) => activity.id) 
-  activities: Activity
+  // TODO: remove in cascade
+  @OneToMany(() => Activity, (activity) => activity.id, {cascade: true})
+  activities: [Activity]
 
   @ManyToOne(() => Technique, (technique) => technique.id)
   technique: Technique 
 
   @OneToMany(() => LearningFile, (learningFile) => learningFile.id)
-  learningFiles: Relation<LearningFile>[]
+  learningFiles: [Relation<LearningFile>]
 
   constructor(params?: IEvent){
     Object.assign(this, params);

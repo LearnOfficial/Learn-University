@@ -1,5 +1,7 @@
 import { Field, ID, InputType } from "type-graphql";
 import { EventTypeEnum, IEvent } from "../../@types/entity/IEvent.js";
+import Activity from "../../entity/Activity.js";
+import { ActivityInput } from "../activity/ActivityInput.js";
 
 @InputType()
 class EventInput implements IEvent {
@@ -15,6 +17,8 @@ class EventInput implements IEvent {
     type: EventTypeEnum;
     @Field()
     techniqueId: number;
+    @Field((_type) => [ActivityInput],{nullable: true})
+    activities: [Activity];
 }
 
 @InputType()

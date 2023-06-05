@@ -19,7 +19,6 @@ await new Promise((resolve, reject) => {
 
 
 const env = process.env;
-console.log(env);
 
 const DATABASE_CONFIG = {
   port: parseInt(env?.DB_PORT as string),

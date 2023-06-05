@@ -5,6 +5,7 @@ import { EventInput, EventUpdateInput } from "./EventInput.js";
 import { CurrentUser } from "../../context.js";
 import Learner from "../../entity/Learner.js";
 import Technique from "../../entity/Technique.js";
+import Activity from "../../entity/Activity.js";
 
 @Resolver()
 export class EventResolver {
@@ -22,6 +23,12 @@ export class EventResolver {
     technique.id = createInput.techniqueId;
 
     let event: Event | null = new Event(createInput);
+
+    // When create an event it can create multiples activities
+    event.activities?.map((activity) => {
+      activity.event = event!;
+    });
+
     event.learner = learner;
     event.technique = technique;
     await event.createEvent();

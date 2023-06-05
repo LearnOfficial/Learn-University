@@ -17,7 +17,7 @@ services:
       retries: 3
       timeout: 5s
     networks:
-      gruber-net:
+      lean-server-net:
         ipv4_address: '${DB_HOST}'
   learn-server:
     container_name: "learn-server" 
@@ -30,11 +30,11 @@ services:
         restart: true
 
     networks:
-      gruber-net:
+      lean-server-net:
         ipv4_address: "${SERVER_HOST}"
 
 networks:
-  gruber-net:
+  lean-server-net:
     driver: bridge
     ipam:
       config:
